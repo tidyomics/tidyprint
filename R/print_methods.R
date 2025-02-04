@@ -51,7 +51,7 @@ print.SummarizedExperiment <- function(x, design = 1, n_print = 10, ...) {
   # Match the user-supplied design argument to one of the valid choices:
   if (is.numeric(design)) {
     # Allowed numeric -> corresponding design
-    design_map <- c("SummarizedExperiment", "tidySummarizedExperiment", "plyrxp")
+    design_map <- c("SummarizedExperiment", "tidySummarizedExperiment", "plyxp")
 
     # Validate numeric input
     if (!design %in% 1:3) {
@@ -60,7 +60,7 @@ print.SummarizedExperiment <- function(x, design = 1, n_print = 10, ...) {
     design <- design_map[design]
   }
 
-  design <- match.arg(design, c("SummarizedExperiment", "tidySummarizedExperiment", "plyrxp"))
+  design <- match.arg(design, c("SummarizedExperiment", "tidySummarizedExperiment", "plyxp"))
 
   if (!inherits(x, "SummarizedExperiment")) {
     stop("The object provided is not a SummarizedExperiment.")
@@ -155,8 +155,8 @@ but they do not completely overlap.")
 
     print_tidy_summarized_experiment(x)
 
-    # --- 3) PLYRXP-STYLE PRINTING ---
-  } else if (design == "plyrxp"){
+    # --- 3) plyxp-STYLE PRINTING ---
+  } else if (design == "plyxp"){
 
     print_plyrxp_summarized_experiment <- function(x, n = n_print , ...) {
       top_n <- ceiling(n / 2)

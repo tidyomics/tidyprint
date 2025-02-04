@@ -192,7 +192,7 @@ check_if_any_dimnames_duplicated <- function(se, dim = "cols") {
     map(unique) |>
     map(length) |>
     reduce(min) |>
-    equals(length_function(se)) |>
+    magrittr::equals(length_function(se)) |>
     not()
 
   # Check SE object
@@ -229,7 +229,7 @@ get_special_datasets <- function(se) {
       # If no ranges
       as.data.frame(.) %>%
         nrow() %>%
-        equals(0) ~ tibble(),
+        magrittr::equals(0) ~ tibble(),
 
       # If it is a range list (multiple rows per feature)
       is(., "CompressedGRangesList") ~ {

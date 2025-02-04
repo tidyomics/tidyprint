@@ -232,11 +232,11 @@ colData names(1): Treatment
 
 
 
-### 2.4 **plyrxp**
+### 2.4 **plyxp**
 
 
 
-For a more compact view (top and bottom rows), similar to a plyr/tidyverse style:
+For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style:
 
 
 
@@ -246,7 +246,7 @@ se0 %>% print(design = 3)
 
 # or
 
-se0 %>% print(design = "plyrxp")
+se0 %>% print(design = "plyxp")
 
 ```
 
@@ -294,7 +294,7 @@ You can also limit the number of displayed rows by setting `n_print` (or a simil
 
 ```r
 
-se0 %>% print(design = "plyrxp", n_print = 5)
+se0 %>% print(design = "plyxp", n_print = 5)
 
 ```
 
