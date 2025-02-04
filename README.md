@@ -58,7 +58,7 @@ devtools::install_github("tidyomics/tidyprint")
 
 
 
-Below is an example workflow demonstrating how to use **tidyprint** with a sample `SummarizedExperiment` object.
+Below is an example demonstrating how to use **tidyprint** with a sample `SummarizedExperiment` object.
 
 
 
@@ -99,8 +99,6 @@ example("SummarizedExperiment", package = "SummarizedExperiment", ask = FALSE)
 library(tidyprint)
 
 
-
-# We'll assume the example SummarizedExperiment is stored in `se0`.
 
 ```
 
