@@ -358,16 +358,16 @@ se0 %>% print(design = "alternative_1")
 # Features=200 | Samples=6 | Assays=counts
      .features .samples `|` counts `|` `|` Treatment
          <int> <chr>    <|>  <dbl> <|> <|> <chr>    
-   1         1 A        |     9.71 |   |   ChIP     
-   2         2 A        |     9.49 |   |   ChIP     
-   3         3 A        |     9.85 |   |   ChIP     
-   4         4 A        |     9.42 |   |   ChIP     
-   5         5 A        |     9.38 |   |   ChIP     
-1196       196 F        |     7.14 |   |   Input    
-1197       197 F        |     9.70 |   |   Input    
-1198       198 F        |     8.19 |   |   Input    
-1199       199 F        |     5.06 |   |   Input    
-1200       200 F        |     6.70 |   |   Input    
+   1         1 A        |     7.62 |   |   ChIP     
+   2         2 A        |     9.58 |   |   ChIP     
+   3         3 A        |     8.54 |   |   ChIP     
+   4         4 A        |     9.32 |   |   ChIP     
+   5         5 A        |     8.37 |   |   ChIP     
+1196       196 F        |     9.13 |   |   Input    
+1197       197 F        |     9.67 |   |   Input    
+1198       198 F        |     7.85 |   |   Input    
+1199       199 F        |     9.09 |   |   Input    
+1200       200 F        |     9.67 |   |   Input     
 
 ```
 
