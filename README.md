@@ -327,3 +327,83 @@ se0 %>% print(design = "plyxp", n_print = 5)
 
 
 ---
+
+### 2.5 **alternative_1**
+
+
+
+For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style with tidySummarizedExperiment header and customised row_id:
+
+
+
+```r
+
+se0 %>% print(design = 4)
+
+# or
+
+se0 %>% print(design = "alternative_1")
+
+```
+
+
+
+**Example Output**:
+
+
+
+```
+
+# A SummarizedExperiment-tibble abstraction: 1,200 × 7
+# Features=200 | Samples=6 | Assays=counts
+     .features .samples `|` counts `|` `|` Treatment
+         <int> <chr>    <|>  <dbl> <|> <|> <chr>    
+   1         1 A        |     9.71 |   |   ChIP     
+   2         2 A        |     9.49 |   |   ChIP     
+   3         3 A        |     9.85 |   |   ChIP     
+   4         4 A        |     9.42 |   |   ChIP     
+   5         5 A        |     9.38 |   |   ChIP     
+1196       196 F        |     7.14 |   |   Input    
+1197       197 F        |     9.70 |   |   Input    
+1198       198 F        |     8.19 |   |   Input    
+1199       199 F        |     5.06 |   |   Input    
+1200       200 F        |     6.70 |   |   Input    
+
+```
+
+
+
+You can also limit the number of displayed rows by setting `n_print` (or a similar argument in your code):
+
+
+
+```r
+
+se0 %>% print(design = "alternative_1", n_print = 5)
+
+```
+
+
+
+**Example Output**:
+
+
+
+```
+
+# A SummarizedExperiment-tibble abstraction: 1,200 × 7
+# Features=200 | Samples=6 | Assays=counts
+     .features .samples `|` counts `|` `|` Treatment
+         <int> <chr>    <|>  <dbl> <|> <|> <chr>    
+   1         1 A        |     7.62 |   |   ChIP     
+   2         2 A        |     9.58 |   |   ChIP     
+   3         3 A        |     8.54 |   |   ChIP     
+1199       199 F        |     9.09 |   |   Input    
+1200       200 F        |     9.67 |   |   Input  
+
+
+```
+
+
+
+---

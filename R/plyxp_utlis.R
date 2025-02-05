@@ -23,6 +23,6 @@ vec_phantom <- function(x) {
 
 sep_ <- function(n) {
   x <- vctrs::vec_rep("|", times = n)
-  class(x) <- "sep!"
+  class(x) <- "|"
   x
 }

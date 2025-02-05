@@ -42,6 +42,14 @@ test_that("plyxp print works", {
   expect_output(print(se0, design = 3), "A tibble:")
 })
 
+# test for design 4
+test_that("alternative_1 print works", {
+  expect_output(print(se0, design = "alternative_1"), "A SummarizedExperiment-tibble abstraction:")
+})
+
+test_that("alternative_1 print works", {
+  expect_output(print(se0, design = 4), "A SummarizedExperiment-tibble abstraction:")
+})
 
 # test for error
 test_that("Invalid design throws an error", {
