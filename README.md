@@ -10,7 +10,7 @@
 
 2. **tidySummarizedExperiment**: Tidyverse-friendly tibble abstraction.
 
-3. **plyrxp**: Top/bottom row truncation for large datasets.
+3. **plyxp**: Top/bottom row truncation for large datasets.
 
 
 
