@@ -118,16 +118,6 @@ By default, `print()` on a `SummarizedExperiment` displays the standard Summariz
 
 ```r
 
-# The default style:
-
-se0 %>% print()
-
-
-
-# or equivalently:
-
-se0 %>% print(design = 1)
-
 se0 %>% print(design = "SummarizedExperiment")
 
 ```
@@ -172,19 +162,9 @@ Use the “tidySummarizedExperiment” design to view your data in a **tidy-frie
 
 ```r
 
-# Tidy SummarizedExperiment print:
-
-se0 %>% print(design = 2)
-
-# or
-
 se0 %>% print(design = "tidySummarizedExperiment")
 
 ```
-
-
-
-**Example Output**:
 
 
 
@@ -242,17 +222,9 @@ For a more compact view (top and bottom rows), similar to a plyxp/tidyverse styl
 
 ```r
 
-se0 %>% print(design = 3)
-
-# or
-
 se0 %>% print(design = "plyxp")
 
 ```
-
-
-
-**Example Output**:
 
 
 
@@ -288,44 +260,6 @@ se0 %>% print(design = "plyxp")
 
 
 
-You can also limit the number of displayed rows by setting `n_print` (or a similar argument in your code):
-
-
-
-```r
-
-se0 %>% print(design = "plyxp", n_print = 5)
-
-```
-
-
-
-**Example Output**:
-
-
-
-```
-
-# A tibble: 5 × 7
-
-  .features .samples ``     counts ``     ``     Treatment
-
-      <int> <chr>    <sep!>  <dbl> <sep!> <sep!> <chr>    
-
-1         1 A        |        9.21 |      |      ChIP     
-
-2         2 A        |        7.56 |      |      ChIP     
-
-3         3 A        |        8.27 |      |      ChIP     
-
-4       199 F        |        9.02 |      |      Input    
-
-5       200 F        |        9.01 |      |      Input    
-
-```
-
-
-
 ---
 
 ### 2.5 **alternative_1**
@@ -338,17 +272,9 @@ For a more compact view (top and bottom rows), similar to a plyxp/tidyverse styl
 
 ```r
 
-se0 %>% print(design = 4)
-
-# or
-
 se0 %>% print(design = "alternative_1")
 
 ```
-
-
-
-**Example Output**:
 
 
 
