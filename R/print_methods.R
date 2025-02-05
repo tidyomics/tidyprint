@@ -118,7 +118,7 @@ but they do not completely overlap.")
     # --- 3) plyxp-STYLE PRINTING ---
   } else if (design == "plyxp"){
 
-    print_plyrxp_summarized_experiment <- function(x, n = n_print , ...) {
+    print_plyxp_summarized_experiment <- function(x, n = n_print , ...) {
       top_n <- ceiling(n / 2)
       bot_n <- floor(n / 2)
       onr <- nr <- nrow(x)
@@ -179,7 +179,7 @@ but they do not completely overlap.")
       invisible(x)
     }
 
-    print_plyrxp_summarized_experiment(x, ...)
+    print_plyxp_summarized_experiment(x, ...)
     invisible(x)
 
   # Alternative_1: SE_print_abstraction
