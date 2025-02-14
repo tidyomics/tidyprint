@@ -1,0 +1,220 @@
+---
+title: "tidyprint"
+output: "html_vignette"
+params:
+  demo_metadata: true
+vignette: >
+  %\VignetteIndexEntry{posteriorHCA}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+knit: >
+    (function(x, ...){
+        proj_root <- rprojroot::find_package_root_file() |> normalizePath()
+        rmarkdown::render(
+            x,
+            output_format = "html_document",
+            params = list(
+                demo_metadata = TRUE
+            )
+        )
+        rmarkdown::render(
+            x,
+            output_file = "README.md",
+            output_format = "github_document",
+            output_dir = proj_root,
+            knit_root_dir = proj_root,
+            params = list(
+                demo_metadata = FALSE
+            )
+        )
+    })
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>"
+)
+root_dir <- knitr::opts_knit$get("root.dir")
+if (!is.null(root_dir)){
+    # This hack fixes the relative image paths. 
+    # See https://github.com/rstudio/rmarkdown/issues/2473
+    knitr::opts_knit$set(
+        output.dir = root_dir
+    )
+}
+proj_root <- rprojroot::find_package_root_file() |> normalizePath() 
+# Utility function for figures to force them to have the correct path
+find_figure <- function(names){
+    rprojroot::find_package_root_file() |>
+        file.path("man", "figures", names) 
+}
+```
+
+<!-- badges: start -->
+
+[![Lifecycle:experimental](https://lifecycle.r-lib.org/articles/figures/lifecycle-experimental.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
+<!-- badges: end -->
+
+# tidyprint
+
+**tidyprint** is an R package that provides multiple printing styles for `SummarizedExperiment` objects. You can choose among:
+
+1.  **SummarizedExperiment** (default): Standard R/SummarizedExperiment printing style.
+
+2.  **tidySummarizedExperiment**: Tidyverse-friendly tibble abstraction.
+
+3.  **plyxp**: Top/bottom row truncation for large datasets.
+
+4.  **alternative_1**: Newly designed tibble abstraction, combines styles from **tidySummarizedExperiment** and **plyxp**
+
+Depending on your workflow and desired console output, `tidyprint` makes it easy to switch between these printing styles.
+
+------------------------------------------------------------------------
+
+## 1. Installation
+
+You need the \`\` package to install from GitHub. If you don’t have it, install via:
+
+```{r eval=FALSE}
+install.packages("devtools")
+```
+
+Then install **tidyprint** from GitHub:
+
+```{r eval=FALSE}
+devtools::install_github("tidyomics/tidyprint")
+```
+
+------------------------------------------------------------------------
+
+## 2. Demo
+
+Below is an example demonstrating how to use **tidyprint** with a sample `SummarizedExperiment` object.
+
+### 2.1 Load Required Packages
+
+```{r message = FALSE, warnings = FALSE}
+
+library(dplyr)
+library(tidyr)
+
+# Now load tidyprint
+
+library(tidyprint)
+
+# Example SummarizedExperiment data from the airway package
+
+data(se_airway)
+se_airway
+
+```
+
+------------------------------------------------------------------------
+
+### 2.2 **SummarizedExperiment** (Default)
+
+By default, `print()` on a `SummarizedExperiment` displays the standard SummarizedExperiment info:
+
+```{r}
+
+# The default style:
+
+se_airway %>% print()
+
+```
+
+```{r}
+# or equivalently:
+
+se_airway %>% print(design = 1)
+
+```
+
+```{r}
+
+se_airway %>% print(design = "SummarizedExperiment")
+
+```
+
+### 2.3 **tidySummarizedExperiment**
+
+Use the “tidySummarizedExperiment” design to view your data in a **tidy-friendly tibble** format:
+
+```{r}
+
+# Tidy SummarizedExperiment print:
+
+se_airway %>% print(design = 2)
+
+```
+
+```{r}
+
+# or equivalently:
+
+se_airway %>% print(design = "tidySummarizedExperiment")
+
+```
+
+### 2.4 **plyxp**
+
+For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style:
+
+```{r}
+
+se_airway %>% print(design = 3)
+
+```
+
+```{r}
+
+# or equivalently:
+
+se_airway %>% print(design = "plyxp")
+
+```
+
+You can also limit the number of displayed rows by setting `n_print` (or a similar argument in your code):
+
+```{r}
+
+se_airway %>% print(design = "plyxp", n_print = 5)
+
+```
+
+### 2.5 **alternative_1**
+
+For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style with tidySummarizedExperiment header and customised row_id:
+
+```{r}
+
+se_airway %>% print(design = 4)
+
+
+```
+
+```{r}
+
+# or
+
+se_airway %>% print(design = "alternative_1")
+
+```
+
+You can also limit the number of displayed rows by setting `n_print` (or a similar argument in your code):
+
+```{r}
+
+se_airway %>% print(design = "alternative_1", n_print = 5)
+
+```
+
+## Session info
+
+```{r}
+
+sessionInfo()
+
+```

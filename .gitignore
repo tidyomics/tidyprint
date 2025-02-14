@@ -5,3 +5,4 @@
 se0.rds
 tidyprint.Rproj
 .Rbuildignore
+inst/doc

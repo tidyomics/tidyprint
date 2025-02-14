@@ -3,8 +3,11 @@
 
 
 #' @importFrom vctrs new_data_frame vec_rep vec_rep_each
-#' @importFrom SummarizedExperiment assayNames assay
+#' @importFrom SummarizedExperiment assayNames assays rowData assays<- rowRanges
 #' @importFrom stats setNames
+#' @importFrom S4Vectors coolcat
+#' @importFrom purrr when map_chr
+#' @importFrom stringr str_replace
 #' @export
 print.SummarizedExperiment <- function(x, design = 1, n_print = 10, ...) {
 

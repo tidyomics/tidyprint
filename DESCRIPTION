@@ -1,12 +1,12 @@
 Package: tidyprint
 Title: Custom Print Methods for SummarizedExperiment
 Version: 0.0.1
+Depends: R (>= 4.2.0)
 Authors@R: 
     person("Chen", "Zhan", , "chen.zhan@adelaide.edu.au", role = c("aut", "cre"))
 Description: Provides customized print methods for SummarizedExperiment objects 
     to enhance readability and usability within a tidy workflow.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: GPL-3
 Encoding: UTF-8
 Imports: 
     magrittr,
@@ -16,6 +16,7 @@ Imports:
     purrr,
     pillar,
     S4Vectors,
+    stringr,
     cli,
     vctrs,
     SummarizedExperiment,
@@ -26,5 +27,9 @@ Imports:
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+LazyData: true
+VignetteBuilder: knitr
