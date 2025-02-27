@@ -189,6 +189,7 @@ but they do not completely overlap.")
   }  else if (design == "alternative_1"){
 
     print_alter1 <- function(x, n = n_print , ...){
+
       top_n <- ceiling(n / 2)
       bot_n <- floor(n / 2)
       onr <- nr <- nrow(x)
@@ -238,6 +239,19 @@ but they do not completely overlap.")
       }
       out_sub <- out[sub_seq, ]
 
+      # Compute the max character width for each column
+      separator_row <- sapply(out_sub, function(col) {
+        max_width <- max(nchar(as.character(col)), na.rm = TRUE)  # Get max width in the column
+        paste(rep("-", max_width), collapse = "")  # Generate a separator of the same length
+      })
+      # Modify the entire tibble to include a separator row across all columns
+      out_sub <- rbind(
+        out_sub[seq_len(top_n),],
+        as.list(separator_row),      # Adaptive separator row
+        out_sub[(top_n+1):nrow(out_sub), ]
+      )
+
+
       # attr(out_sub, "n") <- n
       # attr(out_sub, "total_rows") <- x %>% dim %>% {(.)[1] * (.)[2]}
 
@@ -251,13 +265,14 @@ but they do not completely overlap.")
         add_attr(ncol(x),  "number_of_samples") %>%
         add_attr(assays(x) %>% names, "assay_names") %>%
         add_attr(
-          sprintf(
-            "%s %s %s",
-            x %>% dim %>% {(.)[1] * (.)[2]} %>%
-              format(format="f", big.mark=",", digits=1),
-            cli::symbol$times,
-            ncol(out_sub)
-          ) %>%
+          # sprintf(
+          #   "%s %s %s",
+          #   x %>% dim %>% {(.)[1] * (.)[2]} %>%
+          #     format(format="f", big.mark=",", digits=1),
+          #   cli::symbol$times,
+          #   ncol(out_sub)
+          # ) %>%
+          '' %>%
             setNames("A SummarizedExperiment-tibble abstraction"),
           "named_header"
         )

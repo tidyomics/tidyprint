@@ -18,18 +18,20 @@ ctl_new_rowid_pillar.SE_print_abstraction <- function(controller, x, width, ...)
   # message('n=', n)
   # message('total_rows=', total_rows)
 
-  half_n <- floor(n / 2)
-  # message('half_n=', half_n)
-
-  # Generate the custom row IDs: first n/2 rows, then last n/2 rows
+  # Generate row IDs: First n/2 rows, then a separator, then last n/2 rows
   if (total_rows > n) {
-    rowid <- c(seq_len(ceiling(n / 2)), (total_rows - floor(n / 2) + 1):total_rows)
+    rowid <- c(
+      seq_len(ceiling(n / 2)), # Top half
+      NA,               # Separator row (will be replaced with `---`)
+      (total_rows - floor(n / 2) + 1):total_rows # Bottom half
+    )
   } else {
     rowid <- seq_len(total_rows)
   }
 
-  # Convert row IDs to character for proper display
-  rowid <- as.integer(rowid)
+  # Convert row IDs to characters and replace NA with separator
+  rowid <- as.character(rowid)
+  rowid[is.na(rowid)] <- ""
 
   # Determine the maximum width required
   width <- max(nchar(rowid))
@@ -48,6 +50,7 @@ ctl_new_rowid_pillar.SE_print_abstraction <- function(controller, x, width, ...)
     ),
     width = width
   )
+
 }
 
 #' @importFrom rlang names2

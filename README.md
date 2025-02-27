@@ -83,7 +83,6 @@ SummarizedExperiment info:
 ``` r
 
 # The default style:
-
 se_airway %>% print()
 #> class: SummarizedExperiment 
 #> dim: 38694 8 
@@ -98,31 +97,7 @@ se_airway %>% print()
 
 ``` r
 # or equivalently:
-
-se_airway %>% print(design = 1)
-#> class: SummarizedExperiment 
-#> dim: 38694 8 
-#> metadata(0):
-#> assays(1): counts
-#> rownames(38694): ENSG00000000003 ENSG00000000005 ... ENSG00000283120
-#>   ENSG00000283123
-#> rowData names(0):
-#> colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
-#> colData names(3): dex celltype geo_id
-```
-
-``` r
-
 se_airway %>% print(design = "SummarizedExperiment")
-#> class: SummarizedExperiment 
-#> dim: 38694 8 
-#> metadata(0):
-#> assays(1): counts
-#> rownames(38694): ENSG00000000003 ENSG00000000005 ... ENSG00000283120
-#>   ENSG00000283123
-#> rowData names(0):
-#> colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
-#> colData names(3): dex celltype geo_id
 ```
 
 ### 2.3 **tidySummarizedExperiment**
@@ -133,28 +108,6 @@ Use the “tidySummarizedExperiment” design to view your data in a
 ``` r
 
 # Tidy SummarizedExperiment print:
-
-se_airway %>% print(design = 2)
-#> # A SummarizedExperiment-tibble abstraction: 309,552 × 6
-#> # Features=38694 | Samples=8 | Assays=counts
-#>    .feature        .sample    counts dex     celltype geo_id    
-#>    <chr>           <chr>       <dbl> <chr>   <chr>    <chr>     
-#>  1 ENSG00000000003 SRR1039508    723 control N61311   GSM1275862
-#>  2 ENSG00000000005 SRR1039508      0 control N61311   GSM1275862
-#>  3 ENSG00000000419 SRR1039508    467 control N61311   GSM1275862
-#>  4 ENSG00000000457 SRR1039508    347 control N61311   GSM1275862
-#>  5 ENSG00000000460 SRR1039508     96 control N61311   GSM1275862
-#>  6 ENSG00000000938 SRR1039508      0 control N61311   GSM1275862
-#>  7 ENSG00000000971 SRR1039508   3413 control N61311   GSM1275862
-#>  8 ENSG00000001036 SRR1039508   2328 control N61311   GSM1275862
-#>  9 ENSG00000001084 SRR1039508    670 control N61311   GSM1275862
-#> 10 ENSG00000001167 SRR1039508    426 control N61311   GSM1275862
-#> # ℹ 40 more rows
-```
-
-``` r
-
-# or equivalently:
 
 se_airway %>% print(design = "tidySummarizedExperiment")
 #> # A SummarizedExperiment-tibble abstraction: 309,552 × 6
@@ -181,40 +134,20 @@ plyxp/tidyverse style:
 
 ``` r
 
-se_airway %>% print(design = 3)
-#> # A tibble: 10 × 9
-#>    .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
-#>    <chr>           <chr>      <|>  <dbl> <|> <|> <chr>   <chr>    <chr>     
-#>  1 ENSG00000000003 SRR1039508 |      723 |   |   control N61311   GSM1275862
-#>  2 ENSG00000000005 SRR1039508 |        0 |   |   control N61311   GSM1275862
-#>  3 ENSG00000000419 SRR1039508 |      467 |   |   control N61311   GSM1275862
-#>  4 ENSG00000000457 SRR1039508 |      347 |   |   control N61311   GSM1275862
-#>  5 ENSG00000000460 SRR1039508 |       96 |   |   control N61311   GSM1275862
-#>  6 ENSG00000283115 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#>  7 ENSG00000283116 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#>  8 ENSG00000283119 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#>  9 ENSG00000283120 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#> 10 ENSG00000283123 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-```
-
-``` r
-
-# or equivalently:
-
 se_airway %>% print(design = "plyxp")
 #> # A tibble: 10 × 9
 #>    .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
 #>    <chr>           <chr>      <|>  <dbl> <|> <|> <chr>   <chr>    <chr>     
-#>  1 ENSG00000000003 SRR1039508 |      723 |   |   control N61311   GSM1275862
-#>  2 ENSG00000000005 SRR1039508 |        0 |   |   control N61311   GSM1275862
-#>  3 ENSG00000000419 SRR1039508 |      467 |   |   control N61311   GSM1275862
-#>  4 ENSG00000000457 SRR1039508 |      347 |   |   control N61311   GSM1275862
-#>  5 ENSG00000000460 SRR1039508 |       96 |   |   control N61311   GSM1275862
-#>  6 ENSG00000283115 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#>  7 ENSG00000283116 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#>  8 ENSG00000283119 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#>  9 ENSG00000283120 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#> 10 ENSG00000283123 SRR1039521 |        0 |   |   treated N061011  GSM1275875
+#>  1 ENSG00000000003 SRR1039508  |     723  |   |  control N61311   GSM1275862
+#>  2 ENSG00000000005 SRR1039508  |       0  |   |  control N61311   GSM1275862
+#>  3 ENSG00000000419 SRR1039508  |     467  |   |  control N61311   GSM1275862
+#>  4 ENSG00000000457 SRR1039508  |     347  |   |  control N61311   GSM1275862
+#>  5 ENSG00000000460 SRR1039508  |      96  |   |  control N61311   GSM1275862
+#>  6 ENSG00000283115 SRR1039521  |       0  |   |  treated N061011  GSM1275875
+#>  7 ENSG00000283116 SRR1039521  |       0  |   |  treated N061011  GSM1275875
+#>  8 ENSG00000283119 SRR1039521  |       0  |   |  treated N061011  GSM1275875
+#>  9 ENSG00000283120 SRR1039521  |       0  |   |  treated N061011  GSM1275875
+#> 10 ENSG00000283123 SRR1039521  |       0  |   |  treated N061011  GSM1275875
 ```
 
 You can also limit the number of displayed rows by setting `n_print` (or
@@ -226,11 +159,11 @@ se_airway %>% print(design = "plyxp", n_print = 5)
 #> # A tibble: 5 × 9
 #>   .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
 #>   <chr>           <chr>      <|>  <dbl> <|> <|> <chr>   <chr>    <chr>     
-#> 1 ENSG00000000003 SRR1039508 |      723 |   |   control N61311   GSM1275862
-#> 2 ENSG00000000005 SRR1039508 |        0 |   |   control N61311   GSM1275862
-#> 3 ENSG00000000419 SRR1039508 |      467 |   |   control N61311   GSM1275862
-#> 4 ENSG00000283120 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#> 5 ENSG00000283123 SRR1039521 |        0 |   |   treated N061011  GSM1275875
+#> 1 ENSG00000000003 SRR1039508  |     723  |   |  control N61311   GSM1275862
+#> 2 ENSG00000000005 SRR1039508  |       0  |   |  control N61311   GSM1275862
+#> 3 ENSG00000000419 SRR1039508  |     467  |   |  control N61311   GSM1275862
+#> 4 ENSG00000283120 SRR1039521  |       0  |   |  treated N061011  GSM1275875
+#> 5 ENSG00000283123 SRR1039521  |       0  |   |  treated N061011  GSM1275875
 ```
 
 ### 2.5 **alternative_1**
@@ -241,42 +174,22 @@ customised row_id:
 
 ``` r
 
-se_airway %>% print(design = 4)
-#> # A SummarizedExperiment-tibble abstraction: 309,552 × 9
-#> # Features=38694 | Samples=8 | Assays=counts
-#>        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
-#>        <chr>           <chr>      <|>  <dbl> <|> <|> <chr>   <chr>    <chr>     
-#>      1 ENSG00000000003 SRR1039508 |      723 |   |   control N61311   GSM1275862
-#>      2 ENSG00000000005 SRR1039508 |        0 |   |   control N61311   GSM1275862
-#>      3 ENSG00000000419 SRR1039508 |      467 |   |   control N61311   GSM1275862
-#>      4 ENSG00000000457 SRR1039508 |      347 |   |   control N61311   GSM1275862
-#>      5 ENSG00000000460 SRR1039508 |       96 |   |   control N61311   GSM1275862
-#> 309548 ENSG00000283115 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#> 309549 ENSG00000283116 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#> 309550 ENSG00000283119 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#> 309551 ENSG00000283120 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#> 309552 ENSG00000283123 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-```
-
-``` r
-
-# or
-
 se_airway %>% print(design = "alternative_1")
-#> # A SummarizedExperiment-tibble abstraction: 309,552 × 9
+#> # A SummarizedExperiment-tibble abstraction:
 #> # Features=38694 | Samples=8 | Assays=counts
 #>        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
-#>        <chr>           <chr>      <|>  <dbl> <|> <|> <chr>   <chr>    <chr>     
-#>      1 ENSG00000000003 SRR1039508 |      723 |   |   control N61311   GSM1275862
-#>      2 ENSG00000000005 SRR1039508 |        0 |   |   control N61311   GSM1275862
-#>      3 ENSG00000000419 SRR1039508 |      467 |   |   control N61311   GSM1275862
-#>      4 ENSG00000000457 SRR1039508 |      347 |   |   control N61311   GSM1275862
-#>      5 ENSG00000000460 SRR1039508 |       96 |   |   control N61311   GSM1275862
-#> 309548 ENSG00000283115 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#> 309549 ENSG00000283116 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#> 309550 ENSG00000283119 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#> 309551 ENSG00000283120 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#> 309552 ENSG00000283123 SRR1039521 |        0 |   |   treated N061011  GSM1275875
+#>        <chr>           <chr>      <|> <chr>  <|> <|> <chr>   <chr>    <chr>     
+#> 1      ENSG00000000003 SRR1039508  |  723     |   |  control N61311   GSM1275862
+#> 2      ENSG00000000005 SRR1039508  |  0       |   |  control N61311   GSM1275862
+#> 3      ENSG00000000419 SRR1039508  |  467     |   |  control N61311   GSM1275862
+#> 4      ENSG00000000457 SRR1039508  |  347     |   |  control N61311   GSM1275862
+#> 5      ENSG00000000460 SRR1039508  |  96      |   |  control N61311   GSM1275862
+#>        --------------- ---------- --  ---    --  --  ------- -------  ----------
+#> 309548 ENSG00000283115 SRR1039521  |  0       |   |  treated N061011  GSM1275875
+#> 309549 ENSG00000283116 SRR1039521  |  0       |   |  treated N061011  GSM1275875
+#> 309550 ENSG00000283119 SRR1039521  |  0       |   |  treated N061011  GSM1275875
+#> 309551 ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875
+#> 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875
 ```
 
 You can also limit the number of displayed rows by setting `n_print` (or
@@ -285,15 +198,16 @@ a similar argument in your code):
 ``` r
 
 se_airway %>% print(design = "alternative_1", n_print = 5)
-#> # A SummarizedExperiment-tibble abstraction: 309,552 × 9
+#> # A SummarizedExperiment-tibble abstraction:
 #> # Features=38694 | Samples=8 | Assays=counts
 #>        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
-#>        <chr>           <chr>      <|>  <dbl> <|> <|> <chr>   <chr>    <chr>     
-#>      1 ENSG00000000003 SRR1039508 |      723 |   |   control N61311   GSM1275862
-#>      2 ENSG00000000005 SRR1039508 |        0 |   |   control N61311   GSM1275862
-#>      3 ENSG00000000419 SRR1039508 |      467 |   |   control N61311   GSM1275862
-#> 309551 ENSG00000283120 SRR1039521 |        0 |   |   treated N061011  GSM1275875
-#> 309552 ENSG00000283123 SRR1039521 |        0 |   |   treated N061011  GSM1275875
+#>        <chr>           <chr>      <|> <chr>  <|> <|> <chr>   <chr>    <chr>     
+#> 1      ENSG00000000003 SRR1039508  |  723     |   |  control N61311   GSM1275862
+#> 2      ENSG00000000005 SRR1039508  |  0       |   |  control N61311   GSM1275862
+#> 3      ENSG00000000419 SRR1039508  |  467     |   |  control N61311   GSM1275862
+#>        --------------- ---------- --  ---    --  --  ------- -------  ----------
+#> 309551 ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875
+#> 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875
 ```
 
 ## Session info
@@ -327,12 +241,12 @@ sessionInfo()
 #> 
 #> loaded via a namespace (and not attached):
 #>  [1] utf8_1.2.4                  sass_0.4.9                 
-#>  [3] generics_0.1.3              SparseArray_1.6.1          
+#>  [3] generics_0.1.3              SparseArray_1.6.2          
 #>  [5] stringi_1.8.4               lattice_0.22-6             
 #>  [7] digest_0.6.37               magrittr_2.0.3             
 #>  [9] evaluate_1.0.3              grid_4.4.0                 
 #> [11] fastmap_1.2.0               rprojroot_2.0.4            
-#> [13] jsonlite_1.8.9              Matrix_1.7-2               
+#> [13] jsonlite_1.9.0              Matrix_1.7-2               
 #> [15] GenomeInfoDb_1.42.3         httr_1.4.7                 
 #> [17] fansi_1.0.6                 purrr_1.0.4                
 #> [19] UCSC.utils_1.2.0            jquerylib_0.1.4            
@@ -344,13 +258,13 @@ sessionInfo()
 #> [31] S4Arrays_1.6.0              tools_4.4.0                
 #> [33] GenomeInfoDbData_1.2.13     SummarizedExperiment_1.36.0
 #> [35] BiocGenerics_0.52.0         vctrs_0.6.5                
-#> [37] R6_2.6.0                    matrixStats_1.5.0          
+#> [37] R6_2.6.1                    matrixStats_1.5.0          
 #> [39] stats4_4.4.0                lifecycle_1.0.4            
 #> [41] stringr_1.5.1               zlibbioc_1.52.0            
-#> [43] S4Vectors_0.44.0            IRanges_2.40.0             
+#> [43] S4Vectors_0.44.0            IRanges_2.40.1             
 #> [45] pkgconfig_2.0.3             pillar_1.10.1              
 #> [47] bslib_0.9.0                 glue_1.8.0                 
-#> [49] xfun_0.50                   tibble_3.2.1               
+#> [49] xfun_0.51                   tibble_3.2.1               
 #> [51] GenomicRanges_1.58.0        tidyselect_1.2.1           
 #> [53] rstudioapi_0.17.1           MatrixGenerics_1.18.1      
 #> [55] knitr_1.49                  htmltools_0.5.8.1          
