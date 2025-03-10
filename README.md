@@ -13,12 +13,12 @@ tidyprint
 1.  **SummarizedExperiment** (default): Standard R/SummarizedExperiment
     printing style.
 
-2.  **tidySummarizedExperiment**: Tidyverse-friendly tibble abstraction.
+2.  **tidyprint_1**: Newly designed tibble abstraction, combines styles
+    from **tidySummarizedExperiment** and **plyxp**
 
-3.  **plyxp**: Top/bottom row truncation for large datasets.
+3.  **tidySummarizedExperiment**: Tidyverse-friendly tibble abstraction.
 
-4.  **alternative_1**: Newly designed tibble abstraction, combines
-    styles from **tidySummarizedExperiment** and **plyxp**
+4.  **plyxp**: Top/bottom row truncation for large datasets.
 
 Depending on your workflow and desired console output, `tidyprint` makes
 it easy to switch between these printing styles.
@@ -100,7 +100,51 @@ se_airway %>% print()
 se_airway %>% print(design = "SummarizedExperiment")
 ```
 
-### 2.3 **tidySummarizedExperiment**
+### 2.3 **tidyprint_1**
+
+For a more compact view (top and bottom rows), similar to a
+plyxp/tidyverse style with tidySummarizedExperiment header and
+customised row_id:
+
+``` r
+
+se_airway %>% print(design = "tidyprint_1")
+#> # A SummarizedExperiment-tibble abstraction:
+#> # Features=38694 | Samples=8 | Assays=counts
+#>        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
+#>        <chr>           <chr>      <|> <chr>  <|> <|> <chr>   <chr>    <chr>     
+#> 1      ENSG00000000003 SRR1039508  |  723     |   |  control N61311   GSM1275862
+#> 2      ENSG00000000005 SRR1039508  |  0       |   |  control N61311   GSM1275862
+#> 3      ENSG00000000419 SRR1039508  |  467     |   |  control N61311   GSM1275862
+#> 4      ENSG00000000457 SRR1039508  |  347     |   |  control N61311   GSM1275862
+#> 5      ENSG00000000460 SRR1039508  |  96      |   |  control N61311   GSM1275862
+#>        --------------- ---------- --  ---    --  --  ------- -------  ----------
+#> 309548 ENSG00000283115 SRR1039521  |  0       |   |  treated N061011  GSM1275875
+#> 309549 ENSG00000283116 SRR1039521  |  0       |   |  treated N061011  GSM1275875
+#> 309550 ENSG00000283119 SRR1039521  |  0       |   |  treated N061011  GSM1275875
+#> 309551 ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875
+#> 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875
+```
+
+You can also limit the number of displayed rows by setting `n_print` (or
+a similar argument in your code):
+
+``` r
+
+se_airway %>% print(design = "tidyprint_1", n_print = 5)
+#> # A SummarizedExperiment-tibble abstraction:
+#> # Features=38694 | Samples=8 | Assays=counts
+#>        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
+#>        <chr>           <chr>      <|> <chr>  <|> <|> <chr>   <chr>    <chr>     
+#> 1      ENSG00000000003 SRR1039508  |  723     |   |  control N61311   GSM1275862
+#> 2      ENSG00000000005 SRR1039508  |  0       |   |  control N61311   GSM1275862
+#> 3      ENSG00000000419 SRR1039508  |  467     |   |  control N61311   GSM1275862
+#>        --------------- ---------- --  ---    --  --  ------- -------  ----------
+#> 309551 ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875
+#> 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875
+```
+
+### 2.4 **tidySummarizedExperiment**
 
 Use the “tidySummarizedExperiment” design to view your data in a
 **tidy-friendly tibble** format:
@@ -127,7 +171,7 @@ se_airway %>% print(design = "tidySummarizedExperiment")
 #> # ℹ 40 more rows
 ```
 
-### 2.4 **plyxp**
+### 2.5 **plyxp**
 
 For a more compact view (top and bottom rows), similar to a
 plyxp/tidyverse style:
@@ -166,50 +210,6 @@ se_airway %>% print(design = "plyxp", n_print = 5)
 #> 5 ENSG00000283123 SRR1039521  |       0  |   |  treated N061011  GSM1275875
 ```
 
-### 2.5 **alternative_1**
-
-For a more compact view (top and bottom rows), similar to a
-plyxp/tidyverse style with tidySummarizedExperiment header and
-customised row_id:
-
-``` r
-
-se_airway %>% print(design = "alternative_1")
-#> # A SummarizedExperiment-tibble abstraction:
-#> # Features=38694 | Samples=8 | Assays=counts
-#>        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
-#>        <chr>           <chr>      <|> <chr>  <|> <|> <chr>   <chr>    <chr>     
-#> 1      ENSG00000000003 SRR1039508  |  723     |   |  control N61311   GSM1275862
-#> 2      ENSG00000000005 SRR1039508  |  0       |   |  control N61311   GSM1275862
-#> 3      ENSG00000000419 SRR1039508  |  467     |   |  control N61311   GSM1275862
-#> 4      ENSG00000000457 SRR1039508  |  347     |   |  control N61311   GSM1275862
-#> 5      ENSG00000000460 SRR1039508  |  96      |   |  control N61311   GSM1275862
-#>        --------------- ---------- --  ---    --  --  ------- -------  ----------
-#> 309548 ENSG00000283115 SRR1039521  |  0       |   |  treated N061011  GSM1275875
-#> 309549 ENSG00000283116 SRR1039521  |  0       |   |  treated N061011  GSM1275875
-#> 309550 ENSG00000283119 SRR1039521  |  0       |   |  treated N061011  GSM1275875
-#> 309551 ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875
-#> 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875
-```
-
-You can also limit the number of displayed rows by setting `n_print` (or
-a similar argument in your code):
-
-``` r
-
-se_airway %>% print(design = "alternative_1", n_print = 5)
-#> # A SummarizedExperiment-tibble abstraction:
-#> # Features=38694 | Samples=8 | Assays=counts
-#>        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
-#>        <chr>           <chr>      <|> <chr>  <|> <|> <chr>   <chr>    <chr>     
-#> 1      ENSG00000000003 SRR1039508  |  723     |   |  control N61311   GSM1275862
-#> 2      ENSG00000000005 SRR1039508  |  0       |   |  control N61311   GSM1275862
-#> 3      ENSG00000000419 SRR1039508  |  467     |   |  control N61311   GSM1275862
-#>        --------------- ---------- --  ---    --  --  ------- -------  ----------
-#> 309551 ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875
-#> 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875
-```
-
 ## Session info
 
 ``` r
@@ -246,7 +246,7 @@ sessionInfo()
 #>  [7] digest_0.6.37               magrittr_2.0.3             
 #>  [9] evaluate_1.0.3              grid_4.4.0                 
 #> [11] fastmap_1.2.0               rprojroot_2.0.4            
-#> [13] jsonlite_1.9.0              Matrix_1.7-2               
+#> [13] jsonlite_1.9.1              Matrix_1.7-2               
 #> [15] GenomeInfoDb_1.42.3         httr_1.4.7                 
 #> [17] fansi_1.0.6                 purrr_1.0.4                
 #> [19] UCSC.utils_1.2.0            jquerylib_0.1.4            
