@@ -43,11 +43,11 @@ test_that("plyxp print works", {
 })
 
 # test for design 4
-test_that("alternative_1 print works", {
-  expect_output(print(se_airway, design = "alternative_1"), "A SummarizedExperiment-tibble abstraction:")
+test_that("tidyprint_1 print works", {
+  expect_output(print(se_airway, design = "tidyprint_1"), "A SummarizedExperiment-tibble abstraction:")
 })
 
-test_that("alternative_1 print works", {
+test_that("tidyprint_1 print works", {
   expect_output(print(se_airway, design = 4), "A SummarizedExperiment-tibble abstraction:")
 })
 
