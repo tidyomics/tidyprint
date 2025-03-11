@@ -76,9 +76,9 @@
 <p><strong>tidyprint</strong> is an R package that provides multiple printing styles for <code>SummarizedExperiment</code> objects. You can choose among:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>SummarizedExperiment</strong> (default): Standard R/SummarizedExperiment printing style.</p></li>
+<li><p><strong>tidyprint_1</strong>: Newly designed tibble abstraction, combines styles from <strong>tidySummarizedExperiment</strong> and <strong>plyxp</strong></p></li>
 <li><p><strong>tidySummarizedExperiment</strong>: Tidyverse-friendly tibble abstraction.</p></li>
 <li><p><strong>plyxp</strong>: Top/bottom row truncation for large datasets.</p></li>
-<li><p><strong>alternative_1</strong>: Newly designed tibble abstraction, combines styles from <strong>tidySummarizedExperiment</strong> and <strong>plyxp</strong></p></li>
 </ol>
 <p>Depending on your workflow and desired console output, <code>tidyprint</code> makes it easy to switch between these printing styles.</p>
 <hr>
@@ -146,11 +146,49 @@
 <span><span class="va">se_airway</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>design <span class="op">=</span> <span class="st">"SummarizedExperiment"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="id_23-tidysummarizedexperiment">2.3 <strong>tidySummarizedExperiment</strong>
-<a class="anchor" aria-label="anchor" href="#id_23-tidysummarizedexperiment"></a>
+<h3 id="id_23-tidyprint_1">2.3 <strong>tidyprint_1</strong>
+<a class="anchor" aria-label="anchor" href="#id_23-tidyprint_1"></a>
+</h3>
+<p>For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style with tidySummarizedExperiment header and customised row_id:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">se_airway</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>design <span class="op">=</span> <span class="st">"tidyprint_1"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A SummarizedExperiment-tibble abstraction:</span></span>
+<span><span class="co">#&gt; # Features=38694 | Samples=8 | Assays=counts</span></span>
+<span><span class="co">#&gt;        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    </span></span>
+<span><span class="co">#&gt;        &lt;chr&gt;           &lt;chr&gt;      &lt;|&gt; &lt;chr&gt;  &lt;|&gt; &lt;|&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt; 1      ENSG00000000003 SRR1039508  |  723     |   |  control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; 2      ENSG00000000005 SRR1039508  |  0       |   |  control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; 3      ENSG00000000419 SRR1039508  |  467     |   |  control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; 4      ENSG00000000457 SRR1039508  |  347     |   |  control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; 5      ENSG00000000460 SRR1039508  |  96      |   |  control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt;        --------------- ---------- --  ---    --  --  ------- -------  ----------</span></span>
+<span><span class="co">#&gt; 309548 ENSG00000283115 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span>
+<span><span class="co">#&gt; 309549 ENSG00000283116 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span>
+<span><span class="co">#&gt; 309550 ENSG00000283119 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span>
+<span><span class="co">#&gt; 309551 ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span>
+<span><span class="co">#&gt; 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span></code></pre></div>
+<p>You can also limit the number of displayed rows by setting <code>n_print</code> (or a similar argument in your code):</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">se_airway</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>design <span class="op">=</span> <span class="st">"tidyprint_1"</span>, n_print <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A SummarizedExperiment-tibble abstraction:</span></span>
+<span><span class="co">#&gt; # Features=38694 | Samples=8 | Assays=counts</span></span>
+<span><span class="co">#&gt;        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    </span></span>
+<span><span class="co">#&gt;        &lt;chr&gt;           &lt;chr&gt;      &lt;|&gt; &lt;chr&gt;  &lt;|&gt; &lt;|&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt; 1      ENSG00000000003 SRR1039508  |  723     |   |  control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; 2      ENSG00000000005 SRR1039508  |  0       |   |  control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; 3      ENSG00000000419 SRR1039508  |  467     |   |  control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt;        --------------- ---------- --  ---    --  --  ------- -------  ----------</span></span>
+<span><span class="co">#&gt; 309551 ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span>
+<span><span class="co">#&gt; 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="id_24-tidysummarizedexperiment">2.4 <strong>tidySummarizedExperiment</strong>
+<a class="anchor" aria-label="anchor" href="#id_24-tidysummarizedexperiment"></a>
 </h3>
 <p>Use the “tidySummarizedExperiment” design to view your data in a <strong>tidy-friendly tibble</strong> format:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Tidy SummarizedExperiment print:</span></span>
 <span></span>
@@ -172,11 +210,11 @@
 <span><span class="co">#&gt; # ℹ 40 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="id_24-plyxp">2.4 <strong>plyxp</strong>
-<a class="anchor" aria-label="anchor" href="#id_24-plyxp"></a>
+<h3 id="id_25-plyxp">2.5 <strong>plyxp</strong>
+<a class="anchor" aria-label="anchor" href="#id_25-plyxp"></a>
 </h3>
 <p>For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">se_airway</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>design <span class="op">=</span> <span class="st">"plyxp"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 10 × 9</span></span>
@@ -193,7 +231,7 @@
 <span><span class="co">#&gt;  9 ENSG00000283120 SRR1039521  |       0  |   |  treated N061011  GSM1275875</span></span>
 <span><span class="co">#&gt; 10 ENSG00000283123 SRR1039521  |       0  |   |  treated N061011  GSM1275875</span></span></code></pre></div>
 <p>You can also limit the number of displayed rows by setting <code>n_print</code> (or a similar argument in your code):</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">se_airway</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>design <span class="op">=</span> <span class="st">"plyxp"</span>, n_print <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 9</span></span>
@@ -204,44 +242,6 @@
 <span><span class="co">#&gt; 3 ENSG00000000419 SRR1039508  |     467  |   |  control N61311   GSM1275862</span></span>
 <span><span class="co">#&gt; 4 ENSG00000283120 SRR1039521  |       0  |   |  treated N061011  GSM1275875</span></span>
 <span><span class="co">#&gt; 5 ENSG00000283123 SRR1039521  |       0  |   |  treated N061011  GSM1275875</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="id_25-alternative_1">2.5 <strong>alternative_1</strong>
-<a class="anchor" aria-label="anchor" href="#id_25-alternative_1"></a>
-</h3>
-<p>For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style with tidySummarizedExperiment header and customised row_id:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">se_airway</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>design <span class="op">=</span> <span class="st">"alternative_1"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A SummarizedExperiment-tibble abstraction:</span></span>
-<span><span class="co">#&gt; # Features=38694 | Samples=8 | Assays=counts</span></span>
-<span><span class="co">#&gt;        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    </span></span>
-<span><span class="co">#&gt;        &lt;chr&gt;           &lt;chr&gt;      &lt;|&gt; &lt;chr&gt;  &lt;|&gt; &lt;|&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt; 1      ENSG00000000003 SRR1039508  |  723     |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; 2      ENSG00000000005 SRR1039508  |  0       |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; 3      ENSG00000000419 SRR1039508  |  467     |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; 4      ENSG00000000457 SRR1039508  |  347     |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; 5      ENSG00000000460 SRR1039508  |  96      |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt;        --------------- ---------- --  ---    --  --  ------- -------  ----------</span></span>
-<span><span class="co">#&gt; 309548 ENSG00000283115 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span>
-<span><span class="co">#&gt; 309549 ENSG00000283116 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span>
-<span><span class="co">#&gt; 309550 ENSG00000283119 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span>
-<span><span class="co">#&gt; 309551 ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span>
-<span><span class="co">#&gt; 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span></code></pre></div>
-<p>You can also limit the number of displayed rows by setting <code>n_print</code> (or a similar argument in your code):</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">se_airway</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>design <span class="op">=</span> <span class="st">"alternative_1"</span>, n_print <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A SummarizedExperiment-tibble abstraction:</span></span>
-<span><span class="co">#&gt; # Features=38694 | Samples=8 | Assays=counts</span></span>
-<span><span class="co">#&gt;        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    </span></span>
-<span><span class="co">#&gt;        &lt;chr&gt;           &lt;chr&gt;      &lt;|&gt; &lt;chr&gt;  &lt;|&gt; &lt;|&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt; 1      ENSG00000000003 SRR1039508  |  723     |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; 2      ENSG00000000005 SRR1039508  |  0       |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; 3      ENSG00000000419 SRR1039508  |  467     |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt;        --------------- ---------- --  ---    --  --  ------- -------  ----------</span></span>
-<span><span class="co">#&gt; 309551 ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span>
-<span><span class="co">#&gt; 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -281,7 +281,7 @@
 <span><span class="co">#&gt;  [7] digest_0.6.37               magrittr_2.0.3             </span></span>
 <span><span class="co">#&gt;  [9] evaluate_1.0.3              grid_4.4.0                 </span></span>
 <span><span class="co">#&gt; [11] fastmap_1.2.0               rprojroot_2.0.4            </span></span>
-<span><span class="co">#&gt; [13] jsonlite_1.9.0              Matrix_1.7-2               </span></span>
+<span><span class="co">#&gt; [13] jsonlite_1.9.1              Matrix_1.7-2               </span></span>
 <span><span class="co">#&gt; [15] GenomeInfoDb_1.42.3         httr_1.4.7                 </span></span>
 <span><span class="co">#&gt; [17] fansi_1.0.6                 purrr_1.0.4                </span></span>
 <span><span class="co">#&gt; [19] UCSC.utils_1.2.0            jquerylib_0.1.4            </span></span>
