@@ -82,7 +82,6 @@ SummarizedExperiment info:
 
 ``` r
 
-<<<<<<< HEAD
 # The default style:
 se_airway %>% print()
 #> class: SummarizedExperiment 
@@ -99,10 +98,6 @@ se_airway %>% print()
 ``` r
 # or equivalently:
 se_airway %>% print(design = "SummarizedExperiment")
-=======
-se0 %>% print(design = "SummarizedExperiment")
-
->>>>>>> simplify-README
 ```
 
 ### 2.3 **tidyprint_1**
@@ -156,7 +151,6 @@ Use the “tidySummarizedExperiment” design to view your data in a
 
 ``` r
 
-<<<<<<< HEAD
 # Tidy SummarizedExperiment print:
 
 se_airway %>% print(design = "tidySummarizedExperiment")
@@ -175,10 +169,6 @@ se_airway %>% print(design = "tidySummarizedExperiment")
 #>  9 ENSG00000001084 SRR1039508    670 control N61311   GSM1275862
 #> 10 ENSG00000001167 SRR1039508    426 control N61311   GSM1275862
 #> # ℹ 40 more rows
-=======
-se0 %>% print(design = "tidySummarizedExperiment")
-
->>>>>>> simplify-README
 ```
 
 ### 2.5 **plyxp**
@@ -186,7 +176,6 @@ se0 %>% print(design = "tidySummarizedExperiment")
 For a more compact view (top and bottom rows), similar to a
 plyxp/tidyverse style:
 
-<<<<<<< HEAD
 ``` r
 
 se_airway %>% print(design = "plyxp")
@@ -203,8 +192,6 @@ se_airway %>% print(design = "plyxp")
 #>  8 ENSG00000283119 SRR1039521  |       0  |   |  treated N061011  GSM1275875
 #>  9 ENSG00000283120 SRR1039521  |       0  |   |  treated N061011  GSM1275875
 #> 10 ENSG00000283123 SRR1039521  |       0  |   |  treated N061011  GSM1275875
-=======
->>>>>>> simplify-README
 ```
 
 You can also limit the number of displayed rows by setting `n_print` (or
@@ -227,7 +214,6 @@ se_airway %>% print(design = "plyxp", n_print = 5)
 
 ``` r
 
-<<<<<<< HEAD
 sessionInfo()
 #> R version 4.4.0 (2024-04-24)
 #> Platform: x86_64-pc-linux-gnu
@@ -284,130 +270,3 @@ sessionInfo()
 #> [55] knitr_1.49                  htmltools_0.5.8.1          
 #> [57] rmarkdown_2.29              compiler_4.4.0
 ```
-=======
----
-
-
-
-### 2.4 **plyxp**
-
-
-
-For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style:
-
-
-
-```r
-
-se0 %>% print(design = "plyxp")
-
-```
-
-
-
-```
-
-# A tibble: 10 × 7
-
-   .features .samples ``     counts ``     ``     Treatment
-
-       <int> <chr>    <sep!>  <dbl> <sep!> <sep!> <chr>    
-
- 1         1 A        |        9.21 |      |      ChIP     
-
- 2         2 A        |        7.56 |      |      ChIP     
-
- 3         3 A        |        8.27 |      |      ChIP     
-
- 4         4 A        |        9.73 |      |      ChIP     
-
- 5         5 A        |        8.61 |      |      ChIP     
-
- 6       196 F        |        9.65 |      |      Input    
-
- 7       197 F        |        8.29 |      |      Input    
-
- 8       198 F        |        9.78 |      |      Input    
-
- 9       199 F        |        9.02 |      |      Input    
-
-10       200 F        |        9.01 |      |      Input    
-
-```
-
-
-
----
-
-### 2.5 **alternative_1**
-
-
-
-For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style with tidySummarizedExperiment header and customised row_id:
-
-
-
-```r
-
-se0 %>% print(design = "alternative_1")
-
-```
-
-
-
-```
-
-# A SummarizedExperiment-tibble abstraction: 1,200 × 7
-# Features=200 | Samples=6 | Assays=counts
-     .features .samples `|` counts `|` `|` Treatment
-         <int> <chr>    <|>  <dbl> <|> <|> <chr>    
-   1         1 A        |     7.62 |   |   ChIP     
-   2         2 A        |     9.58 |   |   ChIP     
-   3         3 A        |     8.54 |   |   ChIP     
-   4         4 A        |     9.32 |   |   ChIP     
-   5         5 A        |     8.37 |   |   ChIP     
-1196       196 F        |     9.13 |   |   Input    
-1197       197 F        |     9.67 |   |   Input    
-1198       198 F        |     7.85 |   |   Input    
-1199       199 F        |     9.09 |   |   Input    
-1200       200 F        |     9.67 |   |   Input     
-
-```
-
-
-
-You can also limit the number of displayed rows by setting `n_print` (or a similar argument in your code):
-
-
-
-```r
-
-se0 %>% print(design = "alternative_1", n_print = 5)
-
-```
-
-
-
-**Example Output**:
-
-
-
-```
-
-# A SummarizedExperiment-tibble abstraction: 1,200 × 7
-# Features=200 | Samples=6 | Assays=counts
-     .features .samples `|` counts `|` `|` Treatment
-         <int> <chr>    <|>  <dbl> <|> <|> <chr>    
-   1         1 A        |     7.62 |   |   ChIP     
-   2         2 A        |     9.58 |   |   ChIP     
-   3         3 A        |     8.54 |   |   ChIP     
-1199       199 F        |     9.09 |   |   Input    
-1200       200 F        |     9.67 |   |   Input  
-
-
-```
-
-
-
----
->>>>>>> simplify-README
