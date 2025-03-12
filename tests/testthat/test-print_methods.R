@@ -55,3 +55,8 @@ test_that("tidyprint_1 print works", {
 test_that("Invalid design throws an error", {
   expect_error(print(se_airway, design = "invalidDesign"), "should be one of")
 })
+
+# test for message
+test_that("tidy_message works correctly", {
+  expect_message(tidy_message("Test info message"), "says: Test info message")
+})

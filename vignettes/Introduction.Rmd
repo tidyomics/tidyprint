@@ -57,9 +57,9 @@ find_figure <- function(names){
 
 <!-- badges: end -->
 
-**tidyprint** is an R package that provides multiple printing styles for `SummarizedExperiment` objects. You can choose among:
+**tidyprint** is an R package that provides a centralised tidy display strategy for biological data (e.g. SummarizedExperiment), and centralised messaging styles for the `tidyomics` packages. To facilitate the discussion about data display, we compare here four data diplay:
 
-1.  **SummarizedExperiment** (default): Standard R/SummarizedExperiment printing style.
+1.  **SummarizedExperiment**: Standard R/SummarizedExperiment printing style.
 
 2.  **tidyprint_1**: Newly designed tibble abstraction, combines styles from **tidySummarizedExperiment** and **plyxp**
 
@@ -73,16 +73,16 @@ Depending on your workflow and desired console output, `tidyprint` makes it easy
 
 ## 1. Installation
 
-You need the \`\` package to install from GitHub. If you don’t have it, install via:
+You need the `remotes` package to install from GitHub. If you don’t have it, install via:
 
 ```{r eval=FALSE}
-install.packages("devtools")
+install.packages("remotes")
 ```
 
 Then install **tidyprint** from GitHub:
 
 ```{r eval=FALSE}
-devtools::install_github("tidyomics/tidyprint")
+remotes::install_github("tidyomics/tidyprint")
 ```
 
 ------------------------------------------------------------------------
@@ -137,15 +137,6 @@ se_airway %>% print(design = "tidyprint_1")
 
 ```
 
-You can also limit the number of displayed rows by setting `n_print` (or a similar argument in your code):
-
-```{r}
-
-se_airway %>% print(design = "tidyprint_1", n_print = 5)
-
-```
-
-
 
 ### 2.4 **tidySummarizedExperiment**
 
@@ -169,13 +160,16 @@ se_airway %>% print(design = "plyxp")
 
 ```
 
-You can also limit the number of displayed rows by setting `n_print` (or a similar argument in your code):
+# Messaging function
+
+We integrated a messaging function providing standardized, visually appealing messages for packages within the tidyomics ecosystem. It automatically detects the calling package to provide contextualized messaging, such as "tidyprint says" or "tidybulk says", enhancing consistency and readability across projects.
 
 ```{r}
 
-se_airway %>% print(design = "plyxp", n_print = 5)
+test_tidy_message()
 
 ```
+
 
 ## Session info
 

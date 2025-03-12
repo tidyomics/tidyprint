@@ -362,11 +362,13 @@ pre code {
 <!-- badges: start -->
 <p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTM4IiBoZWlnaHQ9IjIwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9ImxpZmVjeWNsZTogZXhwZXJpbWVudGFsIj4KICAgIDx0aXRsZT5saWZlY3ljbGU6IGV4cGVyaW1lbnRhbDwvdGl0bGU+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InMiIHgyPSIwIiB5Mj0iMTAwJSI+CiAgICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIiAvPgogICAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1vcGFjaXR5PSIuMSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8Y2xpcFBhdGggaWQ9InIiPgogICAgICAgIDxyZWN0IHdpZHRoPSIxMzgiIGhlaWdodD0iMjAiIHJ4PSIzIiBmaWxsPSIjZmZmIiAvPgogICAgPC9jbGlwUGF0aD4KICAgIDxnIGNsaXAtcGF0aD0idXJsKCNyKSI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjU1IiBoZWlnaHQ9IjIwIiBmaWxsPSIjNTU1IiAvPgogICAgICAgIDxyZWN0IHg9IjU1IiB3aWR0aD0iODMiIGhlaWdodD0iMjAiIGZpbGw9IiNmZTdkMzciIC8+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjEzOCIgaGVpZ2h0PSIyMCIgZmlsbD0idXJsKCNzKSIgLz4KICAgIDwvZz4KICAgIDxnIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJWZXJkYW5hLEdlbmV2YSxEZWphVnUgU2FucyxzYW5zLXNlcmlmIiB0ZXh0LXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIiBmb250LXNpemU9IjExMCI+CiAgICAgICAgPHRleHQgYXJpYS1oaWRkZW49InRydWUiIHg9IjI4NSIgeT0iMTUwIiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIiB0cmFuc2Zvcm09InNjYWxlKC4xKSIgdGV4dExlbmd0aD0iNDUwIj5saWZlY3ljbGU8L3RleHQ+CiAgICAgICAgPHRleHQgeD0iMjg1IiB5PSIxNDAiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiBmaWxsPSIjZmZmIiB0ZXh0TGVuZ3RoPSI0NTAiPmxpZmVjeWNsZTwvdGV4dD4KICAgICAgICA8dGV4dCBhcmlhLWhpZGRlbj0idHJ1ZSIgeD0iOTU1IiB5PSIxNTAiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiB0ZXh0TGVuZ3RoPSI3MzAiPmV4cGVyaW1lbnRhbDwvdGV4dD4KICAgICAgICA8dGV4dCB4PSI5NTUiIHk9IjE0MCIgdHJhbnNmb3JtPSJzY2FsZSguMSkiIGZpbGw9IiNmZmYiIHRleHRMZW5ndGg9IjczMCI+ZXhwZXJpbWVudGFsPC90ZXh0PgogICAgPC9nPgo8L3N2Zz4K" alt="Lifecycle:experimental" /></a></p>
 <!-- badges: end -->
-<p><strong>tidyprint</strong> is an R package that provides multiple
-printing styles for <code>SummarizedExperiment</code> objects. You can
-choose among:</p>
+<p><strong>tidyprint</strong> is an R package that provides a
+centralised tidy display strategy for biological data
+(e.g. SummarizedExperiment), and centralised messaging styles for the
+<code>tidyomics</code> packages. To facilitate the discussion about data
+display, we compare here four data diplay:</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>SummarizedExperiment</strong> (default): Standard
+<li><p><strong>SummarizedExperiment</strong>: Standard
 R/SummarizedExperiment printing style.</p></li>
 <li><p><strong>tidyprint_1</strong>: Newly designed tibble abstraction,
 combines styles from <strong>tidySummarizedExperiment</strong> and
@@ -382,11 +384,11 @@ styles.</p>
 <hr />
 <div id="installation" class="section level2">
 <h2>1. Installation</h2>
-<p>You need the `` package to install from GitHub. If you don’t have it,
-install via:</p>
-<pre class="r"><code>install.packages(&quot;devtools&quot;)</code></pre>
+<p>You need the <code>remotes</code> package to install from GitHub. If
+you don’t have it, install via:</p>
+<pre class="r"><code>install.packages(&quot;remotes&quot;)</code></pre>
 <p>Then install <strong>tidyprint</strong> from GitHub:</p>
-<pre class="r"><code>devtools::install_github(&quot;tidyomics/tidyprint&quot;)</code></pre>
+<pre class="r"><code>remotes::install_github(&quot;tidyomics/tidyprint&quot;)</code></pre>
 <hr />
 </div>
 <div id="demo" class="section level2">
@@ -461,20 +463,6 @@ se_airway %&gt;% print(design = &quot;tidyprint_1&quot;)
 #&gt; 309550 ENSG00000283119 SRR1039521  |  0       |   |  treated N061011  GSM1275875
 #&gt; 309551 ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875
 #&gt; 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875</code></pre>
-<p>You can also limit the number of displayed rows by setting
-<code>n_print</code> (or a similar argument in your code):</p>
-<pre class="r"><code>
-se_airway %&gt;% print(design = &quot;tidyprint_1&quot;, n_print = 5)
-#&gt; # A SummarizedExperiment-tibble abstraction:
-#&gt; # Features=38694 | Samples=8 | Assays=counts
-#&gt;        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
-#&gt;        &lt;chr&gt;           &lt;chr&gt;      &lt;|&gt; &lt;chr&gt;  &lt;|&gt; &lt;|&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     
-#&gt; 1      ENSG00000000003 SRR1039508  |  723     |   |  control N61311   GSM1275862
-#&gt; 2      ENSG00000000005 SRR1039508  |  0       |   |  control N61311   GSM1275862
-#&gt; 3      ENSG00000000419 SRR1039508  |  467     |   |  control N61311   GSM1275862
-#&gt;        --------------- ---------- --  ---    --  --  ------- -------  ----------
-#&gt; 309551 ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875
-#&gt; 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875</code></pre>
 </div>
 <div id="tidysummarizedexperiment" class="section level3">
 <h3>2.4 <strong>tidySummarizedExperiment</strong></h3>
@@ -519,20 +507,21 @@ se_airway %&gt;% print(design = &quot;plyxp&quot;)
 #&gt;  8 ENSG00000283119 SRR1039521  |       0  |   |  treated N061011  GSM1275875
 #&gt;  9 ENSG00000283120 SRR1039521  |       0  |   |  treated N061011  GSM1275875
 #&gt; 10 ENSG00000283123 SRR1039521  |       0  |   |  treated N061011  GSM1275875</code></pre>
-<p>You can also limit the number of displayed rows by setting
-<code>n_print</code> (or a similar argument in your code):</p>
+</div>
+</div>
+<div id="messaging-function" class="section level1">
+<h1>Messaging function</h1>
+<p>We integrated a messaging function providing standardized, visually
+appealing messages for packages within the tidyomics ecosystem. It
+automatically detects the calling package to provide contextualized
+messaging, such as “tidyprint says” or “tidybulk says”, enhancing
+consistency and readability across projects.</p>
 <pre class="r"><code>
-se_airway %&gt;% print(design = &quot;plyxp&quot;, n_print = 5)
-#&gt; # A tibble: 5 × 9
-#&gt;   .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
-#&gt;   &lt;chr&gt;           &lt;chr&gt;      &lt;|&gt;  &lt;dbl&gt; &lt;|&gt; &lt;|&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     
-#&gt; 1 ENSG00000000003 SRR1039508  |     723  |   |  control N61311   GSM1275862
-#&gt; 2 ENSG00000000005 SRR1039508  |       0  |   |  control N61311   GSM1275862
-#&gt; 3 ENSG00000000419 SRR1039508  |     467  |   |  control N61311   GSM1275862
-#&gt; 4 ENSG00000283120 SRR1039521  |       0  |   |  treated N061011  GSM1275875
-#&gt; 5 ENSG00000283123 SRR1039521  |       0  |   |  treated N061011  GSM1275875</code></pre>
-</div>
-</div>
+test_tidy_message()
+#&gt; ℹ tidyprint says: This is an informational message send within tidyprint package.
+#&gt; ✔ tidyprint says: Operation completed successfully!
+#&gt; ! tidyprint says: Potential issue detected.
+#&gt; ✖ tidyprint says: Operation failed.</code></pre>
 <div id="session-info" class="section level2">
 <h2>Session info</h2>
 <pre class="r"><code>
@@ -591,6 +580,7 @@ sessionInfo()
 #&gt; [53] rstudioapi_0.17.1           MatrixGenerics_1.18.1      
 #&gt; [55] knitr_1.49                  htmltools_0.5.8.1          
 #&gt; [57] rmarkdown_2.29              compiler_4.4.0</code></pre>
+</div>
 </div>
 
 
