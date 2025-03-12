@@ -57,7 +57,7 @@ find_figure <- function(names){
 
 <!-- badges: end -->
 
-**tidyprint** is an R package that provides a centralised tidy display strategy for biological data (e.g. SummarizedExperiment), and centralised messaging styles for the `tidyomics` packages. To facilitate the discussion about data display, we compare here four data diplay:
+**tidyprint** is an R package that provides a centralised tidy display strategy for biological data (e.g. SummarizedExperiment) and centralised messaging styles for the `tidyomics` packages. To facilitate the discussion about data display, we compare here four data displays:
 
 1.  **SummarizedExperiment**: Standard R/SummarizedExperiment printing style.
 
@@ -73,7 +73,7 @@ Depending on your workflow and desired console output, `tidyprint` makes it easy
 
 ## 1. Installation
 
-You need the `remotes` package to install from GitHub. If you don’t have it, install via:
+You need the `remotes` package to install from GitHub. If you don’t have it, install it via:
 
 ```{r eval=FALSE}
 install.packages("remotes")
