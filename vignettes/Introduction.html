@@ -510,18 +510,31 @@ se_airway %&gt;% print(design = &quot;plyxp&quot;)
 </div>
 </div>
 <div id="messaging-function" class="section level1">
-<h1>Messaging function</h1>
+<h1>3. Messaging function</h1>
 <p>We integrated a messaging function providing standardized, visually
 appealing messages for packages within the tidyomics ecosystem. It
 automatically detects the calling package to provide contextualized
 messaging, such as “tidyprint says” or “tidybulk says”, enhancing
 consistency and readability across projects.</p>
+<p>To use the <code>tidy_message</code> function:</p>
+<pre class="r"><code>
+tidyprint::tidy_message(&#39;message to print&#39;)
+#&gt; ℹ Console says: message to print</code></pre>
+<p>You can specify the type of message as</p>
+<ul>
+<li><p>info (default)</p></li>
+<li><p>success</p></li>
+<li><p>warning</p></li>
+<li><p>danger</p></li>
+</ul>
 <pre class="r"><code>
 test_tidy_message()
 #&gt; ℹ tidyprint says: This is an informational message send within tidyprint package.
 #&gt; ✔ tidyprint says: Operation completed successfully!
 #&gt; ! tidyprint says: Potential issue detected.
 #&gt; ✖ tidyprint says: Operation failed.</code></pre>
+<p>The above code demonstrates calling <code>tidy_message</code> within
+a package function, showing the name of package.</p>
 <div id="session-info" class="section level2">
 <h2>Session info</h2>
 <pre class="r"><code>
