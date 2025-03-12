@@ -79,13 +79,12 @@ se_airway
 
 ### 2.2 **SummarizedExperiment** (Default)
 
-By default, `print()` on a `SummarizedExperiment` displays the standard
-SummarizedExperiment info:
+The standard SummarizedExperiment display:
 
 ``` r
 
 # The default style:
-se_airway %>% print()
+se_airway %>% print(design = "SummarizedExperiment")
 #> class: SummarizedExperiment 
 #> dim: 38694 8 
 #> metadata(0):
@@ -95,11 +94,6 @@ se_airway %>% print()
 #> rowData names(0):
 #> colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
 #> colData names(3): dex celltype geo_id
-```
-
-``` r
-# or equivalently:
-se_airway %>% print(design = "SummarizedExperiment")
 ```
 
 ### 2.3 **tidyprint_1**
