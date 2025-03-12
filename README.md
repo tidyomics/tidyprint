@@ -10,7 +10,7 @@ tidyprint
 **tidyprint** is an R package that provides a centralised tidy display
 strategy for biological data (e.g. SummarizedExperiment), and
 centralised messaging styles for the `tidyomics` packages. To facilitate
-the discussion about data display, we compare here four data diplay:
+the discussion about data display, we compare here four data display:
 
 1.  **SummarizedExperiment**: Standard R/SummarizedExperiment printing
     style.
