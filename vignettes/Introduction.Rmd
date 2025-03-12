@@ -124,7 +124,7 @@ se_airway %>% print(design = "SummarizedExperiment")
 
 ### 2.3 **tidyprint_1**
 
-For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style with tidySummarizedExperiment header and customised row_id:
+For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style with tidySummarizedExperiment header:
 
 ```{r}
 
