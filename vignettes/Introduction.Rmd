@@ -73,7 +73,7 @@ Depending on your workflow and desired console output, `tidyprint` makes it easy
 
 ## 1. Installation
 
-You need the \`\` package to install from GitHub. If you don’t have it, install via:
+You need the `remotes` package to install from GitHub. If you don’t have it, install via:
 
 ```{r eval=FALSE}
 install.packages("remotes")
@@ -158,6 +158,18 @@ For a more compact view (top and bottom rows), similar to a plyxp/tidyverse styl
 se_airway %>% print(design = "plyxp")
 
 ```
+
+
+# Messaging function
+
+We integrated a messaging function providing standardized, visually appealing messages for packages within the tidyomics ecosystem. It automatically detects the calling package to provide contextualized messaging, such as "tidyprint says" or "tidybulk says", enhancing consistency and readability across projects.
+
+```{r}
+
+test_tidy_message()
+
+```
+
 
 ## Session info
 

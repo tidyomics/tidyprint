@@ -7,11 +7,13 @@ tidyprint
 
 <!-- badges: end -->
 
-**tidyprint** is an R package that provides multiple printing styles for
-`SummarizedExperiment` objects. You can choose among:
+**tidyprint** is an R package that provides a centralised tidy display
+strategy for biological data (e.g. SummarizedExperiment), and
+centralised messaging styles for the `tidyomics` packages. To facilitate
+the discussion about data display, we compare here four data diplay:
 
-1.  **SummarizedExperiment** (default): Standard R/SummarizedExperiment
-    printing style.
+1.  **SummarizedExperiment**: Standard R/SummarizedExperiment printing
+    style.
 
 2.  **tidyprint_1**: Newly designed tibble abstraction, combines styles
     from **tidySummarizedExperiment** and **plyxp**
@@ -27,17 +29,17 @@ it easy to switch between these printing styles.
 
 ## 1. Installation
 
-You need the \`\` package to install from GitHub. If you don’t have it,
-install via:
+You need the `remotes` package to install from GitHub. If you don’t have
+it, install via:
 
 ``` r
-install.packages("devtools")
+install.packages("remotes")
 ```
 
 Then install **tidyprint** from GitHub:
 
 ``` r
-devtools::install_github("tidyomics/tidyprint")
+remotes::install_github("tidyomics/tidyprint")
 ```
 
 ------------------------------------------------------------------------
@@ -126,24 +128,6 @@ se_airway %>% print(design = "tidyprint_1")
 #> 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875
 ```
 
-You can also limit the number of displayed rows by setting `n_print` (or
-a similar argument in your code):
-
-``` r
-
-se_airway %>% print(design = "tidyprint_1", n_print = 5)
-#> # A SummarizedExperiment-tibble abstraction:
-#> # Features=38694 | Samples=8 | Assays=counts
-#>        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
-#>        <chr>           <chr>      <|> <chr>  <|> <|> <chr>   <chr>    <chr>     
-#> 1      ENSG00000000003 SRR1039508  |  723     |   |  control N61311   GSM1275862
-#> 2      ENSG00000000005 SRR1039508  |  0       |   |  control N61311   GSM1275862
-#> 3      ENSG00000000419 SRR1039508  |  467     |   |  control N61311   GSM1275862
-#>        --------------- ---------- --  ---    --  --  ------- -------  ----------
-#> 309551 ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875
-#> 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875
-```
-
 ### 2.4 **tidySummarizedExperiment**
 
 Use the “tidySummarizedExperiment” design to view your data in a
@@ -194,20 +178,21 @@ se_airway %>% print(design = "plyxp")
 #> 10 ENSG00000283123 SRR1039521  |       0  |   |  treated N061011  GSM1275875
 ```
 
-You can also limit the number of displayed rows by setting `n_print` (or
-a similar argument in your code):
+# Messaging function
+
+We integrated a messaging function providing standardized, visually
+appealing messages for packages within the tidyomics ecosystem. It
+automatically detects the calling package to provide contextualized
+messaging, such as “tidyprint says” or “tidybulk says”, enhancing
+consistency and readability across projects.
 
 ``` r
 
-se_airway %>% print(design = "plyxp", n_print = 5)
-#> # A tibble: 5 × 9
-#>   .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
-#>   <chr>           <chr>      <|>  <dbl> <|> <|> <chr>   <chr>    <chr>     
-#> 1 ENSG00000000003 SRR1039508  |     723  |   |  control N61311   GSM1275862
-#> 2 ENSG00000000005 SRR1039508  |       0  |   |  control N61311   GSM1275862
-#> 3 ENSG00000000419 SRR1039508  |     467  |   |  control N61311   GSM1275862
-#> 4 ENSG00000283120 SRR1039521  |       0  |   |  treated N061011  GSM1275875
-#> 5 ENSG00000283123 SRR1039521  |       0  |   |  treated N061011  GSM1275875
+test_tidy_message()
+#> ℹ tidyprint says: This is an informational message send within tidyprint package.
+#> ✔ tidyprint says: Operation completed successfully!
+#> ! tidyprint says: Potential issue detected.
+#> ✖ tidyprint says: Operation failed.
 ```
 
 ## Session info
