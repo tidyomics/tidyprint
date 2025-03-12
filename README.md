@@ -178,13 +178,31 @@ se_airway %>% print(design = "plyxp")
 #> 10 ENSG00000283123 SRR1039521  |       0  |   |  treated N061011  GSM1275875
 ```
 
-# Messaging function
+# 3. Messaging function
 
 We integrated a messaging function providing standardized, visually
 appealing messages for packages within the tidyomics ecosystem. It
 automatically detects the calling package to provide contextualized
 messaging, such as “tidyprint says” or “tidybulk says”, enhancing
 consistency and readability across projects.
+
+To use the `tidy_message` function:
+
+``` r
+
+tidyprint::tidy_message('message to print')
+#> ℹ Console says: message to print
+```
+
+You can specify the type of message as
+
+-   info (default)
+
+-   success
+
+-   warning
+
+-   danger
 
 ``` r
 
@@ -194,6 +212,9 @@ test_tidy_message()
 #> ! tidyprint says: Potential issue detected.
 #> ✖ tidyprint says: Operation failed.
 ```
+
+The above code demonstrates calling `tidy_message` within a package
+function, showing the name of package.
 
 ## Session info
 
