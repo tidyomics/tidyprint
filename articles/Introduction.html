@@ -173,19 +173,19 @@ plyxp/tidyverse style with tidySummarizedExperiment header:</p>
 <span><span class="va">se_airway</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>design <span class="op">=</span> <span class="st">"tidyprint_1"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A SummarizedExperiment-tibble abstraction:</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># </span><span style="color: #555555;">Features=38694 | Samples=8 | Assays=counts</span></span></span>
-<span><span class="co">#&gt;        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    </span></span>
-<span><span class="co">#&gt;        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;|&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;|&gt;</span> <span style="color: #949494; font-style: italic;">&lt;|&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1     </span> ENSG00000000003 SRR1039508  |  723     |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2     </span> ENSG00000000005 SRR1039508  |  0       |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3     </span> ENSG00000000419 SRR1039508  |  467     |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4     </span> ENSG00000000457 SRR1039508  |  347     |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5     </span> ENSG00000000460 SRR1039508  |  96      |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">      </span> --------------- ---------- --  ---    --  --  ------- -------  ----------</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">309548</span> ENSG00000283115 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">309549</span> ENSG00000283116 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">309550</span> ENSG00000283119 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">309551</span> ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">309552</span> ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875</span></span></code></pre></div>
+<span><span class="co">#&gt;        .features       .samples   | counts | | dex     celltype geo_id    </span></span>
+<span><span class="co">#&gt;        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      | <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  | | <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1     </span> ENSG00000000003 SRR1039508 | 723    | | control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2     </span> ENSG00000000005 SRR1039508 | 0      | | control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3     </span> ENSG00000000419 SRR1039508 | 467    | | control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4     </span> ENSG00000000457 SRR1039508 | 347    | | control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5     </span> ENSG00000000460 SRR1039508 | 96     | | control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">      </span> ---------       --------   - ------ - - ---     -------- ------    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">309548</span> ENSG00000283115 SRR1039521 | 0      | | treated N061011  GSM1275875</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">309549</span> ENSG00000283116 SRR1039521 | 0      | | treated N061011  GSM1275875</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">309550</span> ENSG00000283119 SRR1039521 | 0      | | treated N061011  GSM1275875</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">309551</span> ENSG00000283120 SRR1039521 | 0      | | treated N061011  GSM1275875</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">309552</span> ENSG00000283123 SRR1039521 | 0      | | treated N061011  GSM1275875</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="tidysummarizedexperiment">2.4 <strong>tidySummarizedExperiment</strong><a class="anchor" aria-label="anchor" href="#tidysummarizedexperiment"></a>
@@ -224,16 +224,16 @@ plyxp/tidyverse style:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 9</span></span></span>
 <span><span class="co">#&gt;    .features       .samples   `|` counts `|` `|` dex     celltype geo_id    </span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;|&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;|&gt;</span> <span style="color: #949494; font-style: italic;">&lt;|&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ENSG00000000003 SRR1039508  |     723  |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ENSG00000000005 SRR1039508  |       0  |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ENSG00000000419 SRR1039508  |     467  |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ENSG00000000457 SRR1039508  |     347  |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ENSG00000000460 SRR1039508  |      96  |   |  control N61311   GSM1275862</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ENSG00000283115 SRR1039521  |       0  |   |  treated N061011  GSM1275875</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ENSG00000283116 SRR1039521  |       0  |   |  treated N061011  GSM1275875</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ENSG00000283119 SRR1039521  |       0  |   |  treated N061011  GSM1275875</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ENSG00000283120 SRR1039521  |       0  |   |  treated N061011  GSM1275875</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ENSG00000283123 SRR1039521  |       0  |   |  treated N061011  GSM1275875</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ENSG00000000003 SRR1039508 |      723 |   |   control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ENSG00000000005 SRR1039508 |        0 |   |   control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ENSG00000000419 SRR1039508 |      467 |   |   control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ENSG00000000457 SRR1039508 |      347 |   |   control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ENSG00000000460 SRR1039508 |       96 |   |   control N61311   GSM1275862</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ENSG00000283115 SRR1039521 |        0 |   |   treated N061011  GSM1275875</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ENSG00000283116 SRR1039521 |        0 |   |   treated N061011  GSM1275875</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ENSG00000283119 SRR1039521 |        0 |   |   treated N061011  GSM1275875</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ENSG00000283120 SRR1039521 |        0 |   |   treated N061011  GSM1275875</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ENSG00000283123 SRR1039521 |        0 |   |   treated N061011  GSM1275875</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -258,7 +258,7 @@ consistency and readability across projects.</p>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="../reference/test_tidy_message.html">test_tidy_message</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/demo_tidy_message.html">demo_tidy_message</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> tidyprint says: This is an informational message send within tidyprint package.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> tidyprint says: Operation completed successfully!</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> tidyprint says: Potential issue detected.</span></span>
@@ -271,7 +271,7 @@ a package function, showing the name of package.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; R Under development (unstable) (2025-03-04 r87880)</span></span>
+<span><span class="co">#&gt; R Under development (unstable) (2025-03-08 r87910)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>
 <span><span class="co">#&gt; Running under: Ubuntu 24.04.1 LTS</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -298,12 +298,12 @@ a package function, showing the name of package.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
 <span><span class="co">#&gt;  [1] utf8_1.2.4                  sass_0.4.9                 </span></span>
-<span><span class="co">#&gt;  [3] generics_0.1.3              SparseArray_1.7.6          </span></span>
+<span><span class="co">#&gt;  [3] generics_0.1.3              SparseArray_1.7.7          </span></span>
 <span><span class="co">#&gt;  [5] stringi_1.8.4               lattice_0.22-6             </span></span>
 <span><span class="co">#&gt;  [7] digest_0.6.37               magrittr_2.0.3             </span></span>
 <span><span class="co">#&gt;  [9] grid_4.5.0                  evaluate_1.0.3             </span></span>
 <span><span class="co">#&gt; [11] fastmap_1.2.0               rprojroot_2.0.4            </span></span>
-<span><span class="co">#&gt; [13] jsonlite_1.9.1              Matrix_1.7-2               </span></span>
+<span><span class="co">#&gt; [13] jsonlite_2.0.0              Matrix_1.7-3               </span></span>
 <span><span class="co">#&gt; [15] GenomeInfoDb_1.43.4         httr_1.4.7                 </span></span>
 <span><span class="co">#&gt; [17] fansi_1.0.6                 purrr_1.0.4                </span></span>
 <span><span class="co">#&gt; [19] UCSC.utils_1.3.1            textshaping_1.0.0          </span></span>
@@ -313,7 +313,7 @@ a package function, showing the name of package.</p>
 <span><span class="co">#&gt; [27] Biobase_2.67.0              withr_3.0.2                </span></span>
 <span><span class="co">#&gt; [29] DelayedArray_0.33.6         cachem_1.1.0               </span></span>
 <span><span class="co">#&gt; [31] yaml_2.3.10                 S4Arrays_1.7.3             </span></span>
-<span><span class="co">#&gt; [33] tools_4.5.0                 GenomeInfoDbData_1.2.13    </span></span>
+<span><span class="co">#&gt; [33] tools_4.5.0                 GenomeInfoDbData_1.2.14    </span></span>
 <span><span class="co">#&gt; [35] SummarizedExperiment_1.37.0 BiocGenerics_0.53.6        </span></span>
 <span><span class="co">#&gt; [37] vctrs_0.6.5                 R6_2.6.1                   </span></span>
 <span><span class="co">#&gt; [39] matrixStats_1.5.0           stats4_4.5.0               </span></span>
@@ -326,7 +326,7 @@ a package function, showing the name of package.</p>
 <span><span class="co">#&gt; [53] glue_1.8.0                  systemfonts_1.2.1          </span></span>
 <span><span class="co">#&gt; [55] xfun_0.51                   tibble_3.2.1               </span></span>
 <span><span class="co">#&gt; [57] GenomicRanges_1.59.1        tidyselect_1.2.1           </span></span>
-<span><span class="co">#&gt; [59] MatrixGenerics_1.19.1       knitr_1.49                 </span></span>
+<span><span class="co">#&gt; [59] MatrixGenerics_1.19.1       knitr_1.50                 </span></span>
 <span><span class="co">#&gt; [61] htmltools_0.5.8.1           rmarkdown_2.29             </span></span>
 <span><span class="co">#&gt; [63] compiler_4.5.0</span></span></code></pre></div>
 </div>
