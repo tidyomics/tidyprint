@@ -36,8 +36,8 @@ tidy_message <- function(message, type = c("info", "success", "warning", "danger
 #' Test tidy_message function
 #' @export
 #' @examples
-#' test_tidy_message()
-test_tidy_message <- function() {
+#' demo_tidy_message()
+demo_tidy_message <- function() {
   tidy_message("This is an informational message send within tidyprint package.")
   tidy_message("Operation completed successfully!", type = "success")
   tidy_message("Potential issue detected.", type = "warning")

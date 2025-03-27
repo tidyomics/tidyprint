@@ -53,6 +53,28 @@ ctl_new_rowid_pillar.SE_print_abstraction <- function(controller, x, width, ...)
 
 }
 
+
+#' @importFrom pillar pillar ctl_new_pillar
+#' @export
+ctl_new_pillar.SE_print_abstraction <- function(controller, x, width, ..., title = NULL) {
+
+  if (inherits(x, "|")) {
+    p <- pillar(x, title = "|", ...)
+    class(p$title[[1]]) <- "blank_pillar_title"
+    class(p$type[[1]]) <- "blank_pillar_type"
+    attr(p$type, "width") <- 1L
+    attr(p$type, "min_width") <- 1L
+    attr(p$type[[1]], "width") <- 1L
+    attr(p$type[[1]], "min_width") <- 1L
+    p
+  } else {
+    NextMethod()
+  }
+
+}
+
+
+
 #' @importFrom rlang names2
 #' @importFrom pillar align
 #' @importFrom pillar get_extent

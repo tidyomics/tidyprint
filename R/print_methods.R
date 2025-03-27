@@ -240,16 +240,16 @@ but they do not completely overlap.")
       out_sub <- out[sub_seq, ]
 
       # Compute the max character width for each column
-      separator_row <- sapply(out_sub, function(col) {
+      separator_row <- sapply(out_sub %>% colnames(), function(col) {
         max_width <- max(nchar(as.character(col)), na.rm = TRUE)  # Get max width in the column
         paste(rep("-", max_width), collapse = "")  # Generate a separator of the same length
       })
       # Modify the entire tibble to include a separator row across all columns
-      out_sub <- rbind(
+      out_sub <- suppressWarnings(rbind(
         out_sub[seq_len(top_n),],
         as.list(separator_row),      # Adaptive separator row
         out_sub[(top_n+1):nrow(out_sub), ]
-      )
+      ))
 
 
       # attr(out_sub, "n") <- n

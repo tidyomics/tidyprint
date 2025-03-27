@@ -8,9 +8,9 @@ tidyprint
 <!-- badges: end -->
 
 **tidyprint** is an R package that provides a centralised tidy display
-strategy for biological data (e.g. SummarizedExperiment), and
-centralised messaging styles for the `tidyomics` packages. To facilitate
-the discussion about data display, we compare here four data display:
+strategy for biological data (e.g. SummarizedExperiment) and centralised
+messaging styles for the `tidyomics` packages. To facilitate the
+discussion about data display, we compare here four data displays:
 
 1.  **SummarizedExperiment**: Standard R/SummarizedExperiment printing
     style.
@@ -30,7 +30,7 @@ it easy to switch between these printing styles.
 ## 1. Installation
 
 You need the `remotes` package to install from GitHub. If you don’t have
-it, install via:
+it, install it via:
 
 ``` r
 install.packages("remotes")
@@ -106,19 +106,19 @@ plyxp/tidyverse style with tidySummarizedExperiment header:
 se_airway %>% print(design = "tidyprint_1")
 #> # A SummarizedExperiment-tibble abstraction:
 #> # Features=38694 | Samples=8 | Assays=counts
-#>        .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
-#>        <chr>           <chr>      <|> <chr>  <|> <|> <chr>   <chr>    <chr>     
-#> 1      ENSG00000000003 SRR1039508  |  723     |   |  control N61311   GSM1275862
-#> 2      ENSG00000000005 SRR1039508  |  0       |   |  control N61311   GSM1275862
-#> 3      ENSG00000000419 SRR1039508  |  467     |   |  control N61311   GSM1275862
-#> 4      ENSG00000000457 SRR1039508  |  347     |   |  control N61311   GSM1275862
-#> 5      ENSG00000000460 SRR1039508  |  96      |   |  control N61311   GSM1275862
-#>        --------------- ---------- --  ---    --  --  ------- -------  ----------
-#> 309548 ENSG00000283115 SRR1039521  |  0       |   |  treated N061011  GSM1275875
-#> 309549 ENSG00000283116 SRR1039521  |  0       |   |  treated N061011  GSM1275875
-#> 309550 ENSG00000283119 SRR1039521  |  0       |   |  treated N061011  GSM1275875
-#> 309551 ENSG00000283120 SRR1039521  |  0       |   |  treated N061011  GSM1275875
-#> 309552 ENSG00000283123 SRR1039521  |  0       |   |  treated N061011  GSM1275875
+#>        .features       .samples   | counts | | dex     celltype geo_id    
+#>        <chr>           <chr>      | <chr>  | | <chr>   <chr>    <chr>     
+#> 1      ENSG00000000003 SRR1039508 | 723    | | control N61311   GSM1275862
+#> 2      ENSG00000000005 SRR1039508 | 0      | | control N61311   GSM1275862
+#> 3      ENSG00000000419 SRR1039508 | 467    | | control N61311   GSM1275862
+#> 4      ENSG00000000457 SRR1039508 | 347    | | control N61311   GSM1275862
+#> 5      ENSG00000000460 SRR1039508 | 96     | | control N61311   GSM1275862
+#>        ---------       --------   - ------ - - ---     -------- ------    
+#> 309548 ENSG00000283115 SRR1039521 | 0      | | treated N061011  GSM1275875
+#> 309549 ENSG00000283116 SRR1039521 | 0      | | treated N061011  GSM1275875
+#> 309550 ENSG00000283119 SRR1039521 | 0      | | treated N061011  GSM1275875
+#> 309551 ENSG00000283120 SRR1039521 | 0      | | treated N061011  GSM1275875
+#> 309552 ENSG00000283123 SRR1039521 | 0      | | treated N061011  GSM1275875
 ```
 
 ### 2.4 **tidySummarizedExperiment**
@@ -159,16 +159,16 @@ se_airway %>% print(design = "plyxp")
 #> # A tibble: 10 × 9
 #>    .features       .samples   `|` counts `|` `|` dex     celltype geo_id    
 #>    <chr>           <chr>      <|>  <dbl> <|> <|> <chr>   <chr>    <chr>     
-#>  1 ENSG00000000003 SRR1039508  |     723  |   |  control N61311   GSM1275862
-#>  2 ENSG00000000005 SRR1039508  |       0  |   |  control N61311   GSM1275862
-#>  3 ENSG00000000419 SRR1039508  |     467  |   |  control N61311   GSM1275862
-#>  4 ENSG00000000457 SRR1039508  |     347  |   |  control N61311   GSM1275862
-#>  5 ENSG00000000460 SRR1039508  |      96  |   |  control N61311   GSM1275862
-#>  6 ENSG00000283115 SRR1039521  |       0  |   |  treated N061011  GSM1275875
-#>  7 ENSG00000283116 SRR1039521  |       0  |   |  treated N061011  GSM1275875
-#>  8 ENSG00000283119 SRR1039521  |       0  |   |  treated N061011  GSM1275875
-#>  9 ENSG00000283120 SRR1039521  |       0  |   |  treated N061011  GSM1275875
-#> 10 ENSG00000283123 SRR1039521  |       0  |   |  treated N061011  GSM1275875
+#>  1 ENSG00000000003 SRR1039508 |      723 |   |   control N61311   GSM1275862
+#>  2 ENSG00000000005 SRR1039508 |        0 |   |   control N61311   GSM1275862
+#>  3 ENSG00000000419 SRR1039508 |      467 |   |   control N61311   GSM1275862
+#>  4 ENSG00000000457 SRR1039508 |      347 |   |   control N61311   GSM1275862
+#>  5 ENSG00000000460 SRR1039508 |       96 |   |   control N61311   GSM1275862
+#>  6 ENSG00000283115 SRR1039521 |        0 |   |   treated N061011  GSM1275875
+#>  7 ENSG00000283116 SRR1039521 |        0 |   |   treated N061011  GSM1275875
+#>  8 ENSG00000283119 SRR1039521 |        0 |   |   treated N061011  GSM1275875
+#>  9 ENSG00000283120 SRR1039521 |        0 |   |   treated N061011  GSM1275875
+#> 10 ENSG00000283123 SRR1039521 |        0 |   |   treated N061011  GSM1275875
 ```
 
 # 3. Messaging function
@@ -189,17 +189,17 @@ tidyprint::tidy_message('message to print')
 
 You can specify the type of message as
 
-- info (default)
+-   info (default)
 
-- success
+-   success
 
-- warning
+-   warning
 
-- danger
+-   danger
 
 ``` r
 
-test_tidy_message()
+demo_tidy_message()
 #> ℹ tidyprint says: This is an informational message send within tidyprint package.
 #> ✔ tidyprint says: Operation completed successfully!
 #> ! tidyprint says: Potential issue detected.
@@ -214,19 +214,23 @@ function, showing the name of package.
 ``` r
 
 sessionInfo()
-#> R version 4.4.1 (2024-06-14)
-#> Platform: x86_64-apple-darwin20
-#> Running under: macOS Sonoma 14.6.1
+#> R version 4.4.0 (2024-04-24)
+#> Platform: x86_64-pc-linux-gnu
+#> Running under: Red Hat Enterprise Linux 9.4 (Plow)
 #> 
 #> Matrix products: default
-#> BLAS:   /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libRblas.0.dylib 
-#> LAPACK: /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+#> BLAS/LAPACK: FlexiBLAS OPENBLAS;  LAPACK version 3.10.1
 #> 
 #> locale:
-#> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+#>  [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
+#>  [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
+#>  [5] LC_MONETARY=en_AU.UTF-8    LC_MESSAGES=en_AU.UTF-8   
+#>  [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
+#>  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+#> [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
 #> 
-#> time zone: Australia/Adelaide
-#> tzcode source: internal
+#> time zone: Australia/Melbourne
+#> tzcode source: system (glibc)
 #> 
 #> attached base packages:
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
@@ -236,32 +240,32 @@ sessionInfo()
 #> 
 #> loaded via a namespace (and not attached):
 #>  [1] utf8_1.2.4                  sass_0.4.9                 
-#>  [3] generics_0.1.3              SparseArray_1.5.44         
+#>  [3] generics_0.1.3              SparseArray_1.6.2          
 #>  [5] stringi_1.8.4               lattice_0.22-6             
 #>  [7] digest_0.6.37               magrittr_2.0.3             
-#>  [9] evaluate_1.0.3              grid_4.4.1                 
+#>  [9] evaluate_1.0.3              grid_4.4.0                 
 #> [11] fastmap_1.2.0               rprojroot_2.0.4            
-#> [13] jsonlite_1.8.9              Matrix_1.7-0               
-#> [15] GenomeInfoDb_1.41.2         httr_1.4.7                 
+#> [13] jsonlite_1.9.1              Matrix_1.7-3               
+#> [15] GenomeInfoDb_1.42.3         httr_1.4.7                 
 #> [17] fansi_1.0.6                 purrr_1.0.4                
-#> [19] UCSC.utils_1.1.0            jquerylib_0.1.4            
+#> [19] UCSC.utils_1.2.0            jquerylib_0.1.4            
 #> [21] abind_1.4-8                 cli_3.6.4                  
 #> [23] rlang_1.1.5                 crayon_1.5.3               
-#> [25] XVector_0.45.0              Biobase_2.65.1             
+#> [25] XVector_0.46.0              Biobase_2.66.0             
 #> [27] withr_3.0.2                 cachem_1.1.0               
-#> [29] DelayedArray_0.31.14        yaml_2.3.10                
-#> [31] S4Arrays_1.5.11             tools_4.4.1                
-#> [33] GenomeInfoDbData_1.2.13     SummarizedExperiment_1.35.4
-#> [35] BiocGenerics_0.51.3         vctrs_0.6.5                
+#> [29] DelayedArray_0.32.0         yaml_2.3.10                
+#> [31] S4Arrays_1.6.0              tools_4.4.0                
+#> [33] GenomeInfoDbData_1.2.13     SummarizedExperiment_1.36.0
+#> [35] BiocGenerics_0.52.0         vctrs_0.6.5                
 #> [37] R6_2.6.1                    matrixStats_1.5.0          
-#> [39] stats4_4.4.1                lifecycle_1.0.4            
-#> [41] stringr_1.5.1               zlibbioc_1.51.1            
-#> [43] S4Vectors_0.43.2            IRanges_2.39.2             
+#> [39] stats4_4.4.0                lifecycle_1.0.4            
+#> [41] stringr_1.5.1               zlibbioc_1.52.0            
+#> [43] S4Vectors_0.44.0            IRanges_2.40.1             
 #> [45] pkgconfig_2.0.3             pillar_1.10.1              
 #> [47] bslib_0.9.0                 glue_1.8.0                 
-#> [49] xfun_0.50                   tibble_3.2.1               
-#> [51] GenomicRanges_1.57.2        tidyselect_1.2.1           
-#> [53] rstudioapi_0.16.0           MatrixGenerics_1.17.0      
-#> [55] knitr_1.49                  htmltools_0.5.8.1          
-#> [57] rmarkdown_2.29              compiler_4.4.1
+#> [49] xfun_0.51                   tibble_3.2.1               
+#> [51] GenomicRanges_1.58.0        tidyselect_1.2.1           
+#> [53] rstudioapi_0.17.1           MatrixGenerics_1.18.1      
+#> [55] knitr_1.50                  htmltools_0.5.8.1          
+#> [57] rmarkdown_2.29              compiler_4.4.0
 ```

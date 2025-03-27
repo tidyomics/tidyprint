@@ -22,7 +22,7 @@ vec_phantom <- function(x) {
 }
 
 sep_ <- function(n) {
-  x <- vctrs::vec_rep(" |", times = n)
+  x <- vctrs::vec_rep("|", times = n)
   class(x) <- "|"
   x
 }
