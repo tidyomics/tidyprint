@@ -89,8 +89,9 @@ tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
   number_of_samples <- x |> attr("number_of_samples")
   named_header <- x |> attr("named_header")
   assay_names <- x |> attr("assay_names")
-  separator_row_non_covariate_columns <- x |> attr("separator_row_non_covariate_columns")
-
+  separator_row <- x |> attr("separator_row")
+  covariate_names <- x |> attr("covariate_names")
+  
   number_of_total_rows = (x |> attr("number_of_features")) * (x |> attr("number_of_samples"))
   
   printed_colnames <- x |> attr("printed_colnames")
@@ -101,9 +102,11 @@ tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
   
   # .feature and .samples SHOULD BE A GLOBAL VARIABLE CREATED ONES
   # SO IT CAN BE CHANGED ACROSS THE PACKAGE
+  # THIS BREAKS IF I HAVE ROWDATA
   covariate_candidates <- setdiff(printed_colnames, c(".sample", ".feature", "|", assay_names))
   # Remove gene/rowData columns if possible (e.g., chromosome, gene_feature, ...)
   # For now, just use all columns after .count and before gene_feature as covariates
+  all_printed_covariates = 
   first_covariate <- which(printed_colnames %in% covariate_candidates)[1]
   last_covariate <- which(printed_colnames %in% covariate_candidates) |> tail(1)
   last_covariate <- if (length(last_covariate) > 0) max(last_covariate) else NA
@@ -112,14 +115,25 @@ tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
   covariate_header <- NULL
   if (!is.na(first_covariate) && !is.na(last_covariate) && last_covariate >= first_covariate) {
     # Build a header row with blanks except for the covariate span
-    header_row <- separator_row_non_covariate_columns |> str_replace_all("-", " ") #rep(" ", length(printed_colnames))
+    header_row <-
+      map2_chr(separator_row, names(separator_row), ~ if_else(.y %in% covariate_names, " ", .x))  |>
+      str_replace_all("-", " ")
+    
+    
     span_length <- last_covariate - first_covariate + 1
     # Adapt label length
     label <- paste0("-- COVARIATES ", paste(rep("-", max(0, span_length * 3 - 13)), collapse=""), "--")
     # Abbreviate if too long
     if (nchar(label) > span_length * 8) label <- "-- COVAR --"
+    
+    difference_spacing = separator_row[names(separator_row) %in% covariate_names & names(separator_row) %in% printed_colnames] |> map_int(nchar) |> sum() - nchar(label)
+
     header_row[first_covariate] <- paste0("| ", label)
     header_row[last_covariate] <- paste0(header_row[last_covariate], "|")
+    
+    # Spacer
+    if(last_covariate > (first_covariate+1)) header_row[first_covariate +1] = rep("-", difference_spacing) |> paste(collapse = "")
+    
     header_row = paste(rep(" ", number_of_total_rows |> nchar() -2), collapse = "") |> c(header_row)
     covariate_header <- paste(header_row, collapse=" ")
     covariate_header <- cli::col_br_blue(covariate_header)

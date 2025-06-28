@@ -227,9 +227,9 @@ but they do not completely overlap.")
         list(`|` = sep_(nn)),
         assays_,
         list(`|` = sep_(nn)),
-        row_,
+        col_,
         list(`|` = sep_(nn)),
-        col_
+        row_
       )
       attr(out, "row.names") <- c(NA_integer_, -nn)
       class(out) <- c("SE_abstraction", "tbl_df", "tbl", "data.frame")
@@ -265,8 +265,9 @@ but they do not completely overlap.")
         add_attr(nrow(x),  "number_of_features") %>%
         add_attr(ncol(x),  "number_of_samples") %>%
         add_attr(assays(x) %>% names, "assay_names") %>%
-        #add_attr(separator_row[!names(separator_row) %in% names(col_)] |> map_int(nchar) |> sum(), "length_non_covariate_columns") |> 
-        add_attr(map2_chr(separator_row, names(separator_row), ~ if_else(.y %in% names(col_), " ", .x)), "separator_row_non_covariate_columns") |> 
+        add_attr(separator_row, "separator_row") |> 
+        add_attr(names(col_), "covariate_names") |> 
+        
         add_attr(
           colnames(out_sub),
           "printed_colnames"
