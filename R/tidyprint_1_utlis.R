@@ -2,6 +2,19 @@
 #' @importFrom pillar new_pillar_shaft
 #' @importFrom pillar ctl_new_rowid_pillar
 #' @importFrom pillar new_pillar
+#' @importFrom rlang names2
+#' @importFrom pillar align
+#' @importFrom pillar get_extent
+#' @importFrom pillar style_subtle
+#' @importFrom pillar tbl_format_header
+#' @importFrom cli col_br_black
+#' @importFrom tibble as_tibble
+#' @importFrom stringr str_replace_all
+#' @importFrom purrr map2_chr
+#' @importFrom purrr map_int
+#' @importFrom dplyr if_else
+#' @importFrom pillar pillar___format_comment
+#' @importFrom pillar NBSP
 #' @export
 ctl_new_rowid_pillar.SE_print_abstraction <- function(controller, x, width, ...) {
   # message('attrx =', x %>% attributes())
@@ -52,6 +65,7 @@ ctl_new_rowid_pillar.SE_print_abstraction <- function(controller, x, width, ...)
 
 }
 
+<<<<<<< HEAD
 
 #' @importFrom pillar pillar ctl_new_pillar
 #' @export
@@ -83,6 +97,58 @@ ctl_new_pillar.SE_print_abstraction <- function(controller, x, width, ..., title
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_replace_all
 #' @importFrom purrr map2_chr
+=======
+#' Format covariate header by distributing label across covariate columns
+#' @param separator_row The separator row with column widths
+#' @param printed_colnames The printed column names
+#' @param covariate_names The names of covariate columns
+#' @param number_of_total_rows The total number of rows for spacing
+#' @param label The label to distribute (default: "COVARIATES")
+#' @return Formatted header string
+#' @export
+format_covariate_header <- function(separator_row, printed_colnames, covariate_names, number_of_total_rows, label = "COVARIATES") {
+  header_row <-
+    map2_chr(separator_row, names(separator_row), ~ if_else(.y %in% covariate_names, .x, .x |> str_replace_all("-", " ")))
+
+  covariate_indices <- which(printed_colnames %in% covariate_names)
+  covariate_widths <- separator_row[printed_colnames[covariate_indices]] |> purrr::map_int(nchar)
+  total_covariate_width <- sum(covariate_widths)
+
+  # Build a string of dashes for all covariate columns
+  dash_string <- paste(rep("-", total_covariate_width), collapse = "")
+
+  # Overlay the label onto the dash string, centered
+  label_start <- floor((total_covariate_width - nchar(label)) / 2) + 1
+  label_end <- label_start + nchar(label) - 1
+  chars <- strsplit(dash_string, "")[[1]]
+  label_chars <- strsplit(label, "")[[1]]
+  if (label_start > 0 && label_end <= total_covariate_width) {
+    chars[label_start:label_end] <- label_chars
+  } else {
+    # If label is too long, truncate
+    chars[1:length(label_chars)] <- label_chars
+  }
+  overlayed <- paste(chars, collapse = "")
+
+  # Split overlayed string back into covariate column widths
+  split_labels <- character(length(covariate_widths))
+  pos <- 1
+  for (i in seq_along(covariate_widths)) {
+    split_labels[i] <- substr(overlayed, pos, pos + covariate_widths[i] - 1)
+    pos <- pos + covariate_widths[i]
+  }
+
+  # Place split_labels into the header_row at covariate_indices
+  for (i in seq_along(covariate_indices)) {
+    header_row[covariate_indices[i]] <- split_labels[i]
+  }
+
+  # Add row ID spacing at the beginning
+  header_row <- c(paste(rep(" ", number_of_total_rows |> nchar() - 2), collapse = ""), header_row)
+  paste(header_row, collapse = " ")
+}
+
+>>>>>>> 4b7ac46 (more scalable COVRIATE header)
 #' @export
 tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
   number_of_features <- x |> attr("number_of_features")
@@ -106,7 +172,6 @@ tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
   covariate_candidates <- setdiff(printed_colnames, c(".sample", ".feature", "|", assay_names))
   # Remove gene/rowData columns if possible (e.g., chromosome, gene_feature, ...)
   # For now, just use all columns after .count and before gene_feature as covariates
-  all_printed_covariates = 
   first_covariate <- which(printed_colnames %in% covariate_candidates)[1]
   last_covariate <- which(printed_colnames %in% covariate_candidates) |> tail(1)
   last_covariate <- if (length(last_covariate) > 0) max(last_covariate) else NA
@@ -114,28 +179,13 @@ tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
   # Only add header if there are covariate columns
   covariate_header <- NULL
   if (!is.na(first_covariate) && !is.na(last_covariate) && last_covariate >= first_covariate) {
-    # Build a header row with blanks except for the covariate span
-    header_row <-
-      map2_chr(separator_row, names(separator_row), ~ if_else(.y %in% covariate_names, " ", .x))  |>
-      str_replace_all("-", " ")
-    
-    
-    span_length <- last_covariate - first_covariate + 1
-    # Adapt label length
-    label <- paste0("-- COVARIATES ", paste(rep("-", max(0, span_length * 3 - 13)), collapse=""), "--")
-    # Abbreviate if too long
-    if (nchar(label) > span_length * 8) label <- "-- COVAR --"
-    
-    difference_spacing = separator_row[names(separator_row) %in% covariate_names & names(separator_row) %in% printed_colnames] |> map_int(nchar) |> sum() - nchar(label)
-
-    header_row[first_covariate] <- paste0("| ", label)
-    header_row[last_covariate] <- paste0(header_row[last_covariate], "|")
-    
-    # Spacer
-    if(last_covariate > (first_covariate+1)) header_row[first_covariate +1] = rep("-", difference_spacing) |> paste(collapse = "")
-    
-    header_row = paste(rep(" ", number_of_total_rows |> nchar() -2), collapse = "") |> c(header_row)
-    covariate_header <- paste(header_row, collapse=" ")
+    covariate_header <- format_covariate_header(
+      separator_row = separator_row,
+      printed_colnames = printed_colnames,
+      covariate_names = covariate_names,
+      number_of_total_rows = number_of_total_rows,
+      label = "COVARIATES"
+    )
     covariate_header <- cli::col_br_blue(covariate_header)
   }
 
