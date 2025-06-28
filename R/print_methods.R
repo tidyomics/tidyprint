@@ -8,6 +8,8 @@
 #' @importFrom S4Vectors coolcat
 #' @importFrom purrr when map_chr
 #' @importFrom stringr str_replace
+#' @importFrom magrittr `%>%`
+#' @importFrom dplyr if_else
 #' @export
 print.SummarizedExperiment <- function(x, design = 1, n_print = 10, ...) {
 
@@ -95,7 +97,7 @@ but they do not completely overlap.")
           ~ .[, 1:min(20, ncol(x)), drop=FALSE]
         ) %>%
         as_tibble()
-      # browser()
+      
       my_tibble |>
         vctrs::new_data_frame(class=c("tidySummarizedExperiment", "tbl")) %>%
         add_attr(nrow(x),  "number_of_features") %>%
@@ -219,8 +221,8 @@ but they do not completely overlap.")
       nn <- nc * nr
       out <- c(
         list(
-          .features = vctrs::vec_rep(.features, times = nc),
-          .samples  = vctrs::vec_rep_each(.samples, times = nr)
+          .feature = vctrs::vec_rep(.features, times = nc),
+          .sample  = vctrs::vec_rep_each(.samples, times = nr)
         ),
         list(`|` = sep_(nn)),
         assays_,
@@ -240,8 +242,8 @@ but they do not completely overlap.")
       out_sub <- out[sub_seq, ]
 
       # Compute the max character width for each column
-      separator_row <- sapply(out_sub %>% colnames(), function(col) {
-        max_width <- max(nchar(as.character(col)), na.rm = TRUE)  # Get max width in the column
+      separator_row <- map2_chr(out_sub, names(out_sub), ~ {
+        max_width <- max(nchar(as.character(.x)), na.rm = TRUE) |> max(nchar(.y))  # Get max width in the column
         paste(rep("-", max_width), collapse = "")  # Generate a separator of the same length
       })
       # Modify the entire tibble to include a separator row across all columns
@@ -250,7 +252,6 @@ but they do not completely overlap.")
         as.list(separator_row),      # Adaptive separator row
         out_sub[(top_n+1):nrow(out_sub), ]
       ))
-
 
       # attr(out_sub, "n") <- n
       # attr(out_sub, "total_rows") <- x %>% dim %>% {(.)[1] * (.)[2]}
@@ -264,14 +265,13 @@ but they do not completely overlap.")
         add_attr(nrow(x),  "number_of_features") %>%
         add_attr(ncol(x),  "number_of_samples") %>%
         add_attr(assays(x) %>% names, "assay_names") %>%
+        #add_attr(separator_row[!names(separator_row) %in% names(col_)] |> map_int(nchar) |> sum(), "length_non_covariate_columns") |> 
+        add_attr(map2_chr(separator_row, names(separator_row), ~ if_else(.y %in% names(col_), " ", .x)), "separator_row_non_covariate_columns") |> 
         add_attr(
-          # sprintf(
-          #   "%s %s %s",
-          #   x %>% dim %>% {(.)[1] * (.)[2]} %>%
-          #     format(format="f", big.mark=",", digits=1),
-          #   cli::symbol$times,
-          #   ncol(out_sub)
-          # ) %>%
+          colnames(out_sub),
+          "printed_colnames"
+        ) %>%
+        add_attr(
           '' %>%
             setNames("A SummarizedExperiment-tibble abstraction"),
           "named_header"
