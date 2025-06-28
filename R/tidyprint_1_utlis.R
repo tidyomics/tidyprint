@@ -88,6 +88,8 @@ ctl_new_pillar.SE_print_abstraction <- function(controller, x, width, ..., title
 
 
 
+#' Format covariate header by distributing label across covariate columns
+#' 
 #' @importFrom rlang names2
 #' @importFrom pillar align
 #' @importFrom pillar get_extent
@@ -97,8 +99,7 @@ ctl_new_pillar.SE_print_abstraction <- function(controller, x, width, ..., title
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_replace_all
 #' @importFrom purrr map2_chr
-=======
-#' Format covariate header by distributing label across covariate columns
+#' 
 #' @param separator_row The separator row with column widths
 #' @param printed_colnames The printed column names
 #' @param covariate_names The names of covariate columns
@@ -146,7 +147,6 @@ format_covariate_header <- function(separator_row, printed_colnames, covariate_n
   
 }
 
->>>>>>> 4b7ac46 (more scalable COVRIATE header)
 #' @export
 tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
   number_of_features <- x |> attr("number_of_features")
