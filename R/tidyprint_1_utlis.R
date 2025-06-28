@@ -112,40 +112,38 @@ format_covariate_header <- function(separator_row, printed_colnames, covariate_n
 
   covariate_indices <- which(printed_colnames %in% covariate_names)
   covariate_widths <- separator_row[printed_colnames[covariate_indices]] |> purrr::map_int(nchar)
-  total_covariate_width <- sum(covariate_widths)
+  total_covariate_width <- sum(covariate_widths) + length(covariate_widths) + 3 # To compensate the white spaces of the tibble
+  label_length <- nchar(label)
 
-  # Build a string of dashes for all covariate columns
-  dash_string <- paste(rep("-", total_covariate_width), collapse = "")
+  # Center the label in the total covariate width, using only dashes and the label
+  left_pad <- floor((total_covariate_width - label_length) / 2)
+  right_pad <- total_covariate_width - label_length - left_pad
+  merged_label <- paste0(
+    paste(rep("-", left_pad), collapse = ""),
+    label,
+    paste(rep("-", right_pad), collapse = "")
+  )
+  
+  # Add '|' at the beginning and end
+  merged_label <- paste0("|", merged_label, "|")
+  
+  # Guarantee the merged_label is exactly total_covariate_width + 2
+  merged_label <- substr(merged_label, 1, total_covariate_width + 2)
 
-  # Overlay the label onto the dash string, centered
-  label_start <- floor((total_covariate_width - nchar(label)) / 2) + 1
-  label_end <- label_start + nchar(label) - 1
-  chars <- strsplit(dash_string, "")[[1]]
-  label_chars <- strsplit(label, "")[[1]]
-  if (label_start > 0 && label_end <= total_covariate_width) {
-    chars[label_start:label_end] <- label_chars
-  } else {
-    # If label is too long, truncate
-    chars[1:length(label_chars)] <- label_chars
-  }
-  overlayed <- paste(chars, collapse = "")
 
-  # Split overlayed string back into covariate column widths
-  split_labels <- character(length(covariate_widths))
-  pos <- 1
-  for (i in seq_along(covariate_widths)) {
-    split_labels[i] <- substr(overlayed, pos, pos + covariate_widths[i] - 1)
-    pos <- pos + covariate_widths[i]
-  }
+  # Now replace the first and last elements of the header_row for the covariate columns with the only merged_label
+  header_row[covariate_indices[1]] <- merged_label
 
-  # Place split_labels into the header_row at covariate_indices
-  for (i in seq_along(covariate_indices)) {
-    header_row[covariate_indices[i]] <- split_labels[i]
-  }
-
+  # remove the other covariate columns
+  header_row[covariate_indices[-1]] <- ""
+  
   # Add row ID spacing at the beginning
-  header_row <- c(paste(rep(" ", number_of_total_rows |> nchar() - 2), collapse = ""), header_row)
+  header_row <- c(paste(rep(" ", number_of_total_rows |> nchar() - 3), collapse = ""), header_row)
+
+  # Step 2: Collapse everything with space
   paste(header_row, collapse = " ")
+
+  
 }
 
 >>>>>>> 4b7ac46 (more scalable COVRIATE header)
@@ -178,13 +176,14 @@ tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
 
   # Only add header if there are covariate columns
   covariate_header <- NULL
+  
   if (!is.na(first_covariate) && !is.na(last_covariate) && last_covariate >= first_covariate) {
     covariate_header <- format_covariate_header(
       separator_row = separator_row,
       printed_colnames = printed_colnames,
       covariate_names = covariate_names,
       number_of_total_rows = number_of_total_rows,
-      label = "COVARIATES"
+      label = " COVARIATES "
     )
     covariate_header <- cli::col_br_blue(covariate_header)
   }
