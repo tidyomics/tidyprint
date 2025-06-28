@@ -49,7 +49,7 @@ test_that("format_covariate_header overlays label as a continuous string", {
   )
   expect_snapshot_output(cat(result2, "\n"))
 
-  result3 <- format_covariate_header(
+  result3 <- tidyprint:::format_covariate_header(
     separator_row = separator_row,
     printed_colnames = printed_colnames,
     covariate_names = covariate_names,

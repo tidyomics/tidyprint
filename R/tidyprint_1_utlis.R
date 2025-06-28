@@ -13,8 +13,6 @@
 #' @importFrom purrr map2_chr
 #' @importFrom purrr map_int
 #' @importFrom dplyr if_else
-#' @importFrom pillar pillar___format_comment
-#' @importFrom pillar NBSP
 #' @export
 ctl_new_rowid_pillar.SE_print_abstraction <- function(controller, x, width, ...) {
   # message('attrx =', x %>% attributes())
