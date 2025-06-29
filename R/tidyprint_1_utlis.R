@@ -63,8 +63,6 @@ ctl_new_rowid_pillar.SE_print_abstraction <- function(controller, x, width, ...)
 
 }
 
-<<<<<<< HEAD
-
 #' @importFrom pillar pillar ctl_new_pillar
 #' @export
 ctl_new_pillar.SE_print_abstraction <- function(controller, x, width, ..., title = NULL) {
