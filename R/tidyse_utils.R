@@ -1,3 +1,7 @@
+#' @importFrom tidyr nest
+#' @importFrom dplyr select
+#' @importFrom tidyr pivot_longer
+#' @importFrom dplyr full_join
 # This file is a replacement of the unexported functions in the tibble
 # package, in order to specify "tibble abstraction in the header"
 
@@ -257,6 +261,14 @@ add_attr <- function(var, attribute, name) {
   var
 }
 
+eliminate_GRanges_metadata_columns_also_present_in_Rowdata <- function(.my_data, se) {
+  .my_data %>%
+    select(-one_of(colnames(rowData(se)))) %>%
+    
+    # In case there is not metadata column
+    suppressWarnings() 
+}
+
 get_special_datasets <- function(se) {
 
   rr =  se %>%
@@ -281,7 +293,7 @@ get_special_datasets <- function(se) {
         tibble::as_tibble(rr) %>%
           eliminate_GRanges_metadata_columns_also_present_in_Rowdata(se) %>%
           nest(GRangesList = -group_name) %>%
-          rename(!!f_(se)$symbol := group_name)
+          dplyr::rename(!!f_(se)$symbol := group_name)
 
       },
 

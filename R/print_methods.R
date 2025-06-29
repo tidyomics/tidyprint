@@ -11,7 +11,7 @@
 #' @importFrom magrittr `%>%`
 #' @importFrom dplyr if_else
 #' @export
-print.SummarizedExperiment <- function(x, design = 1, n_print = 10, ...) {
+print.SummarizedExperiment <- function(x, design = 4, n_print = 10, ...) {
 
   # Match the user-supplied design argument to one of the valid choices:
   if (is.numeric(design)) {
@@ -242,8 +242,8 @@ but they do not completely overlap.")
       out_sub <- out[sub_seq, ]
 
       # Compute the max character width for each column
-      separator_row <- map2_chr(out_sub, names(out_sub), ~ {
-        max_width <- max(nchar(as.character(.x)), na.rm = TRUE) |> max(nchar(.y))  # Get max width in the column
+      separator_row <- sapply(out_sub %>% colnames(), function(col) {
+        max_width <- max(nchar(as.character(col)), na.rm = TRUE)  # Get max width in the column
         paste(rep("-", max_width), collapse = "")  # Generate a separator of the same length
       })
       # Modify the entire tibble to include a separator row across all columns

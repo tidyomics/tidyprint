@@ -10,7 +10,7 @@ data(se_airway)
 
 # test for default design
 test_that("Default SummarizedExperiment print works", {
-  expect_output(print(se_airway), "class: SummarizedExperiment")
+  expect_output(print(se_airway), "A SummarizedExperiment-tibble abstraction:")
 })
 
 test_that("Default SummarizedExperiment print works", {

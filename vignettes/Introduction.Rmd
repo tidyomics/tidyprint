@@ -73,7 +73,7 @@ Depending on your workflow and desired console output, `tidyprint` makes it easy
 
 ## 1. Installation
 
-You need the `remotes` package to install from GitHub. If you don’t have it, install it via:
+You need the `remotes` package to install from GitHub. If you don't have it, install it via:
 
 ```{r eval=FALSE}
 install.packages("remotes")
@@ -97,50 +97,42 @@ Below is an example demonstrating how to use **tidyprint** with a sample `Summar
 
 library(dplyr)
 library(tidyr)
-
-# Now load tidyprint
-
-library(tidyprint)
-
-# Example SummarizedExperiment data from the airway package
-
-data(se_airway)
-se_airway
-
+library(airway)
+data(airway)
 ```
 
-------------------------------------------------------------------------
-
-### 2.2 **SummarizedExperiment** (Default)
+### **SummarizedExperiment**
 
 The standard SummarizedExperiment display:
 
 ```{r}
 
-# The default style:
-se_airway %>% print(design = "SummarizedExperiment")
+airway 
 
 ```
 
-### 2.3 **tidyprint_1**
+### **tidyprint**
 
-For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style with tidySummarizedExperiment header:
+Now we load tidyprint for a tidy data display
 
 ```{r}
-
-se_airway %>% print(design = "tidyprint_1")
-
+library(tidyprint)
+airway
 ```
+
+------------------------------------------------------------------------
+
+**For comparative purposes we display the alternative visualisations we are trying to harmonise**
 
 ### 2.4 **tidySummarizedExperiment**
 
-Use the “tidySummarizedExperiment” design to view your data in a **tidy-friendly tibble** format:
+Use the "tidySummarizedExperiment" design to view your data in a **tidy-friendly tibble** format:
 
 ```{r}
 
 # Tidy SummarizedExperiment print:
 
-se_airway %>% print(design = "tidySummarizedExperiment")
+airway %>% print(design = "tidySummarizedExperiment")
 
 ```
 
@@ -150,7 +142,7 @@ For a more compact view (top and bottom rows), similar to a plyxp/tidyverse styl
 
 ```{r}
 
-se_airway %>% print(design = "plyxp")
+airway %>% print(design = "plyxp")
 
 ```
 

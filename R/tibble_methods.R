@@ -1,10 +1,11 @@
-
 #' @importFrom purrr reduce
 #' @importFrom purrr map map2
 #' @importFrom tidyr spread
 #' @importFrom tibble enframe
 #' @importFrom SummarizedExperiment colData
 #' @importFrom pkgconfig get_config
+#' @importFrom rlang enquo
+#' @importFrom dplyr left_join
 #' @export
 as_tibble.SummarizedExperiment <- function(x, ...,
                                            .name_repair=c("check_unique", "unique", "universal", "minimal"),
@@ -19,7 +20,7 @@ as_tibble.SummarizedExperiment <- function(x, ...,
                                  .name_repair=c("check_unique", "unique", "universal", "minimal"),
                                  rownames=pkgconfig::get_config("tibble::rownames", NULL)) {
 
-  .subset <- enquo(.subset)
+  .subset <- rlang::enquo(.subset)
 
   sample_info <-
     colData(x) %>%

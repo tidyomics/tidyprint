@@ -109,7 +109,7 @@ format_covariate_header <- function(separator_row, printed_colnames, covariate_n
 
   covariate_indices <- which(printed_colnames %in% covariate_names)
   covariate_widths <- separator_row[printed_colnames[covariate_indices]] |> purrr::map_int(nchar)
-  total_covariate_width <- sum(covariate_widths) + length(covariate_widths) + 3 # To compensate the white spaces of the tibble
+  total_covariate_width <- sum(covariate_widths) + length(covariate_widths) + 1 # To compensate the white spaces of the tibble
   label_length <- nchar(label)
 
   # Center the label in the total covariate width, using only dashes and the label
@@ -135,7 +135,7 @@ format_covariate_header <- function(separator_row, printed_colnames, covariate_n
   header_row[covariate_indices[-1]] <- ""
   
   # Add row ID spacing at the beginning
-  header_row <- c(paste(rep(" ", number_of_total_rows |> nchar() - 3), collapse = ""), header_row)
+  header_row <- c(paste(rep(" ", number_of_total_rows |> nchar() - 4), collapse = ""), header_row)
 
   # Step 2: Collapse everything with space
   paste(header_row, collapse = " ")
