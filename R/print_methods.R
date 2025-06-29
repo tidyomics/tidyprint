@@ -269,7 +269,9 @@ but they do not completely overlap.")
         add_attr(names(col_), "covariate_names") |> 
         
         add_attr(
-          colnames(out_sub),
+          # Get the actual column names that will be printed on screen
+          # This uses tibble's internal method to determine visible columns
+          pillar::tbl_format_setup(out_sub, width = getOption("width", 80) + 4)$body[1] |> as.character(),
           "printed_colnames"
         ) %>%
         add_attr(
@@ -284,6 +286,7 @@ but they do not completely overlap.")
       invisible(x)
     }
 
+    
     print_tidyprint_1(x, ...)
     invisible(x)
 

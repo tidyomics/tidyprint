@@ -4,43 +4,6 @@
 #' @importFrom dplyr full_join
 # This file is a replacement of the unexported functions in the tibble
 # package, in order to specify "tibble abstraction in the header"
-
-#' @importFrom rlang names2
-#' @importFrom pillar align
-#' @importFrom pillar get_extent
-#' @importFrom pillar style_subtle
-#' @importFrom pillar tbl_format_header
-#' @importFrom cli col_br_black
-#' @importFrom tibble as_tibble
-#' @export
-tbl_format_header.tidySummarizedExperiment <- function(x, setup, ...) {
-
-  number_of_features <- x |> attr("number_of_features")
-  number_of_samples <- x |> attr("number_of_samples")
-  named_header <- x |> attr("named_header")
-  assay_names <- x |> attr("assay_names")
-
-
-  if (all(names2(named_header) == "")) {
-    header <- named_header
-  } else {
-    header <-
-      paste0(
-        align(paste0(names2(named_header), ":"), space=NBSP),
-        " ",
-        named_header
-      ) %>%
-      # Add further info single-cell
-      append( cli::col_br_black( sprintf(
-        " Features=%s | Samples=%s | Assays=%s",
-        number_of_features,
-        number_of_samples,
-        assay_names %>% paste(collapse=", ")
-      )), after = 1)
-  }
-  style_subtle(pillar___format_comment(header, width=setup$width))
-}
-
 check_if_assays_are_NOT_overlapped <- function(se, dim = "cols") {
 
   stopifnot(dim %in% c("rows", "cols"))

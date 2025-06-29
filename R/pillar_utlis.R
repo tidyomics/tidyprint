@@ -19,6 +19,7 @@ pillar___strwrap2 <- function (x, width, indent, strip.spaces = TRUE)
 
 pillar___wrap <- function (..., indent=0, prefix="", width, strip.spaces = TRUE)
 {
+  
   x <- paste0(..., collapse="")
   wrapped <- pillar___strwrap2(x, width - get_extent(prefix), indent, strip.spaces = strip.spaces)
   wrapped <- paste0(prefix, wrapped)

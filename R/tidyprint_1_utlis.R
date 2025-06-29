@@ -155,34 +155,43 @@ tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
   number_of_total_rows = (x |> attr("number_of_features")) * (x |> attr("number_of_samples"))
   
   printed_colnames <- x |> attr("printed_colnames")
-
-  # Identify covariate columns: those from colData
-  # Assume covariate columns are after .sample, .feature, .count, and assay columns
-  # We'll use heuristics: find the first and last covariate column positions
   
-  # .feature and .samples SHOULD BE A GLOBAL VARIABLE CREATED ONES
-  # SO IT CAN BE CHANGED ACROSS THE PACKAGE
-  # THIS BREAKS IF I HAVE ROWDATA
-  covariate_candidates <- setdiff(printed_colnames, c(".sample", ".feature", "|", assay_names))
-  # Remove gene/rowData columns if possible (e.g., chromosome, gene_feature, ...)
-  # For now, just use all columns after .count and before gene_feature as covariates
-  first_covariate <- which(printed_colnames %in% covariate_candidates)[1]
-  last_covariate <- which(printed_colnames %in% covariate_candidates) |> tail(1)
-  last_covariate <- if (length(last_covariate) > 0) max(last_covariate) else NA
-
-  # Only add header if there are covariate columns
-  covariate_header <- NULL
+  # Find the positions of all '|' characters in the string
+  pipe_positions <- stringr::str_locate_all(printed_colnames, "\\|")[[1]][, "start"]
   
-  if (!is.na(first_covariate) && !is.na(last_covariate) && last_covariate >= first_covariate) {
-    covariate_header <- format_covariate_header(
-      separator_row = separator_row,
-      printed_colnames = printed_colnames,
-      covariate_names = covariate_names,
-      number_of_total_rows = number_of_total_rows,
-      label = " COVARIATES "
-    )
-    covariate_header <- cli::col_br_blue(covariate_header)
+  # Calculate character length to the start of the second '|'
+  chars_to_second_pipe <- pipe_positions[2] - 2
+  
+  # Check if there's a third pipe
+  if (length(pipe_positions) >= 3) {
+    # Calculate character length between second and third pipe
+    chars_to_third_pipe <- pipe_positions[3] - pipe_positions[2] - 2
+  } else {
+    # Calculate character length to the end of the line
+    chars_to_third_pipe <- nchar(printed_colnames) - pipe_positions[2]
   }
+
+  label = " COVARIATES "
+  label_length <- nchar(label)
+
+  # Center the label in the total covariate width, using only dashes and the label
+  left_pad <- floor((chars_to_third_pipe - label_length) / 2)
+  right_pad <- chars_to_third_pipe - label_length - left_pad
+  merged_label <- paste0(
+    paste(rep("-", left_pad), collapse = ""),
+    label,
+    paste(rep("-", right_pad), collapse = "")
+  )
+  
+  # Add '|' at the beginning and end
+  merged_label <- paste0("|", merged_label, "|")
+  
+  # Pad with the spaces until chars to second pipe
+  merged_label <- c(paste(rep(" ", chars_to_second_pipe), collapse = ""), merged_label) |> 
+    paste0(collapse = "")
+
+  covariate_header <- cli::col_br_blue(merged_label)
+
 
   # Compose the main header as before
   if (all(names2(named_header) == "")) {
