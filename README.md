@@ -84,15 +84,26 @@ Now we load tidyprint for a tidy data display
 ``` r
 library(tidyprint)
 airway
-#> class: RangedSummarizedExperiment 
-#> dim: 63677 8 
-#> metadata(1): ''
-#> assays(1): counts
-#> rownames(63677): ENSG00000000003 ENSG00000000005 ... ENSG00000273492
-#>   ENSG00000273493
-#> rowData names(10): gene_id gene_name ... seq_coord_system symbol
-#> colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
-#> colData names(9): SampleName cell ... Sample BioSample
+#> # A SummarizedExperiment-tibble abstraction: Features=63677 | Samples=8 | 
+#> #   Assays=counts
+#> #                                 |----------------- COVARIATES ---------------|
+#>        .feature  .sample | counts | SampleName cell  dex   albut Run   avgLength
+#>        <chr>     <chr>   | <chr>  | <fct>      <fct> <fct> <fct> <fct> <chr>    
+#> 1      ENSG0000… SRR103… | 679    | GSM1275862 N613… untrt untrt SRR1… 126      
+#> 2      ENSG0000… SRR103… | 0      | GSM1275862 N613… untrt untrt SRR1… 126      
+#> 3      ENSG0000… SRR103… | 467    | GSM1275862 N613… untrt untrt SRR1… 126      
+#> 4      ENSG0000… SRR103… | 260    | GSM1275862 N613… untrt untrt SRR1… 126      
+#> 5      ENSG0000… SRR103… | 60     | GSM1275862 N613… untrt untrt SRR1… 126      
+#>        --------  ------- - ------ - ---------- ----  ---   ----- ---   ---------
+#> 509412 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
+#> 509413 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
+#> 509414 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
+#> 509415 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
+#> 509416 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
+#> # ℹ 14 more variables: Experiment <fct>, Sample <fct>, BioSample <fct>,
+#> #   `|` <|>, gene_id <chr>, gene_name <chr>, entrezid <chr>,
+#> #   gene_biotype <chr>, gene_seq_start <chr>, gene_seq_end <chr>,
+#> #   seq_name <chr>, seq_strand <chr>, seq_coord_system <chr>, symbol <chr>
 ```
 
 ------------------------------------------------------------------------
