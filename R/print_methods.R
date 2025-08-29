@@ -6,10 +6,10 @@
 #' @importFrom SummarizedExperiment assayNames assays rowData assays<- rowRanges
 #' @importFrom stats setNames
 #' @importFrom S4Vectors coolcat
-#' @importFrom purrr when map_chr
+#' @importFrom purrr when map_chr keep
 #' @importFrom stringr str_replace
 #' @importFrom magrittr `%>%`
-#' @importFrom dplyr if_else
+#' @importFrom dplyr if_else mutate across
 #' @export
 print.SummarizedExperiment <- function(x, design = 4, n_print = 10, ...) {
 
@@ -97,7 +97,7 @@ but they do not completely overlap.")
           ~ .[, 1:min(20, ncol(x)), drop=FALSE]
         ) %>%
         as_tibble()
-      
+
       my_tibble |>
         vctrs::new_data_frame(class=c("tidySummarizedExperiment", "tbl")) %>%
         add_attr(nrow(x),  "number_of_features") %>%
@@ -246,12 +246,20 @@ but they do not completely overlap.")
         max_width <- max(nchar(as.character(col)), na.rm = TRUE)  # Get max width in the column
         paste(rep("-", max_width), collapse = "")  # Generate a separator of the same length
       })
+
       # Modify the entire tibble to include a separator row across all columns
+      ## temporalily convert factor cols to char
+      fct_col = map(out_sub, is.factor) %>% keep(~{.x == T}) %>% names
+      if (length(fct_col)) out_sub[, fct_col] = out_sub[, fct_col] %>% mutate(across(all_of(fct_col), as.character))
+
+
       out_sub <- suppressWarnings(rbind(
         out_sub[seq_len(top_n),],
         as.list(separator_row),      # Adaptive separator row
         out_sub[(top_n+1):nrow(out_sub), ]
       ))
+      ## reverse to factor cols
+      if (length(fct_col)) out_sub[, fct_col] = out_sub[, fct_col] %>% mutate(across(all_of(fct_col), as.factor))
 
       # attr(out_sub, "n") <- n
       # attr(out_sub, "total_rows") <- x %>% dim %>% {(.)[1] * (.)[2]}
@@ -265,15 +273,15 @@ but they do not completely overlap.")
         add_attr(nrow(x),  "number_of_features") %>%
         add_attr(ncol(x),  "number_of_samples") %>%
         add_attr(assays(x) %>% names, "assay_names") %>%
-        add_attr(separator_row, "separator_row") |> 
-        add_attr(names(col_), "covariate_names") |> 
-        
-        add_attr(
-          # Get the actual column names that will be printed on screen
-          # This uses tibble's internal method to determine visible columns
-          pillar::tbl_format_setup(out_sub, width = getOption("width", 80) + 4)$body[1] |> as.character(),
-          "printed_colnames"
-        ) %>%
+        add_attr(separator_row, "separator_row") |>
+        add_attr(names(col_), "covariate_names") |>
+
+        # add_attr(
+        #   # Get the actual column names that will be printed on screen
+        #   # This uses tibble's internal method to determine visible columns
+        #   pillar::tbl_format_setup(out_sub, width = getOption("width", 80) + 4)$body[1] |> as.character(),
+        #   "printed_colnames"
+        # ) %>%
         add_attr(
           '' %>%
             setNames("A SummarizedExperiment-tibble abstraction"),
@@ -286,7 +294,7 @@ but they do not completely overlap.")
       invisible(x)
     }
 
-    
+
     print_tidyprint_1(x, ...)
     invisible(x)
 

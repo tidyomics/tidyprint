@@ -85,7 +85,7 @@ ctl_new_pillar.SE_print_abstraction <- function(controller, x, width, ..., title
 
 
 #' Format covariate header by distributing label across covariate columns
-#' 
+#'
 #' @importFrom rlang names2
 #' @importFrom pillar align
 #' @importFrom pillar get_extent
@@ -95,7 +95,7 @@ ctl_new_pillar.SE_print_abstraction <- function(controller, x, width, ..., title
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_replace_all
 #' @importFrom purrr map2_chr
-#' 
+#'
 #' @param separator_row The separator row with column widths
 #' @param printed_colnames The printed column names
 #' @param covariate_names The names of covariate columns
@@ -120,10 +120,10 @@ format_covariate_header <- function(separator_row, printed_colnames, covariate_n
     label,
     paste(rep("-", right_pad), collapse = "")
   )
-  
+
   # Add '|' at the beginning and end
   merged_label <- paste0("|", merged_label, "|")
-  
+
   # Guarantee the merged_label is exactly total_covariate_width + 2
   merged_label <- substr(merged_label, 1, total_covariate_width + 2)
 
@@ -133,42 +133,57 @@ format_covariate_header <- function(separator_row, printed_colnames, covariate_n
 
   # remove the other covariate columns
   header_row[covariate_indices[-1]] <- ""
-  
+
   # Add row ID spacing at the beginning
   header_row <- c(paste(rep(" ", number_of_total_rows |> nchar() - 4), collapse = ""), header_row)
 
   # Step 2: Collapse everything with space
   paste(header_row, collapse = " ")
 
-  
+
 }
 
+#' Custom header for SE_print_abstraction tibbles
+#'
+#' Draws a banner aligned to the first rendered body line, and prints a
+#' one-line summary with feature/sample/assay counts.
+#'
+#' @importFrom pillar tbl_format_header align style_subtle
+#' @importFrom cli col_br_blue col_br_black
+#' @importFrom stringr str_locate_all
+#' @importFrom rlang names2
+#' @importFrom magrittr %>%
 #' @export
 tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
+
   number_of_features <- x |> attr("number_of_features")
   number_of_samples <- x |> attr("number_of_samples")
   named_header <- x |> attr("named_header")
   assay_names <- x |> attr("assay_names")
   separator_row <- x |> attr("separator_row")
   covariate_names <- x |> attr("covariate_names")
-  
+
+  x<<-x
+
+
   number_of_total_rows = (x |> attr("number_of_features")) * (x |> attr("number_of_samples"))
-  
-  printed_colnames <- x |> attr("printed_colnames")
-  
+
+  # printed_colnames <- x |> attr("printed_colnames")
+  printed_colnames <- pillar::tbl_format_setup(x)$body[1] |> as.character()
+
   # Find the positions of all '|' characters in the string
   pipe_positions <- stringr::str_locate_all(printed_colnames, "\\|")[[1]][, "start"]
-  
+
   # Calculate character length to the start of the second '|'
-  chars_to_second_pipe <- pipe_positions[2] - 2
-  
+  chars_to_second_pipe <- pipe_positions[2] - 3
+
   # Check if there's a third pipe
   if (length(pipe_positions) >= 3) {
     # Calculate character length between second and third pipe
-    chars_to_third_pipe <- pipe_positions[3] - pipe_positions[2] - 2
+    chars_to_third_pipe <- pipe_positions[3] - pipe_positions[2] -1
   } else {
     # Calculate character length to the end of the line
-    chars_to_third_pipe <- nchar(printed_colnames) - pipe_positions[2]
+    chars_to_third_pipe <- nchar(printed_colnames) - pipe_positions[2] -1
   }
 
   label = " COVARIATES "
@@ -176,21 +191,26 @@ tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
 
   # Center the label in the total covariate width, using only dashes and the label
   left_pad <- floor((chars_to_third_pipe - label_length) / 2)
-  right_pad <- chars_to_third_pipe - label_length - left_pad
-  merged_label <- paste0(
-    paste(rep("-", left_pad), collapse = ""),
-    label,
-    paste(rep("-", right_pad), collapse = "")
-  )
-  
-  # Add '|' at the beginning and end
-  merged_label <- paste0("|", merged_label, "|")
-  
-  # Pad with the spaces until chars to second pipe
-  merged_label <- c(paste(rep(" ", chars_to_second_pipe), collapse = ""), merged_label) |> 
-    paste0(collapse = "")
+  right_pad <- chars_to_third_pipe - label_length - left_pad -1
 
-  covariate_header <- cli::col_br_blue(merged_label)
+  if (left_pad >0 & right_pad >0){
+    merged_label <- paste0(
+      paste(rep("-", left_pad), collapse = ""),
+      label,
+      paste(rep("-", right_pad), collapse = "")
+    )
+
+    # Add '|' at the beginning and end
+    merged_label <- paste0("|-", merged_label, "|")
+
+    # Pad with the spaces until chars to second pipe
+    merged_label <- c(paste(rep(" ", chars_to_second_pipe), collapse = ""), merged_label) |>
+      paste0(collapse = "")
+
+    covariate_header <- cli::col_br_blue(merged_label)
+  }else{
+    covariate_header = NULL
+  }
 
 
   # Compose the main header as before
@@ -217,8 +237,10 @@ tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
   if (!is.null(covariate_header)) {
     header <- c(header, covariate_header)
   }
- 
+
+
   style_subtle(pillar___format_comment(header, width=setup$width, strip.spaces = FALSE))
+
 }
 
 # type_sum.sep <- function(x, ...) {
