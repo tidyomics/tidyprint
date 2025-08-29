@@ -11,20 +11,18 @@ knit: >
     (function(x, ...){
         proj_root <- rprojroot::find_package_root_file() |> normalizePath()
         rmarkdown::render(
+            x, 
+            output_file = "README.md", 
+            output_format = "github_document", 
+            output_dir = proj_root, 
+            knit_root_dir = proj_root, 
+            params = list( demo_metadata = FALSE ) 
+        )
+        rmarkdown::render(
             x,
             output_format = "html_document",
             params = list(
                 demo_metadata = TRUE
-            )
-        )
-        rmarkdown::render(
-            x,
-            output_file = "README.md",
-            output_format = "github_document",
-            output_dir = proj_root,
-            knit_root_dir = proj_root,
-            params = list(
-                demo_metadata = FALSE
             )
         )
     })

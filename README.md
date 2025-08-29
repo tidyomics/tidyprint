@@ -66,26 +66,15 @@ The standard SummarizedExperiment display:
 ``` r
 
 airway 
-#> # A SummarizedExperiment-tibble abstraction: Features=63677 | Samples=8 | 
-#> #   Assays=counts
-#> #                                 |----------------- COVARIATES ---------------|
-#>        .feature  .sample | counts | SampleName cell  dex   albut Run   avgLength
-#>        <chr>     <chr>   | <chr>  | <fct>      <fct> <fct> <fct> <fct> <chr>    
-#> 1      ENSG0000… SRR103… | 679    | GSM1275862 N613… untrt untrt SRR1… 126      
-#> 2      ENSG0000… SRR103… | 0      | GSM1275862 N613… untrt untrt SRR1… 126      
-#> 3      ENSG0000… SRR103… | 467    | GSM1275862 N613… untrt untrt SRR1… 126      
-#> 4      ENSG0000… SRR103… | 260    | GSM1275862 N613… untrt untrt SRR1… 126      
-#> 5      ENSG0000… SRR103… | 60     | GSM1275862 N613… untrt untrt SRR1… 126      
-#>        --------  ------- - ------ - ---------- ----  ---   ----- ---   ---------
-#> 509412 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
-#> 509413 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
-#> 509414 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
-#> 509415 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
-#> 509416 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
-#> # ℹ 14 more variables: Experiment <fct>, Sample <fct>, BioSample <fct>,
-#> #   `|` <|>, gene_id <chr>, gene_name <chr>, entrezid <chr>,
-#> #   gene_biotype <chr>, gene_seq_start <chr>, gene_seq_end <chr>,
-#> #   seq_name <chr>, seq_strand <chr>, seq_coord_system <chr>, symbol <chr>
+#> class: RangedSummarizedExperiment 
+#> dim: 63677 8 
+#> metadata(1): ''
+#> assays(1): counts
+#> rownames(63677): ENSG00000000003 ENSG00000000005 ... ENSG00000273492
+#>   ENSG00000273493
+#> rowData names(10): gene_id gene_name ... seq_coord_system symbol
+#> colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
+#> colData names(9): SampleName cell ... Sample BioSample
 ```
 
 ### **tidyprint**
@@ -95,26 +84,15 @@ Now we load tidyprint for a tidy data display
 ``` r
 library(tidyprint)
 airway
-#> # A SummarizedExperiment-tibble abstraction: Features=63677 | Samples=8 | 
-#> #   Assays=counts
-#> #                                 |----------------- COVARIATES ---------------|
-#>        .feature  .sample | counts | SampleName cell  dex   albut Run   avgLength
-#>        <chr>     <chr>   | <chr>  | <fct>      <fct> <fct> <fct> <fct> <chr>    
-#> 1      ENSG0000… SRR103… | 679    | GSM1275862 N613… untrt untrt SRR1… 126      
-#> 2      ENSG0000… SRR103… | 0      | GSM1275862 N613… untrt untrt SRR1… 126      
-#> 3      ENSG0000… SRR103… | 467    | GSM1275862 N613… untrt untrt SRR1… 126      
-#> 4      ENSG0000… SRR103… | 260    | GSM1275862 N613… untrt untrt SRR1… 126      
-#> 5      ENSG0000… SRR103… | 60     | GSM1275862 N613… untrt untrt SRR1… 126      
-#>        --------  ------- - ------ - ---------- ----  ---   ----- ---   ---------
-#> 509412 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
-#> 509413 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
-#> 509414 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
-#> 509415 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
-#> 509416 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
-#> # ℹ 14 more variables: Experiment <fct>, Sample <fct>, BioSample <fct>,
-#> #   `|` <|>, gene_id <chr>, gene_name <chr>, entrezid <chr>,
-#> #   gene_biotype <chr>, gene_seq_start <chr>, gene_seq_end <chr>,
-#> #   seq_name <chr>, seq_strand <chr>, seq_coord_system <chr>, symbol <chr>
+#> class: RangedSummarizedExperiment 
+#> dim: 63677 8 
+#> metadata(1): ''
+#> assays(1): counts
+#> rownames(63677): ENSG00000000003 ENSG00000000005 ... ENSG00000273492
+#>   ENSG00000273493
+#> rowData names(10): gene_id gene_name ... seq_coord_system symbol
+#> colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
+#> colData names(9): SampleName cell ... Sample BioSample
 ```
 
 ------------------------------------------------------------------------
@@ -255,20 +233,19 @@ sessionInfo()
 #> [13] dplyr_1.1.4                
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] utf8_1.2.6              sass_0.4.10             generics_0.1.4         
-#>  [4] SparseArray_1.6.2       stringi_1.8.7           lattice_0.22-7         
-#>  [7] digest_0.6.37           magrittr_2.0.3          evaluate_1.0.4         
-#> [10] grid_4.4.0              fastmap_1.2.0           rprojroot_2.1.0        
-#> [13] jsonlite_2.0.0          Matrix_1.7-3            httr_1.4.7             
-#> [16] fansi_1.0.6             purrr_1.1.0             UCSC.utils_1.2.0       
-#> [19] jquerylib_0.1.4         abind_1.4-8             cli_3.6.5              
-#> [22] rlang_1.1.6             crayon_1.5.3            XVector_0.46.0         
-#> [25] withr_3.0.2             cachem_1.1.0            DelayedArray_0.32.0    
-#> [28] yaml_2.3.10             S4Arrays_1.6.0          tools_4.4.0            
-#> [31] GenomeInfoDbData_1.2.13 vctrs_0.6.5             R6_2.6.1               
-#> [34] lifecycle_1.0.4         stringr_1.5.1           zlibbioc_1.52.0        
-#> [37] pkgconfig_2.0.3         pillar_1.11.0           bslib_0.9.0            
-#> [40] glue_1.8.0              xfun_0.52               tibble_3.3.0           
-#> [43] tidyselect_1.2.1        rstudioapi_0.17.1       knitr_1.50             
-#> [46] htmltools_0.5.8.1       rmarkdown_2.29          compiler_4.4.0
+#>  [1] utf8_1.2.6              generics_0.1.4          SparseArray_1.6.2      
+#>  [4] stringi_1.8.7           lattice_0.22-7          digest_0.6.37          
+#>  [7] magrittr_2.0.3          evaluate_1.0.4          grid_4.4.0             
+#> [10] fastmap_1.2.0           rprojroot_2.1.0         jsonlite_2.0.0         
+#> [13] Matrix_1.7-3            httr_1.4.7              fansi_1.0.6            
+#> [16] purrr_1.1.0             UCSC.utils_1.2.0        abind_1.4-8            
+#> [19] cli_3.6.5               rlang_1.1.6             crayon_1.5.3           
+#> [22] XVector_0.46.0          withr_3.0.2             DelayedArray_0.32.0    
+#> [25] yaml_2.3.10             S4Arrays_1.6.0          tools_4.4.0            
+#> [28] GenomeInfoDbData_1.2.13 vctrs_0.6.5             R6_2.6.1               
+#> [31] lifecycle_1.0.4         stringr_1.5.1           zlibbioc_1.52.0        
+#> [34] pkgconfig_2.0.3         pillar_1.11.0           glue_1.8.0             
+#> [37] xfun_0.52               tibble_3.3.0            tidyselect_1.2.1       
+#> [40] rstudioapi_0.17.1       knitr_1.50              htmltools_0.5.8.1      
+#> [43] rmarkdown_2.29          compiler_4.4.0
 ```
