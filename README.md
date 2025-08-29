@@ -66,17 +66,9 @@ The standard SummarizedExperiment display:
 ``` r
 
 airway 
-#> Warning in max(nchar(as.character(.x)), na.rm = TRUE): no non-missing arguments
-#> to max; returning -Inf
-#> Warning in max(nchar(as.character(.x)), na.rm = TRUE): no non-missing arguments
-#> to max; returning -Inf
 #> # A SummarizedExperiment-tibble abstraction: Features=63677 | Samples=8 | 
 #> #   Assays=counts
-#> #                                          
-#> #   |------------------------------------- COVARIATES 
-#> #   --------------------------------------|                                    
-#> #                                                                              
-#> #                                                
+#> #                                 |----------------- COVARIATES ---------------|
 #>        .feature  .sample | counts | SampleName cell  dex   albut Run   avgLength
 #>        <chr>     <chr>   | <chr>  | <fct>      <fct> <fct> <fct> <fct> <chr>    
 #> 1      ENSG0000… SRR103… | 679    | GSM1275862 N613… untrt untrt SRR1… 126      
@@ -84,7 +76,7 @@ airway
 #> 3      ENSG0000… SRR103… | 467    | GSM1275862 N613… untrt untrt SRR1… 126      
 #> 4      ENSG0000… SRR103… | 260    | GSM1275862 N613… untrt untrt SRR1… 126      
 #> 5      ENSG0000… SRR103… | 60     | GSM1275862 N613… untrt untrt SRR1… 126      
-#>        --------… ------… - ------ - <NA>       <NA>  <NA>  <NA>  <NA>  ---------
+#>        --------  ------- - ------ - ---------- ----  ---   ----- ---   ---------
 #> 509412 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
 #> 509413 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
 #> 509414 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
@@ -103,17 +95,9 @@ Now we load tidyprint for a tidy data display
 ``` r
 library(tidyprint)
 airway
-#> Warning in max(nchar(as.character(.x)), na.rm = TRUE): no non-missing arguments
-#> to max; returning -Inf
-#> Warning in max(nchar(as.character(.x)), na.rm = TRUE): no non-missing arguments
-#> to max; returning -Inf
 #> # A SummarizedExperiment-tibble abstraction: Features=63677 | Samples=8 | 
 #> #   Assays=counts
-#> #                                          
-#> #   |------------------------------------- COVARIATES 
-#> #   --------------------------------------|                                    
-#> #                                                                              
-#> #                                                
+#> #                                 |----------------- COVARIATES ---------------|
 #>        .feature  .sample | counts | SampleName cell  dex   albut Run   avgLength
 #>        <chr>     <chr>   | <chr>  | <fct>      <fct> <fct> <fct> <fct> <chr>    
 #> 1      ENSG0000… SRR103… | 679    | GSM1275862 N613… untrt untrt SRR1… 126      
@@ -121,7 +105,7 @@ airway
 #> 3      ENSG0000… SRR103… | 467    | GSM1275862 N613… untrt untrt SRR1… 126      
 #> 4      ENSG0000… SRR103… | 260    | GSM1275862 N613… untrt untrt SRR1… 126      
 #> 5      ENSG0000… SRR103… | 60     | GSM1275862 N613… untrt untrt SRR1… 126      
-#>        --------… ------… - ------ - <NA>       <NA>  <NA>  <NA>  <NA>  ---------
+#>        --------  ------- - ------ - ---------- ----  ---   ----- ---   ---------
 #> 509412 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
 #> 509413 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
 #> 509414 ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       
@@ -214,13 +198,13 @@ tidyprint::tidy_message('message to print')
 
 You can specify the type of message as
 
-- info (default)
+-   info (default)
 
-- success
+-   success
 
-- warning
+-   warning
 
-- danger
+-   danger
 
 ``` r
 
@@ -239,48 +223,52 @@ function, showing the name of package.
 ``` r
 
 sessionInfo()
-#> R version 4.5.0 (2025-04-11)
-#> Platform: x86_64-apple-darwin20
-#> Running under: macOS Sonoma 14.6.1
+#> R version 4.4.0 (2024-04-24)
+#> Platform: x86_64-pc-linux-gnu
+#> Running under: Red Hat Enterprise Linux 9.4 (Plow)
 #> 
 #> Matrix products: default
-#> BLAS:   /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/lib/libRblas.0.dylib 
-#> LAPACK: /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
+#> BLAS/LAPACK: FlexiBLAS OPENBLAS;  LAPACK version 3.10.1
 #> 
 #> locale:
-#> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+#>  [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
+#>  [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
+#>  [5] LC_MONETARY=en_AU.UTF-8    LC_MESSAGES=en_AU.UTF-8   
+#>  [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
+#>  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+#> [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
 #> 
 #> time zone: Australia/Melbourne
-#> tzcode source: internal
+#> tzcode source: system (glibc)
 #> 
 #> attached base packages:
 #> [1] stats4    stats     graphics  grDevices utils     datasets  methods  
 #> [8] base     
 #> 
 #> other attached packages:
-#>  [1] tidyprint_0.0.1             airway_1.28.0              
-#>  [3] SummarizedExperiment_1.38.1 Biobase_2.68.0             
-#>  [5] GenomicRanges_1.60.0        GenomeInfoDb_1.44.0        
-#>  [7] IRanges_2.42.0              S4Vectors_0.46.0           
-#>  [9] BiocGenerics_0.54.0         generics_0.1.4             
-#> [11] MatrixGenerics_1.20.0       matrixStats_1.5.0          
-#> [13] tidyr_1.3.1                 dplyr_1.1.4                
+#>  [1] tidyprint_0.0.1             airway_1.26.0              
+#>  [3] SummarizedExperiment_1.36.0 Biobase_2.66.0             
+#>  [5] GenomicRanges_1.58.0        GenomeInfoDb_1.42.3        
+#>  [7] IRanges_2.40.1              S4Vectors_0.44.0           
+#>  [9] BiocGenerics_0.52.0         MatrixGenerics_1.18.1      
+#> [11] matrixStats_1.5.0           tidyr_1.3.1                
+#> [13] dplyr_1.1.4                
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] utf8_1.2.6              sass_0.4.10             SparseArray_1.8.0      
-#>  [4] stringi_1.8.7           lattice_0.22-7          digest_0.6.37          
-#>  [7] magrittr_2.0.3          evaluate_1.0.4          grid_4.5.0             
-#> [10] fastmap_1.2.0           rprojroot_2.0.4         jsonlite_2.0.0         
-#> [13] Matrix_1.7-3            httr_1.4.7              fansi_1.0.6            
-#> [16] purrr_1.0.4             UCSC.utils_1.4.0        jquerylib_0.1.4        
-#> [19] abind_1.4-8             cli_3.6.5               rlang_1.1.6            
-#> [22] crayon_1.5.3            XVector_0.48.0          withr_3.0.2            
-#> [25] cachem_1.1.0            DelayedArray_0.34.1     yaml_2.3.10            
-#> [28] S4Arrays_1.8.1          tools_4.5.0             GenomeInfoDbData_1.2.14
-#> [31] vctrs_0.6.5             R6_2.6.1                lifecycle_1.0.4        
-#> [34] stringr_1.5.1           pkgconfig_2.0.3         pillar_1.10.2          
-#> [37] bslib_0.9.0             glue_1.8.0              xfun_0.52              
-#> [40] tibble_3.3.0            tidyselect_1.2.1        rstudioapi_0.17.1      
-#> [43] knitr_1.50              htmltools_0.5.8.1       rmarkdown_2.29         
-#> [46] compiler_4.5.0
+#>  [1] utf8_1.2.6              sass_0.4.10             generics_0.1.4         
+#>  [4] SparseArray_1.6.2       stringi_1.8.7           lattice_0.22-7         
+#>  [7] digest_0.6.37           magrittr_2.0.3          evaluate_1.0.4         
+#> [10] grid_4.4.0              fastmap_1.2.0           rprojroot_2.1.0        
+#> [13] jsonlite_2.0.0          Matrix_1.7-3            httr_1.4.7             
+#> [16] fansi_1.0.6             purrr_1.1.0             UCSC.utils_1.2.0       
+#> [19] jquerylib_0.1.4         abind_1.4-8             cli_3.6.5              
+#> [22] rlang_1.1.6             crayon_1.5.3            XVector_0.46.0         
+#> [25] withr_3.0.2             cachem_1.1.0            DelayedArray_0.32.0    
+#> [28] yaml_2.3.10             S4Arrays_1.6.0          tools_4.4.0            
+#> [31] GenomeInfoDbData_1.2.13 vctrs_0.6.5             R6_2.6.1               
+#> [34] lifecycle_1.0.4         stringr_1.5.1           zlibbioc_1.52.0        
+#> [37] pkgconfig_2.0.3         pillar_1.11.0           bslib_0.9.0            
+#> [40] glue_1.8.0              xfun_0.52               tibble_3.3.0           
+#> [43] tidyselect_1.2.1        rstudioapi_0.17.1       knitr_1.50             
+#> [46] htmltools_0.5.8.1       rmarkdown_2.29          compiler_4.4.0
 ```
