@@ -143,16 +143,26 @@ format_covariate_header <- function(separator_row, printed_colnames, covariate_n
 
 }
 
-#' Custom header for SE_print_abstraction tibbles
+#' Custom header for SE_print_abstraction
 #'
-#' Draws a banner aligned to the first rendered body line, and prints a
-#' one-line summary with feature/sample/assay counts.
+#' Formats the header using pillar’s formatting context so it aligns with
+#' the tibble body and adds a centered COVARIATES banner.
+#'
+#' @param x An object of class `SE_print_abstraction`.
+#' @param setup A pillar formatting setup (list) passed by pillar; contains
+#'   things like the rendering `width` and the pre-rendered first body line
+#'   (`setup$body`).
+#' @param ... Unused; present for S3 method consistency.
 #'
 #' @importFrom pillar tbl_format_header align style_subtle
 #' @importFrom cli col_br_blue col_br_black
 #' @importFrom stringr str_locate_all
 #' @importFrom rlang names2
 #' @importFrom magrittr %>%
+#'
+#' @name tbl_format_header.SE_print_abstraction
+#' @aliases tbl_format_header.SE_print_abstraction
+#' @method tbl_format_header SE_print_abstraction
 #' @export
 tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
 
@@ -162,8 +172,6 @@ tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
   assay_names <- x |> attr("assay_names")
   separator_row <- x |> attr("separator_row")
   covariate_names <- x |> attr("covariate_names")
-
-  x<<-x
 
 
   number_of_total_rows = (x |> attr("number_of_features")) * (x |> attr("number_of_samples"))

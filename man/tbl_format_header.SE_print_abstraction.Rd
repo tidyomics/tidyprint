@@ -2,11 +2,20 @@
 % Please edit documentation in R/tidyprint_1_utlis.R
 \name{tbl_format_header.SE_print_abstraction}
 \alias{tbl_format_header.SE_print_abstraction}
-\title{Custom header for SE_print_abstraction tibbles}
+\title{Custom header for SE_print_abstraction}
 \usage{
 \method{tbl_format_header}{SE_print_abstraction}(x, setup, ...)
 }
+\arguments{
+\item{x}{An object of class \code{SE_print_abstraction}.}
+
+\item{setup}{A pillar formatting setup (list) passed by pillar; contains
+things like the rendering \code{width} and the pre-rendered first body line
+(\code{setup$body}).}
+
+\item{...}{Unused; present for S3 method consistency.}
+}
 \description{
-Draws a banner aligned to the first rendered body line, and prints a
-one-line summary with feature/sample/assay counts.
+Formats the header using pillar’s formatting context so it aligns with
+the tibble body and adds a centered COVARIATES banner.
 }
