@@ -191,17 +191,27 @@ but they do not completely overlap.")
   }  else if (design == "tidyprint_1"){
 
     print_tidyprint_1 <- function(x, n = n_print , ...){
+      
+      onr <- nr <- nrow(x)
+      onc <- nc <- ncol(x)
+      
+      if (n >= onc*onr) {
+        n = onc*onr
+        separator_row_flag = F
+      }else{
+        separator_row_flag = T
+      }
 
       top_n <- ceiling(n / 2)
       bot_n <- floor(n / 2)
-      onr <- nr <- nrow(x)
+      
       row_slice <- if (nr < 2 * n) {
         seq_len(nr)
       } else {
         c(seq_len(n), (nr - n + 1):nr)
       }
 
-      onc <- nc <- ncol(x)
+      
       col_slice <- if (nc < 2 * n) {
         seq_len(nc)
       } else {
@@ -240,26 +250,29 @@ but they do not completely overlap.")
         c(seq_len(top_n), (nn - bot_n + 1):nn)
       }
       out_sub <- out[sub_seq, ]
-
+      
       # Compute the max character width for each column
       separator_row <- sapply(out_sub %>% colnames(), function(col) {
         max_width <- max(nchar(as.character(col)), na.rm = TRUE)  # Get max width in the column
         paste(rep("-", max_width), collapse = "")  # Generate a separator of the same length
       })
 
-      # Modify the entire tibble to include a separator row across all columns
-      ## temporalily convert factor cols to char
-      fct_col = map(out_sub, is.factor) %>% keep(~{.x == T}) %>% names
-      if (length(fct_col)) out_sub[, fct_col] = out_sub[, fct_col] %>% mutate(across(all_of(fct_col), as.character))
-
-
-      out_sub <- suppressWarnings(rbind(
-        out_sub[seq_len(top_n),],
-        as.list(separator_row),      # Adaptive separator row
-        out_sub[(top_n+1):nrow(out_sub), ]
-      ))
-      ## reverse to factor cols
-      if (length(fct_col)) out_sub[, fct_col] = out_sub[, fct_col] %>% mutate(across(all_of(fct_col), as.factor))
+      if (separator_row_flag){
+        
+        # Modify the entire tibble to include a separator row across all columns
+        ## temporalily convert factor cols to char
+        fct_col = map(out_sub, is.factor) %>% keep(~{.x == T}) %>% names
+        if (length(fct_col)) out_sub[, fct_col] = out_sub[, fct_col] %>% mutate(across(all_of(fct_col), as.character))
+        
+        
+        out_sub <- suppressWarnings(rbind(
+          out_sub[seq_len(top_n),],
+          as.list(separator_row),      # Adaptive separator row
+          out_sub[(top_n+1):nrow(out_sub), ]
+        ))
+        ## reverse to factor cols
+        if (length(fct_col)) out_sub[, fct_col] = out_sub[, fct_col] %>% mutate(across(all_of(fct_col), as.factor))
+      }
 
       # attr(out_sub, "n") <- n
       # attr(out_sub, "total_rows") <- x %>% dim %>% {(.)[1] * (.)[2]}
