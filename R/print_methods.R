@@ -63,18 +63,16 @@ print.SummarizedExperiment <- function(x, design = 2, n_print = 10, ...) {
   # Match the user-supplied design argument to one of the valid choices:
   if (is.numeric(design)) {
     # Allowed numeric -> corresponding design
-    # design_map <- c("SummarizedExperiment", "tidySummarizedExperiment", "plyxp", "tidyprint_1")
-    design_map <- c("SummarizedExperiment", "tidyprint_1")
+    design_map <- c("SummarizedExperiment", "tidyprint_1", "tidySummarizedExperiment", "plyxp")
     
     # Validate numeric input
-    if (!design %in% 1:2) {
+    if (!design %in% 1:4) {
       stop("Invalid numeric design argument. Choose 1 or 2.")
     }
     design <- design_map[design]
   }
 
-  # design <- match.arg(design, c("SummarizedExperiment", "tidyprint_1", "tidySummarizedExperiment", "plyxp"))
-  design <- match.arg(design, c("SummarizedExperiment", "tidyprint_1"))
+  design <- match.arg(design, c("SummarizedExperiment", "tidyprint_1", "tidySummarizedExperiment", "plyxp"))
   
 
   if (!inherits(x, "SummarizedExperiment")) {

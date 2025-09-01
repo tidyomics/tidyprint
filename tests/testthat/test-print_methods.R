@@ -23,32 +23,32 @@ test_that("Default SummarizedExperiment print works", {
 
 
 
-# test for design 2
+# test for design 3
 test_that("tidySummarizedExperiment print works", {
   expect_output(print(se_airway, design = "tidySummarizedExperiment"), "A SummarizedExperiment-tibble abstraction:")
 })
 
 test_that("tidySummarizedExperiment print works", {
-  expect_output(print(se_airway, design = 2), "A SummarizedExperiment-tibble abstraction:")
+  expect_output(print(se_airway, design = 3), "A SummarizedExperiment-tibble abstraction:")
 })
 
 
-# test for design 3
+# test for design 4
 test_that("plyxp print works", {
   expect_output(print(se_airway, design = "plyxp"), "A tibble:")
 })
 
 test_that("plyxp print works", {
-  expect_output(print(se_airway, design = 3), "A tibble:")
+  expect_output(print(se_airway, design = 4), "A tibble:")
 })
 
-# test for design 4
+# test for design 2
 test_that("tidyprint_1 print works", {
   expect_output(print(se_airway, design = "tidyprint_1"), "A SummarizedExperiment-tibble abstraction:")
 })
 
 test_that("tidyprint_1 print works", {
-  expect_output(print(se_airway, design = 4), "A SummarizedExperiment-tibble abstraction:")
+  expect_output(print(se_airway, design = 2), "A SummarizedExperiment-tibble abstraction:")
 })
 
 # test for error
