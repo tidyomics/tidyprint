@@ -109,7 +109,7 @@ airway
 ------------------------------------------------------------------------
 
 **For comparative purposes we display the alternative visualisations we
-are trying to harmonise**
+are trying to harmonise (now depreciated)**
 
 ### 2.4 **tidySummarizedExperiment**
 
