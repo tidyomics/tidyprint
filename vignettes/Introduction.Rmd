@@ -59,11 +59,7 @@ find_figure <- function(names){
 
 1.  **SummarizedExperiment**: Standard R/SummarizedExperiment printing style.
 
-2.  **tidyprint_1**: Newly designed tibble abstraction, combines styles from **tidySummarizedExperiment** and **plyxp**
-
-3.  **tidySummarizedExperiment**: Tidyverse-friendly tibble abstraction.
-
-4.  **plyxp**: Top/bottom row truncation for large datasets.
+2.  **tidyprint_1**: Newly designed tibble abstraction, combines styles from **tidySummarizedExperiment** and **plyxp** with updated design.
 
 Depending on your workflow and desired console output, `tidyprint` makes it easy to switch between these printing styles.
 
@@ -120,7 +116,7 @@ airway
 
 ------------------------------------------------------------------------
 
-**For comparative purposes we display the alternative visualisations we are trying to harmonise**
+**For comparative purposes we display the alternative visualisations we are trying to harmonise (now depreciated)**
 
 ### 2.4 **tidySummarizedExperiment**
 
