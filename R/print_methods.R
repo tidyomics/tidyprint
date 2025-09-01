@@ -1,3 +1,50 @@
+#' Print method for SummarizedExperiment with tidyprint styles
+#'
+#' Provides alternative console displays for a \link[SummarizedExperiment]{SummarizedExperiment}
+#' object. The default shows the standard Bioconductor summary. The
+#' `"tidyprint_1"` design prints a compact tibble-like abstraction that
+#' preserves assay values and key covariates with a separator band when
+#' the table is truncated.
+#'
+#' @param x A \code{SummarizedExperiment} object to print.
+#' @param design Either a character string or integer selecting the print style.
+#'   Character choices are:
+#'   \itemize{
+#'     \item \code{"SummarizedExperiment"} — standard Bioconductor summary.
+#'     \item \code{"tidyprint_1"} — tidyprint tibble abstraction (top/bottom slices,
+#'       assays | colData | rowData blocks, with an adaptive separator row).
+#'   }
+#'   Numeric shortcuts are mapped as:
+#'   \itemize{
+#'     \item \code{1} \eqn{\to} \code{"SummarizedExperiment"}
+#'     \item \code{2} \eqn{\to} \code{"tidyprint_1"}
+#'   }
+#' @param n_print Integer (default \code{10}). Approximate number of rows to show
+#'   in the \code{"tidyprint_1"} display. When the total cells shown are fewer
+#'   than \code{n_print}, the full table is printed and the separator row is
+#'   suppressed.
+#' @param ... Additional arguments passed to internal printers (currently unused).
+#'
+#' @details
+#' The \code{"tidyprint_1"} design constructs a tibble abstraction for SummarizedExperiment
+#' data with columns:
+#' \code{.feature}, \code{.sample}, assay columns, a vertical separator \code{"|"},
+#' followed by selected \code{colData} and \code{rowData} fields. When the output
+#' is truncated, an adaptive dash-only separator row is inserted after the first
+#' half block of rows. Additional indication of \code{colData} is provided as well.
+#'
+#' @return \code{x} is returned \emph{invisibly} after printing.
+#'
+#' @seealso \link[SummarizedExperiment]{SummarizedExperiment}, \link[tibble]{as_tibble}
+#'
+#' @examples
+#' \dontrun{
+#'   library(tidyprint)
+#'   print(se_airway)                         # default 
+#'   print(se_airway, design = "tidyprint_1") # tidyprint abstraction
+#'   print(se_airway, design = 2)             # numeric alias for "tidyprint_1"
+#' }
+#'
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
 #' @importFrom methods setMethod
 
@@ -11,21 +58,24 @@
 #' @importFrom magrittr `%>%`
 #' @importFrom dplyr if_else mutate across
 #' @export
-print.SummarizedExperiment <- function(x, design = 4, n_print = 10, ...) {
+print.SummarizedExperiment <- function(x, design = 2, n_print = 10, ...) {
 
   # Match the user-supplied design argument to one of the valid choices:
   if (is.numeric(design)) {
     # Allowed numeric -> corresponding design
-    design_map <- c("SummarizedExperiment", "tidySummarizedExperiment", "plyxp", "tidyprint_1")
-
+    # design_map <- c("SummarizedExperiment", "tidySummarizedExperiment", "plyxp", "tidyprint_1")
+    design_map <- c("SummarizedExperiment", "tidyprint_1")
+    
     # Validate numeric input
-    if (!design %in% 1:4) {
-      stop("Invalid numeric design argument. Choose 1, 2, 3, or 4.")
+    if (!design %in% 1:2) {
+      stop("Invalid numeric design argument. Choose 1 or 2.")
     }
     design <- design_map[design]
   }
 
-  design <- match.arg(design, c("SummarizedExperiment", "tidyprint_1", "tidySummarizedExperiment", "plyxp"))
+  # design <- match.arg(design, c("SummarizedExperiment", "tidyprint_1", "tidySummarizedExperiment", "plyxp"))
+  design <- match.arg(design, c("SummarizedExperiment", "tidyprint_1"))
+  
 
   if (!inherits(x, "SummarizedExperiment")) {
     stop("The object provided is not a SummarizedExperiment.")
