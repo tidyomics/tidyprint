@@ -274,42 +274,26 @@ get_special_datasets <- function(se) {
     rowRanges()
 
   rr %>%
-    when(
-
-      # If no ranges
-      as.data.frame(.) %>%
-        nrow() %>%
-        magrittr::equals(0) ~ tibble(),
-
-      # If it is a range list (multiple rows per feature)
-      is(., "CompressedGRangesList") ~ {
-
-        # If GRanges does not have row names
+    {
+      if (nrow(as.data.frame(.)) == 0) {
+        tibble()
+      } else if (is(., "CompressedGRangesList")) {
         if (is.null(rr@partitioning@NAMES)) {
           rr@partitioning@NAMES <- as.character(1:nrow(se))
         }
-
         tibble::as_tibble(rr) %>%
           eliminate_GRanges_metadata_columns_also_present_in_Rowdata(se) %>%
           nest(GRangesList = -group_name) %>%
           dplyr::rename(!!f_(se)$symbol := group_name)
-
-      },
-
-      # If standard GRanges (one feature per line)
-      ~ {
-
-        # If GRanges does not have row names
+      } else {
         if (is.null(rr@ranges@NAMES)) {
           rr@ranges@NAMES <- as.character(1:nrow(se))
         }
-
         tibble::as_tibble(rr) %>%
           eliminate_GRanges_metadata_columns_also_present_in_Rowdata(se) %>%
           mutate(!!f_(se)$symbol := rr@ranges@NAMES)
       }
-
-    ) %>%
+    } %>%
     list()
 }
 
@@ -388,13 +372,13 @@ get_count_datasets <- function(se) {
           # In case I have a sparse matrix
           as.matrix() |>
           tibble::as_tibble(rownames = f_(se)$name, .name_repair = "minimal") %>%
-
-          # If the matrix does not have sample names, fix column names
-          when(colnames(.x) %>% is.null() & is.null(colnames(se)) ~ setNames(., c(
-            f_(se)$name,  seq_len(ncol(.x))
-          )),
-          ~ (.)
-          )
+          {
+            if (is.null(colnames(.x)) && is.null(colnames(se))) {
+              setNames(., c(f_(se)$name, seq_len(ncol(.x))))
+            } else {
+              .
+            }
+          }
 
         # Avoid dug if SE if completely empty, no rows, no columns
         if(.x |> select(-!!f_(se)$symbol) |> ncol() == 0) return(.x)
@@ -408,11 +392,15 @@ get_count_datasets <- function(se) {
 
     # Add dummy sample or feature if we have empty assay.
     # This is needed for a correct visualisation of the tibble form
-    map(~when(
-      f_(se)$name %in% colnames(.x) %>% not ~ mutate(.x, !!f_(se)$symbol := as.character(NA)),
-      s_(se)$name %in% colnames(.x) %>% not ~ mutate(.x, !!s_(se)$symbol := as.character(NA)),
-      ~ .x
-    ))
+    map(~{
+      if (!(f_(se)$name %in% colnames(.x))) {
+        mutate(.x, !!f_(se)$symbol := as.character(NA))
+      } else if (!(s_(se)$name %in% colnames(.x))) {
+        mutate(.x, !!s_(se)$symbol := as.character(NA))
+      } else {
+        .x
+      }
+    })
 
   # If assays is non empty
   if(list_assays |> length() > 0)

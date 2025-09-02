@@ -4,7 +4,6 @@ library(stringr)
 library(dplyr)
 library(tidyprint)
 
-context("format_covariate_header")
 
 separator_row <- c(
   ".feature" = "               ",

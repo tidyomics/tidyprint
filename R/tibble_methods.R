@@ -33,12 +33,14 @@ as_tibble.SummarizedExperiment <- function(x, ...,
     setNames(c(s_(x)$name, colnames(colData(x))))
 
   range_info <-
-    skip_GRanges %>%
-    when(
-      (.) ~ tibble() %>% list,
-      ~  get_special_datasets(x)
-    ) %>%
-    reduce(left_join, by="coordinate")
+    {
+      if (isTRUE(skip_GRanges)) {
+        list(tibble())
+      } else {
+        get_special_datasets(x)
+      }
+    } %>%
+    reduce(left_join, by = "coordinate")
 
   gene_info <-
     rowData(x) %>%
@@ -59,9 +61,13 @@ as_tibble.SummarizedExperiment <- function(x, ...,
     count_info %>%
     full_join(sample_info, by=s_(x)$name) %>%
     full_join(gene_info, by=f_(x)$name) %>%
-    when(nrow(range_info) > 0 ~
-           (.) %>% left_join(range_info) %>% suppressMessages(),
-         ~ (.))
+    {
+      if (nrow(range_info) > 0) {
+        suppressMessages(left_join(., range_info))
+      } else {
+        .
+      }
+    }
 
   # This function outputs a tibble after subsetting the columns
   else subset_tibble_output(x, count_info, sample_info,

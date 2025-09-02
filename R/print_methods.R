@@ -53,7 +53,7 @@
 #' @importFrom SummarizedExperiment assayNames assays rowData assays<- rowRanges
 #' @importFrom stats setNames
 #' @importFrom S4Vectors coolcat
-#' @importFrom purrr when map_chr keep
+#' @importFrom purrr map_chr keep
 #' @importFrom stringr str_replace
 #' @importFrom magrittr `%>%`
 #' @importFrom dplyr if_else mutate across
@@ -137,14 +137,15 @@ but they do not completely overlap.")
       # Reorder assays before printing
       x <- order_assays_internally_to_be_consistent(x)
 
-      my_tibble <- x |>
-        # If more than 30 genes, select first sample
-        when(
-          nrow(.) > 30 ~.[1:min(50, nrow(x)), min(1, ncol(x)), drop=FALSE] ,
-          ncol(.) == 0 ~ .,
-          ~ .[, 1:min(20, ncol(x)), drop=FALSE]
-        ) %>%
-        as_tibble()
+      tmp_x <- x
+      if (nrow(tmp_x) > 30) {
+        tmp_x <- tmp_x[1:min(50, nrow(x)), min(1, ncol(x)), drop = FALSE]
+      } else if (ncol(tmp_x) == 0) {
+        tmp_x <- tmp_x
+      } else {
+        tmp_x <- tmp_x[, 1:min(20, ncol(x)), drop = FALSE]
+      }
+      my_tibble <- tmp_x %>% as_tibble()
 
       my_tibble |>
         vctrs::new_data_frame(class=c("tidySummarizedExperiment", "tbl")) %>%
