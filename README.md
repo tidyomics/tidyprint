@@ -16,11 +16,7 @@ discussion about data display, we compare here four data displays:
     style.
 
 2.  **tidyprint_1**: Newly designed tibble abstraction, combines styles
-    from **tidySummarizedExperiment** and **plyxp**
-
-3.  **tidySummarizedExperiment**: Tidyverse-friendly tibble abstraction.
-
-4.  **plyxp**: Top/bottom row truncation for large datasets.
+    from **tidySummarizedExperiment** and **plyxp** with updated design.
 
 Depending on your workflow and desired console output, `tidyprint` makes
 it easy to switch between these printing styles.
@@ -40,6 +36,14 @@ Then install **tidyprint** from GitHub:
 
 ``` r
 remotes::install_github("tidyomics/tidyprint")
+```
+
+When available in Bioconductor, install with:
+
+``` r
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("tidyprint")
 ```
 
 ------------------------------------------------------------------------
@@ -109,7 +113,7 @@ airway
 ------------------------------------------------------------------------
 
 **For comparative purposes we display the alternative visualisations we
-are trying to harmonise**
+are trying to harmonise (now depreciated)**
 
 ### 2.4 **tidySummarizedExperiment**
 
@@ -187,13 +191,13 @@ tidyprint::tidy_message('message to print')
 
 You can specify the type of message as
 
--   info (default)
+- info (default)
 
--   success
+- success
 
--   warning
+- warning
 
--   danger
+- danger
 
 ``` r
 
@@ -212,22 +216,23 @@ function, showing the name of package.
 ``` r
 
 sessionInfo()
-#> R version 4.4.0 (2024-04-24)
+#> R version 4.4.3 (2025-02-28)
 #> Platform: x86_64-pc-linux-gnu
-#> Running under: Red Hat Enterprise Linux 9.4 (Plow)
+#> Running under: Ubuntu 24.04.1 LTS
 #> 
 #> Matrix products: default
-#> BLAS/LAPACK: FlexiBLAS OPENBLAS;  LAPACK version 3.10.1
+#> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+#> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
 #> 
 #> locale:
-#>  [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
-#>  [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
-#>  [5] LC_MONETARY=en_AU.UTF-8    LC_MESSAGES=en_AU.UTF-8   
-#>  [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
+#>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+#>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+#>  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+#>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
 #>  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-#> [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
+#> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 #> 
-#> time zone: Australia/Melbourne
+#> time zone: Etc/UTC
 #> tzcode source: system (glibc)
 #> 
 #> attached base packages:
@@ -245,18 +250,18 @@ sessionInfo()
 #> 
 #> loaded via a namespace (and not attached):
 #>  [1] utf8_1.2.6              generics_0.1.4          SparseArray_1.6.2      
-#>  [4] stringi_1.8.7           lattice_0.22-7          digest_0.6.37          
-#>  [7] magrittr_2.0.3          evaluate_1.0.4          grid_4.4.0             
+#>  [4] stringi_1.8.7           lattice_0.22-6          digest_0.6.37          
+#>  [7] magrittr_2.0.3          evaluate_1.0.4          grid_4.4.3             
 #> [10] fastmap_1.2.0           rprojroot_2.1.0         jsonlite_2.0.0         
-#> [13] Matrix_1.7-3            httr_1.4.7              fansi_1.0.6            
+#> [13] Matrix_1.7-2            httr_1.4.7              fansi_1.0.6            
 #> [16] purrr_1.1.0             UCSC.utils_1.2.0        abind_1.4-8            
 #> [19] cli_3.6.5               rlang_1.1.6             crayon_1.5.3           
 #> [22] XVector_0.46.0          withr_3.0.2             DelayedArray_0.32.0    
-#> [25] yaml_2.3.10             S4Arrays_1.6.0          tools_4.4.0            
+#> [25] yaml_2.3.10             S4Arrays_1.6.0          tools_4.4.3            
 #> [28] GenomeInfoDbData_1.2.13 vctrs_0.6.5             R6_2.6.1               
 #> [31] lifecycle_1.0.4         stringr_1.5.1           zlibbioc_1.52.0        
 #> [34] pkgconfig_2.0.3         pillar_1.11.0           glue_1.8.0             
-#> [37] xfun_0.52               tibble_3.3.0            tidyselect_1.2.1       
+#> [37] xfun_0.53               tibble_3.3.0            tidyselect_1.2.1       
 #> [40] rstudioapi_0.17.1       knitr_1.50              htmltools_0.5.8.1      
-#> [43] rmarkdown_2.29          compiler_4.4.0
+#> [43] rmarkdown_2.29          compiler_4.4.3
 ```

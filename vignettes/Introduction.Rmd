@@ -1,10 +1,13 @@
 ---
 title: "tidyprint"
-output: "html_vignette"
+output:
+  BiocStyle::html_document:
+    toc: true
+    toc_float: true
 params:
   demo_metadata: true
 vignette: >
-  %\VignetteIndexEntry{posteriorHCA}
+  %\VignetteIndexEntry{tidyprint}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 knit: >
@@ -77,6 +80,14 @@ Then install **tidyprint** from GitHub:
 
 ```{r eval=FALSE}
 remotes::install_github("tidyomics/tidyprint")
+```
+
+When available in Bioconductor, install with:
+
+```{r eval=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("tidyprint")
 ```
 
 ------------------------------------------------------------------------

@@ -1,11 +1,15 @@
 Package: tidyprint
 Title: Custom Print Methods for SummarizedExperiment
-Version: 0.0.1
-Depends: R (>= 4.2.0)
+Version: 0.99.0
+Depends: R (>= 4.4.0)
 Authors@R: 
     person("Chen", "Zhan", , "chen.zhan@adelaide.edu.au", role = c("aut", "cre"))
-Description: Provides customized print methods for SummarizedExperiment objects 
-    to enhance readability and usability within a tidy workflow.
+Description: Provides customized print methods for 'SummarizedExperiment' objects
+    to enhance readability and usability within a tidy workflow. It offers
+    consistent, tidyverse-aligned console displays, including alternative
+    tibble abstractions for large genomic data to improve discoverability and
+    interpretation. The package also includes unified, contextual messaging
+    utilities intended for the 'tidyomics' ecosystem.
 License: GPL-3
 Encoding: UTF-8
 Imports: 
@@ -29,8 +33,11 @@ RoxygenNote: 7.3.2
 Suggests: 
     knitr,
     rmarkdown,
+    BiocStyle,
     airway,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-LazyData: true
 VignetteBuilder: knitr
+URL: https://github.com/tidyomics/tidyprint
+BugReports: https://github.com/tidyomics/tidyprint/issues
+biocViews: Software, Visualization, Infrastructure
