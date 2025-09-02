@@ -3,7 +3,7 @@
 \docType{data}
 \name{se_airway}
 \alias{se_airway}
-\title{Example SummarizedExperiment Dataset}
+\title{Example SummarizedExperiment dataset}
 \format{
 A SummarizedExperiment object with:
 \describe{
@@ -12,12 +12,13 @@ A SummarizedExperiment object with:
 }
 }
 \source{
-Airway dataset
+airway package
 }
 \usage{
-se_airway
+data(se_airway)
 }
 \description{
-This dataset contains scaled RNA-seq counts for airway samples.
+Scaled RNA-seq counts for airway samples packaged as a
+\link[SummarizedExperiment]{SummarizedExperiment}.
 }
 \keyword{datasets}
