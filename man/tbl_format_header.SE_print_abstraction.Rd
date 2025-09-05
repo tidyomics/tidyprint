@@ -15,6 +15,11 @@ things like the rendering \code{width} and the pre-rendered first body line
 
 \item{...}{Unused; present for S3 method consistency.}
 }
+\value{
+A character vector of header lines to be displayed above the table.
+(pillar prints the returned character; this function has no side effects
+beyond returning those lines.)
+}
 \description{
 Formats the header using pillar’s formatting context so it aligns with
 the tibble body and adds a centered COVARIATES banner.

@@ -2,12 +2,18 @@
 % Please edit documentation in R/tidyprint_message.R
 \name{demo_tidy_message}
 \alias{demo_tidy_message}
-\title{Test tidy_message function}
+\title{Demonstrate tidy_message usage}
 \usage{
 demo_tidy_message()
 }
+\value{
+Invisibly returns \code{NULL}. Called for side effects (messages
+printed to the console).
+}
 \description{
-Test tidy_message function
+Runs through examples of the \code{\link[=tidy_message]{tidy_message()}} function for all
+supported message types (\code{"info"}, \code{"success"}, \code{"warning"}, \code{"danger"}).
+Intended for demonstration and testing only.
 }
 \examples{
 demo_tidy_message()

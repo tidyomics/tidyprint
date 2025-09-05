@@ -2,17 +2,26 @@
 % Please edit documentation in R/tidyprint_message.R
 \name{tidy_message}
 \alias{tidy_message}
-\title{Print styled tidyprint messages}
+\title{Print a styled tidyprint message}
 \usage{
 tidy_message(message, type = c("info", "success", "warning", "danger"))
 }
 \arguments{
 \item{message}{A character string containing the message to display.}
 
-\item{type}{The type of message to display ("info", "success", "warning", "danger"). Defaults to "info".}
+\item{type}{The type of message to display. One of
+\code{"info"}, \code{"success"}, \code{"warning"}, or \code{"danger"}.
+Defaults to \code{"info"}.}
+}
+\value{
+Invisibly returns \code{NULL}. Called for side effects (printing
+a styled message to the console).
 }
 \description{
-Print styled tidyprint messages
+Prints a message to the console with a consistent tidyomics style.
+A package-specific prefix is automatically added based on the calling
+package name, followed by the message text. Different message types
+are displayed using appropriate styles from the \pkg{cli} package.
 }
 \examples{
 tidy_message("Loading data...", type = "info")

@@ -153,6 +153,10 @@ format_covariate_header <- function(separator_row, printed_colnames, covariate_n
 #'   (`setup$body`).
 #' @param ... Unused; present for S3 method consistency.
 #'
+#' @return A character vector of header lines to be displayed above the table.
+#'   (pillar prints the returned character; this function has no side effects
+#'   beyond returning those lines.)
+#'   
 #' @importFrom pillar tbl_format_header align style_subtle
 #' @importFrom cli col_br_blue col_br_black
 #' @importFrom stringr str_locate_all

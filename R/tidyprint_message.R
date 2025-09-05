@@ -1,7 +1,18 @@
-#' Print styled tidyprint messages
+#' Print a styled tidyprint message
+#'
+#' Prints a message to the console with a consistent tidyomics style.
+#' A package-specific prefix is automatically added based on the calling
+#' package name, followed by the message text. Different message types
+#' are displayed using appropriate styles from the \pkg{cli} package.
 #'
 #' @param message A character string containing the message to display.
-#' @param type The type of message to display ("info", "success", "warning", "danger"). Defaults to "info".
+#' @param type The type of message to display. One of
+#'   \code{"info"}, \code{"success"}, \code{"warning"}, or \code{"danger"}.
+#'   Defaults to \code{"info"}.
+#'
+#' @return Invisibly returns \code{NULL}. Called for side effects (printing
+#'   a styled message to the console).
+#'
 #' @export
 #' @examples
 #' tidy_message("Loading data...", type = "info")
@@ -33,7 +44,14 @@ tidy_message <- function(message, type = c("info", "success", "warning", "danger
   style_fun("{prefix}: {message}")
 }
 
-#' Test tidy_message function
+#' Demonstrate tidy_message usage
+#'
+#' Runs through examples of the [`tidy_message()`] function for all
+#' supported message types (`"info"`, `"success"`, `"warning"`, `"danger"`).
+#' Intended for demonstration and testing only.
+#'
+#' @return Invisibly returns `NULL`. Called for side effects (messages
+#'   printed to the console).
 #' @export
 #' @examples
 #' demo_tidy_message()
