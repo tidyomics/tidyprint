@@ -13,6 +13,7 @@
 #' @importFrom purrr map2_chr
 #' @importFrom purrr map_int
 #' @importFrom dplyr if_else
+#' @export
 ctl_new_rowid_pillar.SE_print_abstraction <- function(controller, x, width, ...) {
   # message('attrx =', x %>% attributes())
   # message('attrc = ', controller %>% attributes() %>% names())
@@ -63,6 +64,7 @@ ctl_new_rowid_pillar.SE_print_abstraction <- function(controller, x, width, ...)
 }
 
 #' @importFrom pillar pillar ctl_new_pillar
+#' @export
 ctl_new_pillar.SE_print_abstraction <- function(controller, x, width, ..., title = NULL) {
 
   if (inherits(x, "|")) {
