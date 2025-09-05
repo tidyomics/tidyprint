@@ -2,6 +2,7 @@
 
 S3method(as_tibble,SummarizedExperiment)
 S3method(print,SummarizedExperiment)
+S3method(tbl_format_header,SE_print_abstraction)
 S3method(tbl_format_header,tidySummarizedExperiment)
 export(demo_tidy_message)
 export(tidy_message)

@@ -160,6 +160,7 @@ format_covariate_header <- function(separator_row, printed_colnames, covariate_n
 #' @name tbl_format_header.SE_print_abstraction
 #' @aliases tbl_format_header.SE_print_abstraction
 #' @method tbl_format_header SE_print_abstraction
+#' @export
 tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
 
   number_of_features <- x |> attr("number_of_features")
