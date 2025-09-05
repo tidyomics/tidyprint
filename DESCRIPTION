@@ -3,7 +3,7 @@ Title: Custom Print Methods for SummarizedExperiment
 Version: 0.99.0
 Depends: R (>= 4.4.0)
 Authors@R: 
-    person("Chen", "Zhan", , "chen.zhan@adelaide.edu.au", role = c("aut", "cre"))
+    person("Chen", "Zhan", , "chen.zhan@adelaide.edu.au", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4794-8339"))
 Description: Provides customized print methods for 'SummarizedExperiment' objects
     to enhance readability and usability within a tidy workflow. It offers
     consistent, tidyverse-aligned console displays, including alternative
@@ -11,6 +11,7 @@ Description: Provides customized print methods for 'SummarizedExperiment' object
     interpretation. The package also includes unified, contextual messaging
     utilities intended for the 'tidyomics' ecosystem.
 License: GPL-3
+License_use_gpl3: file LICENSE
 Encoding: UTF-8
 Imports: 
     magrittr,

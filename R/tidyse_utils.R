@@ -279,7 +279,7 @@ get_special_datasets <- function(se) {
         tibble()
       } else if (is(., "CompressedGRangesList")) {
         if (is.null(rr@partitioning@NAMES)) {
-          rr@partitioning@NAMES <- as.character(1:nrow(se))
+          rr@partitioning@NAMES <- as.character(seq_len(nrow(se)))
         }
         tibble::as_tibble(rr) %>%
           eliminate_GRanges_metadata_columns_also_present_in_Rowdata(se) %>%
@@ -287,7 +287,7 @@ get_special_datasets <- function(se) {
           dplyr::rename(!!f_(se)$symbol := group_name)
       } else {
         if (is.null(rr@ranges@NAMES)) {
-          rr@ranges@NAMES <- as.character(1:nrow(se))
+          rr@ranges@NAMES <- as.character(seq_len(nrow(se)))
         }
         tibble::as_tibble(rr) %>%
           eliminate_GRanges_metadata_columns_also_present_in_Rowdata(se) %>%
@@ -306,8 +306,8 @@ change_reserved_column_names <- function(col_data, .data) {
 
     setNames(
       colnames(.) %>%
-        sapply(function(x) if (x == f_(.data)$name) sprintf("%s.x", f_(.data)$name) else x) %>%
-        sapply(function(x) if (x == s_(.data)$name) sprintf("%s.x", s_(.data)$name) else x) %>%
+        vapply(function(x) if (x == f_(.data)$name) sprintf("%s.x", f_(.data)$name) else x, character(1)) %>%
+        vapply(function(x) if (x == s_(.data)$name) sprintf("%s.x", s_(.data)$name) else x, character(1)) %>%
         str_replace("^coordinate$", "coordinate.x")
     )
 
@@ -414,7 +414,7 @@ get_count_datasets <- function(se) {
     if(se |> rownames() |> is.null()) rn = nrow(se) |> seq_len() |> as.character()
     else rn = rownames(se)
     if(se |> colnames() |> is.null()) cn = ncol(se) |> seq_len() |> as.character()
-    else cn = colnames(se)
+    else cn <- colnames(se)
 
     expand.grid(  rn, cn  ) |>
       setNames(c(f_(se)$name, s_(se)$name)) |>

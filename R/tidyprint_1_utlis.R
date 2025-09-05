@@ -13,7 +13,6 @@
 #' @importFrom purrr map2_chr
 #' @importFrom purrr map_int
 #' @importFrom dplyr if_else
-#' @export
 ctl_new_rowid_pillar.SE_print_abstraction <- function(controller, x, width, ...) {
   # message('attrx =', x %>% attributes())
   # message('attrc = ', controller %>% attributes() %>% names())
@@ -64,7 +63,6 @@ ctl_new_rowid_pillar.SE_print_abstraction <- function(controller, x, width, ...)
 }
 
 #' @importFrom pillar pillar ctl_new_pillar
-#' @export
 ctl_new_pillar.SE_print_abstraction <- function(controller, x, width, ..., title = NULL) {
 
   if (inherits(x, "|")) {
@@ -102,7 +100,6 @@ ctl_new_pillar.SE_print_abstraction <- function(controller, x, width, ..., title
 #' @param number_of_total_rows The total number of rows for spacing
 #' @param label The label to distribute (default: "COVARIATES")
 #' @return Formatted header string
-#' @export
 format_covariate_header <- function(separator_row, printed_colnames, covariate_names, number_of_total_rows, label = "COVARIATES") {
   header_row <-
     map2_chr(separator_row, names(separator_row), ~ if_else(.y %in% covariate_names, .x, .x |> str_replace_all("-", " ")))
@@ -163,7 +160,6 @@ format_covariate_header <- function(separator_row, printed_colnames, covariate_n
 #' @name tbl_format_header.SE_print_abstraction
 #' @aliases tbl_format_header.SE_print_abstraction
 #' @method tbl_format_header SE_print_abstraction
-#' @export
 tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
 
   number_of_features <- x |> attr("number_of_features")

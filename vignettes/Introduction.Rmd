@@ -31,7 +31,7 @@ knit: >
     })
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
     collapse = TRUE,
     comment = "#>"
@@ -98,8 +98,7 @@ Below is an example demonstrating how to use **tidyprint** with a sample `Summar
 
 ### 2.1 Load Required Packages
 
-```{r message = FALSE, warnings = FALSE}
-
+```{r load-packages, message = FALSE, warnings = FALSE}
 library(dplyr)
 library(tidyr)
 library(airway)
@@ -110,17 +109,15 @@ data(airway)
 
 The standard SummarizedExperiment display:
 
-```{r}
-
+```{r se_raw-display}
 airway 
-
 ```
 
 ### **tidyprint**
 
 Now we load tidyprint for a tidy data display
 
-```{r}
+```{r tidyprint-display}
 library(tidyprint)
 airway
 ```
@@ -133,22 +130,17 @@ airway
 
 Use the "tidySummarizedExperiment" design to view your data in a **tidy-friendly tibble** format:
 
-```{r}
-
+```{r tidyse-display}
 # Tidy SummarizedExperiment print:
-
 airway %>% print(design = "tidySummarizedExperiment")
-
 ```
 
 ### 2.5 **plyxp**
 
 For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style:
 
-```{r}
-
+```{r plyxp-display}
 airway %>% print(design = "plyxp")
-
 ```
 
 # 3. Messaging function
@@ -157,10 +149,8 @@ We integrated a messaging function providing standardized, visually appealing me
 
 To use the `tidy_message` function:
 
-```{r}
-
+```{r tidy-message-example}
 tidyprint::tidy_message('message to print')
-
 ```
 
 You can specify the type of message as
@@ -173,18 +163,14 @@ You can specify the type of message as
 
 -   danger
 
-```{r}
-
+```{r demo-tidy-message}
 demo_tidy_message()
-
 ```
 
 The above code demonstrates calling `tidy_message` within a package function, showing the name of package.
 
 ## Session info
 
-```{r}
-
+```{r session-info}
 sessionInfo()
-
 ```

@@ -66,7 +66,7 @@ print.SummarizedExperiment <- function(x, design = 2, n_print = 10, ...) {
     design_map <- c("SummarizedExperiment", "tidyprint_1", "tidySummarizedExperiment", "plyxp")
     
     # Validate numeric input
-    if (!design %in% 1:4) {
+    if (!design %in% seq_len(4)) {
       stop("Invalid numeric design argument. Choose 1 or 2.")
     }
     design <- design_map[design]
@@ -139,11 +139,11 @@ but they do not completely overlap.")
 
       tmp_x <- x
       if (nrow(tmp_x) > 30) {
-        tmp_x <- tmp_x[1:min(50, nrow(x)), min(1, ncol(x)), drop = FALSE]
+        tmp_x <- tmp_x[seq_len(min(50, nrow(x))), min(1, ncol(x)), drop = FALSE]
       } else if (ncol(tmp_x) == 0) {
         tmp_x <- tmp_x
       } else {
-        tmp_x <- tmp_x[, 1:min(20, ncol(x)), drop = FALSE]
+        tmp_x <- tmp_x[, seq_len(min(20, ncol(x))), drop = FALSE]
       }
       my_tibble <- tmp_x %>% as_tibble()
 
@@ -245,10 +245,10 @@ but they do not completely overlap.")
       onc <- nc <- ncol(x)
       
       if (n >= onc*onr) {
-        n = onc*onr
-        separator_row_flag = F
+        n <- onc*onr
+        separator_row_flag = FALSE
       }else{
-        separator_row_flag = T
+        separator_row_flag = TRUE
       }
 
       top_n <- ceiling(n / 2)
@@ -301,16 +301,16 @@ but they do not completely overlap.")
       out_sub <- out[sub_seq, ]
       
       # Compute the max character width for each column
-      separator_row <- sapply(out_sub %>% colnames(), function(col) {
+      separator_row <- vapply(out_sub %>% colnames(), function(col) {
         max_width <- max(nchar(as.character(col)), na.rm = TRUE)  # Get max width in the column
         paste(rep("-", max_width), collapse = "")  # Generate a separator of the same length
-      })
+      }, character(1))
 
       if (separator_row_flag){
         
         # Modify the entire tibble to include a separator row across all columns
         ## temporalily convert factor cols to char
-        fct_col = map(out_sub, is.factor) %>% keep(~{.x == T}) %>% names
+        fct_col = map(out_sub, is.factor) %>% keep(~{.x == TRUE}) %>% names
         if (length(fct_col)) out_sub[, fct_col] = out_sub[, fct_col] %>% mutate(across(all_of(fct_col), as.character))
         
         

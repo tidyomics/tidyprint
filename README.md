@@ -56,7 +56,6 @@ Below is an example demonstrating how to use **tidyprint** with a sample
 ### 2.1 Load Required Packages
 
 ``` r
-
 library(dplyr)
 library(tidyr)
 library(airway)
@@ -68,7 +67,6 @@ data(airway)
 The standard SummarizedExperiment display:
 
 ``` r
-
 airway 
 #> class: RangedSummarizedExperiment 
 #> dim: 63677 8 
@@ -121,9 +119,7 @@ Use the “tidySummarizedExperiment” design to view your data in a
 **tidy-friendly tibble** format:
 
 ``` r
-
 # Tidy SummarizedExperiment print:
-
 airway %>% print(design = "tidySummarizedExperiment")
 #> # A SummarizedExperiment-tibble abstraction: 509,416 × 23
 #> # Features=63677 | Samples=8 | Assays=counts
@@ -152,7 +148,6 @@ For a more compact view (top and bottom rows), similar to a
 plyxp/tidyverse style:
 
 ``` r
-
 airway %>% print(design = "plyxp")
 #> # A tibble: 10 × 25
 #>    .features .samples `|` counts `|` gene_id     gene_name entrezid gene_biotype
@@ -184,7 +179,6 @@ consistency and readability across projects.
 To use the `tidy_message` function:
 
 ``` r
-
 tidyprint::tidy_message('message to print')
 #> ℹ Console says: message to print
 ```
@@ -200,7 +194,6 @@ You can specify the type of message as
 - danger
 
 ``` r
-
 demo_tidy_message()
 #> ℹ tidyprint says: This is an informational message send within tidyprint package.
 #> ✔ tidyprint says: Operation completed successfully!
@@ -214,7 +207,6 @@ function, showing the name of package.
 ## Session info
 
 ``` r
-
 sessionInfo()
 #> R version 4.4.3 (2025-02-28)
 #> Platform: x86_64-pc-linux-gnu
@@ -240,7 +232,7 @@ sessionInfo()
 #> [8] base     
 #> 
 #> other attached packages:
-#>  [1] tidyprint_0.0.1             airway_1.26.0              
+#>  [1] tidyprint_0.99.0            airway_1.26.0              
 #>  [3] SummarizedExperiment_1.36.0 Biobase_2.66.0             
 #>  [5] GenomicRanges_1.58.0        GenomeInfoDb_1.42.3        
 #>  [7] IRanges_2.40.1              S4Vectors_0.44.0           
@@ -251,7 +243,7 @@ sessionInfo()
 #> loaded via a namespace (and not attached):
 #>  [1] utf8_1.2.6              generics_0.1.4          SparseArray_1.6.2      
 #>  [4] stringi_1.8.7           lattice_0.22-6          digest_0.6.37          
-#>  [7] magrittr_2.0.3          evaluate_1.0.4          grid_4.4.3             
+#>  [7] magrittr_2.0.3          evaluate_1.0.5          grid_4.4.3             
 #> [10] fastmap_1.2.0           rprojroot_2.1.0         jsonlite_2.0.0         
 #> [13] Matrix_1.7-2            httr_1.4.7              fansi_1.0.6            
 #> [16] purrr_1.1.0             UCSC.utils_1.2.0        abind_1.4-8            
