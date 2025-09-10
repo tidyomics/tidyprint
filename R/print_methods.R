@@ -241,8 +241,8 @@ but they do not completely overlap.")
 
     print_tidyprint_1 <- function(x, n = n_print , ...){
       
-      onr <- nr <- nrow(x)
-      onc <- nc <- ncol(x)
+      onr <- nr <- nrow(x) %>% as.double()
+      onc <- nc <- ncol(x) %>% as.double()
       
       if ( onc > 0 && onr > 0 && n / onc >= onr ) {
         n <- onc*onr
@@ -331,7 +331,7 @@ but they do not completely overlap.")
       out_sub = out_sub %>%
         vctrs::new_data_frame(class=c('SE_print_abstraction', "tbl_df", "tbl", "data.frame")) %>%
         add_attr(n, 'n_print') %>%
-        add_attr(x %>% dim %>% {(.)[1] * (.)[2]}, 'total_rows') %>%
+        add_attr(onc*onr, 'total_rows') %>%
         add_attr(nrow(x),  "number_of_features") %>%
         add_attr(ncol(x),  "number_of_samples") %>%
         add_attr(assays(x) %>% names, "assay_names") %>%

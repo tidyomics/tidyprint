@@ -177,8 +177,9 @@ tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
   covariate_names <- x |> attr("covariate_names")
 
 
-  number_of_total_rows = (x |> attr("number_of_features")) * (x |> attr("number_of_samples"))
-
+  # number_of_total_rows = (x |> attr("number_of_features")) * (x |> attr("number_of_samples"))
+  number_of_total_rows = as.double(number_of_features) * as.double(number_of_samples)
+  
   # printed_colnames <- x |> attr("printed_colnames")
   printed_colnames <- pillar::tbl_format_setup(x)$body[1] |> as.character()
 
