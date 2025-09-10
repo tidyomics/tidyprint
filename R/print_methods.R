@@ -244,7 +244,7 @@ but they do not completely overlap.")
       onr <- nr <- nrow(x)
       onc <- nc <- ncol(x)
       
-      if (n >= onc*onr) {
+      if ( onc > 0 && onr > 0 && n / onc >= onr ) {
         n <- onc*onr
         separator_row_flag = FALSE
       }else{
