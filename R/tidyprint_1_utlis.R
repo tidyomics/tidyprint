@@ -29,10 +29,12 @@ ctl_new_rowid_pillar.SE_print_abstraction <- function(controller, x, width, ...)
   # message('total_rows=', total_rows)
 
   # Generate row IDs: First n/2 rows, then a separator, then last n/2 rows
-  if (total_rows > n) {
+  if (n <= 1) {
+    rowid <- seq_len(ceiling(n / 2))
+  } else if (total_rows > n) {
     rowid <- c(
       seq_len(ceiling(n / 2)), # Top half
-      NA,               # Separator row (will be replaced with `---`)
+      NA, # Separator row (will be replaced with `---`)
       (total_rows - floor(n / 2) + 1):total_rows # Bottom half
     )
   } else {

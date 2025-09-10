@@ -254,6 +254,8 @@ but they do not completely overlap.")
       top_n <- ceiling(n / 2)
       bot_n <- floor(n / 2)
       
+      if (bot_n == 0) separator_row_flag = FALSE
+      
       row_slice <- if (nr < 2 * n) {
         seq_len(nr)
       } else {
@@ -295,9 +297,12 @@ but they do not completely overlap.")
 
       sub_seq <- if (nn < 2 * top_n) {
         seq_len(nn)
+      } else if (bot_n == 0){
+        seq_len(top_n)
       } else {
         c(seq_len(top_n), (nn - bot_n + 1):nn)
       }
+        
       out_sub <- out[sub_seq, ]
       
       # Compute the max character width for each column
@@ -351,8 +356,8 @@ but they do not completely overlap.")
         )
 
       # print(attributes(out_sub))
-
-      out_sub %>% print()
+      
+      out_sub %>% print(n = ifelse(separator_row_flag, n+1, n), ...)
       invisible(x)
     }
 
