@@ -58,7 +58,26 @@ find_figure <- function(names){
 
 <!-- badges: end -->
 
-**tidyprint** is an R package that provides a centralised tidy display strategy for biological data (e.g. SummarizedExperiment) and centralised messaging styles for the `tidyomics` packages. To facilitate the discussion about data display, we compare here four data displays:
+## Introduction
+
+**tidyprint** is an R package that provides a centralised tidy display strategy for biological data (e.g. SummarizedExperiment) and centralised messaging styles for the `tidyomics` packages. This package addresses a critical need in the Bioconductor ecosystem for improved data visualization and user experience when working with genomic data.
+
+
+**tidyprint** fills this important gap by:
+
+1. **Enhancing Data Discoverability**: Large genomic datasets often contain millions of features and thousands of samples, making it difficult to quickly understand data structure and content. tidyprint provides intuitive, compact visualizations that help researchers immediately grasp their data's dimensions and key characteristics.
+
+2. **Improving Workflow Integration**: The package seamlessly integrates with existing Bioconductor infrastructure while providing output formats that are familiar to users of modern R data science tools, particularly the tidyverse ecosystem.
+
+3. **Supporting Reproducible Research**: By standardizing how SummarizedExperiment objects are displayed across different analysis contexts, tidyprint promotes consistency in scientific communication and documentation.
+
+4. **Addressing Scalability Challenges**: As genomic datasets continue to grow in size and complexity, traditional display methods become inadequate. tidyprint's adaptive display strategies ensure that users can effectively explore data regardless of scale.
+
+5. **Fostering Community Standards**: The package establishes conventions for data display that can be adopted across the Bioconductor ecosystem, promoting consistency and reducing the learning curve for new users.
+
+### Package Overview
+
+To facilitate the discussion about data display, we compare here four data displays:
 
 1.  **SummarizedExperiment**: Standard R/SummarizedExperiment printing style.
 
@@ -68,7 +87,7 @@ Depending on your workflow and desired console output, `tidyprint` makes it easy
 
 ------------------------------------------------------------------------
 
-## 1. Installation
+## Installation
 
 You need the `remotes` package to install from GitHub. If you don't have it, install it via:
 
@@ -92,11 +111,11 @@ BiocManager::install("tidyprint")
 
 ------------------------------------------------------------------------
 
-## 2. Demo
+## Demo
 
 Below is an example demonstrating how to use **tidyprint** with a sample `SummarizedExperiment` object.
 
-### 2.1 Load Required Packages
+### Load Required Packages
 
 ```{r load-packages, message = FALSE, warnings = FALSE}
 library(dplyr)
@@ -126,7 +145,7 @@ airway
 
 **For comparative purposes we display the alternative visualisations we are trying to harmonise (now depreciated)**
 
-### 2.4 **tidySummarizedExperiment**
+### **tidySummarizedExperiment**
 
 Use the "tidySummarizedExperiment" design to view your data in a **tidy-friendly tibble** format:
 
@@ -135,7 +154,7 @@ Use the "tidySummarizedExperiment" design to view your data in a **tidy-friendly
 airway %>% print(design = "tidySummarizedExperiment")
 ```
 
-### 2.5 **plyxp**
+### **plyxp**
 
 For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style:
 
@@ -143,7 +162,7 @@ For a more compact view (top and bottom rows), similar to a plyxp/tidyverse styl
 airway %>% print(design = "plyxp")
 ```
 
-# 3. Messaging function
+## Messaging function
 
 We integrated a messaging function providing standardized, visually appealing messages for packages within the tidyomics ecosystem. It automatically detects the calling package to provide contextualized messaging, such as "tidyprint says" or "tidybulk says", enhancing consistency and readability across projects.
 

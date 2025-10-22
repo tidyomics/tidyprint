@@ -1,0 +1,25 @@
+# tidyprint NEWS
+
+## tidyprint 0.99.3 (2024-12-19)
+
+### NEW FEATURES
+- Initial Bioconductor submission
+- Custom print methods for SummarizedExperiment objects
+- Tidyverse-aligned console displays for genomic data
+- Alternative tibble abstractions for large genomic datasets
+- Unified messaging utilities for the tidyomics ecosystem
+- Support for multiple print designs: SummarizedExperiment, tidyprint_1, tidySummarizedExperiment, and plyxp
+- Automatic package detection for contextualized messaging
+
+### IMPROVEMENTS
+- Enhanced readability and usability within tidy workflows
+- Consistent display formatting across different data sizes
+- Improved discoverability and interpretation of genomic data
+
+### BUG FIXES
+- None in this initial release
+
+### DOCUMENTATION
+- Comprehensive vignette with Introduction section
+- Complete man pages for all exported functions
+- Package-level documentation

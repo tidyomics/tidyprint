@@ -7,10 +7,47 @@ tidyprint
 
 <!-- badges: end -->
 
+## Introduction
+
 **tidyprint** is an R package that provides a centralised tidy display
 strategy for biological data (e.g. SummarizedExperiment) and centralised
-messaging styles for the `tidyomics` packages. To facilitate the
-discussion about data display, we compare here four data displays:
+messaging styles for the `tidyomics` packages. This package addresses a
+critical need in the Bioconductor ecosystem for improved data
+visualization and user experience when working with genomic data.
+
+**tidyprint** fills this important gap by:
+
+1.  **Enhancing Data Discoverability**: Large genomic datasets often
+    contain millions of features and thousands of samples, making it
+    difficult to quickly understand data structure and content.
+    tidyprint provides intuitive, compact visualizations that help
+    researchers immediately grasp their data’s dimensions and key
+    characteristics.
+
+2.  **Improving Workflow Integration**: The package seamlessly
+    integrates with existing Bioconductor infrastructure while providing
+    output formats that are familiar to users of modern R data science
+    tools, particularly the tidyverse ecosystem.
+
+3.  **Supporting Reproducible Research**: By standardizing how
+    SummarizedExperiment objects are displayed across different analysis
+    contexts, tidyprint promotes consistency in scientific communication
+    and documentation.
+
+4.  **Addressing Scalability Challenges**: As genomic datasets continue
+    to grow in size and complexity, traditional display methods become
+    inadequate. tidyprint’s adaptive display strategies ensure that
+    users can effectively explore data regardless of scale.
+
+5.  **Fostering Community Standards**: The package establishes
+    conventions for data display that can be adopted across the
+    Bioconductor ecosystem, promoting consistency and reducing the
+    learning curve for new users.
+
+### Package Overview
+
+To facilitate the discussion about data display, we compare here four
+data displays:
 
 1.  **SummarizedExperiment**: Standard R/SummarizedExperiment printing
     style.
@@ -23,7 +60,7 @@ it easy to switch between these printing styles.
 
 ------------------------------------------------------------------------
 
-## 1. Installation
+## Installation
 
 You need the `remotes` package to install from GitHub. If you don’t have
 it, install it via:
@@ -48,12 +85,12 @@ BiocManager::install("tidyprint")
 
 ------------------------------------------------------------------------
 
-## 2. Demo
+## Demo
 
 Below is an example demonstrating how to use **tidyprint** with a sample
 `SummarizedExperiment` object.
 
-### 2.1 Load Required Packages
+### Load Required Packages
 
 ``` r
 library(dplyr)
@@ -113,7 +150,7 @@ airway
 **For comparative purposes we display the alternative visualisations we
 are trying to harmonise (now depreciated)**
 
-### 2.4 **tidySummarizedExperiment**
+### **tidySummarizedExperiment**
 
 Use the “tidySummarizedExperiment” design to view your data in a
 **tidy-friendly tibble** format:
@@ -142,7 +179,7 @@ airway %>% print(design = "tidySummarizedExperiment")
 #> #   seq_coord_system <int>, symbol <chr>, GRangesList <list>
 ```
 
-### 2.5 **plyxp**
+### **plyxp**
 
 For a more compact view (top and bottom rows), similar to a
 plyxp/tidyverse style:
@@ -168,7 +205,7 @@ airway %>% print(design = "plyxp")
 #> #   avgLength <int>, Experiment <fct>, Sample <fct>, BioSample <fct>
 ```
 
-# 3. Messaging function
+## Messaging function
 
 We integrated a messaging function providing standardized, visually
 appealing messages for packages within the tidyomics ecosystem. It
@@ -232,7 +269,7 @@ sessionInfo()
 #> [8] base     
 #> 
 #> other attached packages:
-#>  [1] tidyprint_0.99.0            airway_1.26.0              
+#>  [1] tidyprint_0.99.2            airway_1.26.0              
 #>  [3] SummarizedExperiment_1.36.0 Biobase_2.66.0             
 #>  [5] GenomicRanges_1.58.0        GenomeInfoDb_1.42.3        
 #>  [7] IRanges_2.40.1              S4Vectors_0.44.0           
@@ -243,7 +280,7 @@ sessionInfo()
 #> loaded via a namespace (and not attached):
 #>  [1] utf8_1.2.6              generics_0.1.4          SparseArray_1.6.2      
 #>  [4] stringi_1.8.7           lattice_0.22-6          digest_0.6.37          
-#>  [7] magrittr_2.0.3          evaluate_1.0.5          grid_4.4.3             
+#>  [7] magrittr_2.0.4          evaluate_1.0.5          grid_4.4.3             
 #> [10] fastmap_1.2.0           rprojroot_2.1.0         jsonlite_2.0.0         
 #> [13] Matrix_1.7-2            httr_1.4.7              fansi_1.0.6            
 #> [16] purrr_1.1.0             UCSC.utils_1.2.0        abind_1.4-8            
@@ -251,9 +288,9 @@ sessionInfo()
 #> [22] XVector_0.46.0          withr_3.0.2             DelayedArray_0.32.0    
 #> [25] yaml_2.3.10             S4Arrays_1.6.0          tools_4.4.3            
 #> [28] GenomeInfoDbData_1.2.13 vctrs_0.6.5             R6_2.6.1               
-#> [31] lifecycle_1.0.4         stringr_1.5.1           zlibbioc_1.52.0        
-#> [34] pkgconfig_2.0.3         pillar_1.11.0           glue_1.8.0             
+#> [31] lifecycle_1.0.4         stringr_1.5.2           zlibbioc_1.52.0        
+#> [34] pkgconfig_2.0.3         pillar_1.11.1           glue_1.8.0             
 #> [37] xfun_0.53               tibble_3.3.0            tidyselect_1.2.1       
 #> [40] rstudioapi_0.17.1       knitr_1.50              htmltools_0.5.8.1      
-#> [43] rmarkdown_2.29          compiler_4.4.3
+#> [43] rmarkdown_2.30          compiler_4.4.3
 ```

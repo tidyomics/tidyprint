@@ -1,3 +1,41 @@
+#' Convert SummarizedExperiment to tibble
+#'
+#' Converts a \link[SummarizedExperiment]{SummarizedExperiment} object to a tibble
+#' format, combining assay data with sample and feature metadata in a long format
+#' suitable for tidyverse workflows.
+#'
+#' @param x A \code{SummarizedExperiment} object to convert.
+#' @param ... Additional arguments passed to internal conversion functions.
+#' @param .name_repair Treatment of problematic column names. See
+#'   \code{\link[tibble]{as_tibble}} for details.
+#' @param rownames Either \code{NULL} or a string giving the name of a column
+#'   to use as rownames. See \code{\link[tibble]{as_tibble}} for details.
+#'
+#' @return A tibble containing the assay data combined with sample and feature
+#'   metadata. The structure includes:
+#'   \itemize{
+#'     \item Feature identifiers (from \code{rownames} or \code{rowData})
+#'     \item Sample identifiers (from \code{colnames} or \code{colData})
+#'     \item Assay values (one column per assay)
+#'     \item Sample metadata (from \code{colData})
+#'     \item Feature metadata (from \code{rowData})
+#'   }
+#'
+#' @details
+#' This method provides a bridge between Bioconductor's SummarizedExperiment
+#' objects and tidyverse data manipulation workflows. The conversion creates
+#' a long-format tibble where each row represents a feature-sample combination,
+#' making it suitable for filtering, grouping, and other tidyverse operations.
+#'
+#' @seealso \link[SummarizedExperiment]{SummarizedExperiment}, \link[tibble]{as_tibble}
+#'
+#' @examples
+#' \dontrun{
+#'   library(tidyprint)
+#'   data(se_airway)
+#'   as_tibble(se_airway)
+#' }
+#'
 #' @importFrom purrr reduce
 #' @importFrom purrr map map2
 #' @importFrom tidyr spread
