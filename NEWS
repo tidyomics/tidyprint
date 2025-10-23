@@ -1,5 +1,14 @@
 # tidyprint NEWS
 
+## tidyprint 0.99.4 (2024-12-19)
+
+### CHANGES IN RESPONSE TO REVIEWER COMMENTS
+- Added comprehensive Introduction section to vignette with Bioconductor motivation
+- Created NEWS file in correct Bioconductor format
+- Added package-level documentation (tidyprint-package.Rd)
+- Fixed vignette section numbering (removed decimal numbering)
+- Ensured all exported functions have complete man pages
+
 ## tidyprint 0.99.3 (2024-12-19)
 
 ### NEW FEATURES
