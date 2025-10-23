@@ -34,6 +34,15 @@
 #' SummarizedExperiment objects to tibble format, combining assay data with
 #' sample and feature metadata in a long format suitable for tidyverse workflows.
 #'
+#' @return
+#' This package provides S3 methods and functions that enhance the display and
+#' manipulation of SummarizedExperiment objects. The main functions return:
+#' \itemize{
+#'   \item \code{print.SummarizedExperiment}: Returns the input object invisibly
+#'   \item \code{as_tibble.SummarizedExperiment}: Returns a tibble with combined assay and metadata
+#'   \item \code{tidy_message}: Returns NULL invisibly (prints styled messages)
+#' }
+#'
 #' @author Chen Zhan \email{chen.zhan@adelaide.edu.au}
 #'
 #' @seealso

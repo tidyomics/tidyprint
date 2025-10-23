@@ -1,5 +1,10 @@
 # tidyprint NEWS
 
+## tidyprint 0.99.5 (2024-12-19)
+
+### BUG FIXES
+- Fixed missing \value section in package man page (tidyprint-package.Rd)
+
 ## tidyprint 0.99.4 (2024-12-19)
 
 ### CHANGES IN RESPONSE TO REVIEWER COMMENTS

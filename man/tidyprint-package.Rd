@@ -4,6 +4,15 @@
 \alias{tidyprint-package}
 \alias{tidyprint}
 \title{tidyprint: Custom Print Methods for SummarizedExperiment}
+\value{
+This package provides S3 methods and functions that enhance the display and
+manipulation of SummarizedExperiment objects. The main functions return:
+\itemize{
+\item \code{print.SummarizedExperiment}: Returns the input object invisibly
+\item \code{as_tibble.SummarizedExperiment}: Returns a tibble with combined assay and metadata
+\item \code{tidy_message}: Returns NULL invisibly (prints styled messages)
+}
+}
 \description{
 Provides customized print methods for \link[SummarizedExperiment]{SummarizedExperiment} objects
 to enhance readability and usability within a tidy workflow. It offers
