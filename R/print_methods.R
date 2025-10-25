@@ -19,10 +19,12 @@
 #'     \item \code{1} \eqn{\to} \code{"SummarizedExperiment"}
 #'     \item \code{2} \eqn{\to} \code{"tidyprint_1"}
 #'   }
-#' @param n_print Integer (default \code{10}). Approximate number of rows to show
-#'   in the \code{"tidyprint_1"} display. When the total cells shown are fewer
-#'   than \code{n_print}, the full table is printed and the separator row is
-#'   suppressed.
+#' @param n Integer. Number of rows to show in the \code{"tidyprint_1"} and 
+#'   \code{"plyxp"} displays. When the total cells shown are fewer than \code{n}, 
+#'   the full table is printed and the separator row is suppressed. If not provided, 
+#'   defaults to \code{n_print}.
+#' @param n_print Integer (default \code{10}). Deprecated in favor of \code{n}. 
+#'   Used as fallback if \code{n} is not provided.
 #' @param ... Additional arguments passed to internal printers (currently unused).
 #'
 #' @details
@@ -43,6 +45,7 @@
 #'   print(se_airway)                         # default 
 #'   print(se_airway, design = "tidyprint_1") # tidyprint abstraction
 #'   print(se_airway, design = 2)             # numeric alias for "tidyprint_1"
+#'   print(se_airway, n = 20)                 # show more rows
 #' }
 #'
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
@@ -58,7 +61,12 @@
 #' @importFrom magrittr `%>%`
 #' @importFrom dplyr if_else mutate across
 #' @export
-print.SummarizedExperiment <- function(x, design = 2, n_print = 10, ...) {
+print.SummarizedExperiment <- function(x, design = 2, n = NULL, n_print = 10, ...) {
+  
+  # Handle n parameter: use n if provided, otherwise fall back to n_print
+  if (is.null(n)) {
+    n <- n_print
+  }
 
   # Match the user-supplied design argument to one of the valid choices:
   if (is.numeric(design)) {
@@ -172,21 +180,21 @@ but they do not completely overlap.")
     # --- 3) plyxp-STYLE PRINTING ---
   } else if (design == "plyxp"){
 
-    print_plyxp_summarized_experiment <- function(x, n = n_print , ...) {
-      top_n <- ceiling(n / 2)
-      bot_n <- floor(n / 2)
+    print_plyxp_summarized_experiment <- function(x, n_rows = n, ...) {
+      top_n <- ceiling(n_rows / 2)
+      bot_n <- floor(n_rows / 2)
       onr <- nr <- nrow(x)
-      row_slice <- if (nr < 2 * n) {
+      row_slice <- if (nr < 2 * n_rows) {
         seq_len(nr)
       } else {
-        c(seq_len(n), (nr - n + 1):nr)
+        c(seq_len(n_rows), (nr - n_rows + 1):nr)
       }
 
       onc <- nc <- ncol(x)
-      col_slice <- if (nc < 2 * n) {
+      col_slice <- if (nc < 2 * n_rows) {
         seq_len(nc)
       } else {
-        c(seq_len(n), (nc - n + 1):nc)
+        c(seq_len(n_rows), (nc - n_rows + 1):nc)
       }
 
       x_ <- x[row_slice, col_slice]
@@ -229,7 +237,7 @@ but they do not completely overlap.")
       }
 
       attr(out_sub, "plyxp:::data") <- x
-      print(out_sub, n = n, ...)
+      print(out_sub, n = n_rows, ...)
       invisible(x)
     }
 
@@ -239,34 +247,34 @@ but they do not completely overlap.")
   # tidyprint_1: SE_print_abstraction
   }  else if (design == "tidyprint_1"){
 
-    print_tidyprint_1 <- function(x, n = n_print , ...){
+    print_tidyprint_1 <- function(x, n_rows = n, ...){
       
       onr <- nr <- nrow(x) %>% as.double()
       onc <- nc <- ncol(x) %>% as.double()
       
-      if ( onc > 0 && onr > 0 && n / onc >= onr ) {
-        n <- onc*onr
+      if ( onc > 0 && onr > 0 && n_rows / onc >= onr ) {
+        n_rows <- onc*onr
         separator_row_flag = FALSE
       }else{
         separator_row_flag = TRUE
       }
 
-      top_n <- ceiling(n / 2)
-      bot_n <- floor(n / 2)
+      top_n <- ceiling(n_rows / 2)
+      bot_n <- floor(n_rows / 2)
       
       if (bot_n == 0) separator_row_flag = FALSE
       
-      row_slice <- if (nr < 2 * n) {
+      row_slice <- if (nr < 2 * n_rows) {
         seq_len(nr)
       } else {
-        c(seq_len(n), (nr - n + 1):nr)
+        c(seq_len(n_rows), (nr - n_rows + 1):nr)
       }
 
       
-      col_slice <- if (nc < 2 * n) {
+      col_slice <- if (nc < 2 * n_rows) {
         seq_len(nc)
       } else {
-        c(seq_len(n), (nc - n + 1):nc)
+        c(seq_len(n_rows), (nc - n_rows + 1):nc)
       }
 
       x_ <- x[row_slice, col_slice]
@@ -335,7 +343,7 @@ but they do not completely overlap.")
 
       out_sub = out_sub %>%
         vctrs::new_data_frame(class=c('SE_print_abstraction', "tbl_df", "tbl", "data.frame")) %>%
-        add_attr(n, 'n_print') %>%
+        add_attr(n_rows, 'n_print') %>%
         add_attr(onc*onr, 'total_rows') %>%
         add_attr(nrow(x),  "number_of_features") %>%
         add_attr(ncol(x),  "number_of_samples") %>%
@@ -357,7 +365,7 @@ but they do not completely overlap.")
 
       # print(attributes(out_sub))
       
-      out_sub %>% print(n = ifelse(separator_row_flag, n+1, n), ...)
+      out_sub %>% print(n = ifelse(separator_row_flag, n_rows+1, n_rows), ...)
       invisible(x)
     }
 
