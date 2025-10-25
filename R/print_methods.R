@@ -5,8 +5,8 @@
 #' the table is truncated.
 #'
 #' @param x A \code{SummarizedExperiment} object to print.
-#' @param n_print Integer (default \code{10}). Approximate number of rows to show
-#'   in the display. When the total cells shown are fewer than \code{n_print}, the
+#' @param n Integer (default \code{10}). Approximate number of rows to show
+#'   in the display. When the total cells shown are fewer than \code{n}, the
 #'   full table is printed and the separator row is suppressed.
 #' @param ... Additional arguments passed to internal printers (currently unused).
 #'
@@ -25,7 +25,7 @@
 #' \dontrun{
 #'   library(tidyprint)
 #'   print(se_airway)                         # compact tibble display
-#'   print(se_airway, n_print = 20)           # with custom row count
+#'   print(se_airway, n = 20)                # with custom row count
 #' }
 #'
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
@@ -41,37 +41,37 @@
 #' @importFrom magrittr `%>%`
 #' @importFrom dplyr if_else mutate across all_of
 #' @export
-print.SummarizedExperiment <- function(x, n_print = 10, ...) {
+print.SummarizedExperiment <- function(x, n = 10, ...) {
 
   # SE_print_abstraction
-  print_tidyprint_1 <- function(x, n = n_print , ...){
+  print_tidyprint_1 <- function(x, n_print = n, ...){
       
       onr <- nr <- nrow(x) %>% as.double()
       onc <- nc <- ncol(x) %>% as.double()
       
-      if ( onc > 0 && onr > 0 && n / onc >= onr ) {
-        n <- onc*onr
+      if ( onc > 0 && onr > 0 && n_print / onc >= onr ) {
+        n_print <- onc*onr
         separator_row_flag = FALSE
       }else{
         separator_row_flag = TRUE
       }
 
-      top_n <- ceiling(n / 2)
-      bot_n <- floor(n / 2)
+      top_n <- ceiling(n_print / 2)
+      bot_n <- floor(n_print / 2)
       
       if (bot_n == 0) separator_row_flag = FALSE
       
-      row_slice <- if (nr < 2 * n) {
+      row_slice <- if (nr < 2 * n_print) {
         seq_len(nr)
       } else {
-        c(seq_len(n), (nr - n + 1):nr)
+        c(seq_len(n_print), (nr - n_print + 1):nr)
       }
 
       
-      col_slice <- if (nc < 2 * n) {
+      col_slice <- if (nc < 2 * n_print) {
         seq_len(nc)
       } else {
-        c(seq_len(n), (nc - n + 1):nc)
+        c(seq_len(n_print), (nc - n_print + 1):nc)
       }
 
       x_ <- x[row_slice, col_slice]
@@ -140,7 +140,7 @@ print.SummarizedExperiment <- function(x, n_print = 10, ...) {
 
       out_sub = out_sub %>%
         vctrs::new_data_frame(class=c('SE_print_abstraction', "tbl_df", "tbl", "data.frame")) %>%
-        add_attr(n, 'n_print') %>%
+        add_attr(n_print, 'n') %>%
         add_attr(onc*onr, 'total_rows') %>%
         add_attr(nrow(x),  "number_of_features") %>%
         add_attr(ncol(x),  "number_of_samples") %>%
@@ -162,7 +162,7 @@ print.SummarizedExperiment <- function(x, n_print = 10, ...) {
 
       # print(attributes(out_sub))
       
-      out_sub %>% print(n = ifelse(separator_row_flag, n+1, n), ...)
+      out_sub %>% print(n = ifelse(separator_row_flag, n_print+1, n_print), ...)
       invisible(x)
     }
 

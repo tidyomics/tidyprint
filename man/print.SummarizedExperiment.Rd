@@ -4,13 +4,13 @@
 \alias{print.SummarizedExperiment}
 \title{Print method for SummarizedExperiment with tidyprint styles}
 \usage{
-\method{print}{SummarizedExperiment}(x, n_print = 10, ...)
+\method{print}{SummarizedExperiment}(x, n = 10, ...)
 }
 \arguments{
 \item{x}{A \code{SummarizedExperiment} object to print.}
 
-\item{n_print}{Integer (default \code{10}). Approximate number of rows to show
-in the display. When the total cells shown are fewer than \code{n_print}, the
+\item{n}{Integer (default \code{10}). Approximate number of rows to show
+in the display. When the total cells shown are fewer than \code{n}, the
 full table is printed and the separator row is suppressed.}
 
 \item{...}{Additional arguments passed to internal printers (currently unused).}
@@ -34,7 +34,7 @@ half block of rows. Additional indication of \code{colData} is provided as well.
 \dontrun{
   library(tidyprint)
   print(se_airway)                         # compact tibble display
-  print(se_airway, n_print = 20)           # with custom row count
+  print(se_airway, n = 20)                # with custom row count
 }
 
 }
