@@ -44,130 +44,109 @@
 print.SummarizedExperiment <- function(x, n = 10, ...) {
 
   # SE_print_abstraction
-  print_tidyprint_1 <- function(x, n_print = n, ...){
-      
-      onr <- nr <- nrow(x) %>% as.double()
-      onc <- nc <- ncol(x) %>% as.double()
-      
-      if ( onc > 0 && onr > 0 && n_print / onc >= onr ) {
-        n_print <- onc*onr
-        separator_row_flag = FALSE
-      }else{
-        separator_row_flag = TRUE
-      }
+  onr <- nr <- nrow(x) %>% as.double()
+  onc <- nc <- ncol(x) %>% as.double()
+  
+  if ( onc > 0 && onr > 0 && n / onc >= onr ) {
+    n <- onc*onr
+    separator_row_flag = FALSE
+  }else{
+    separator_row_flag = TRUE
+  }
 
-      top_n <- ceiling(n_print / 2)
-      bot_n <- floor(n_print / 2)
-      
-      if (bot_n == 0) separator_row_flag = FALSE
-      
-      row_slice <- if (nr < 2 * n_print) {
-        seq_len(nr)
-      } else {
-        c(seq_len(n_print), (nr - n_print + 1):nr)
-      }
+  top_n <- ceiling(n / 2)
+  bot_n <- floor(n / 2)
+  
+  if (bot_n == 0) separator_row_flag = FALSE
+  
+  row_slice <- if (nr < 2 * n) {
+    seq_len(nr)
+  } else {
+    c(seq_len(n), (nr - n + 1):nr)
+  }
 
-      
-      col_slice <- if (nc < 2 * n_print) {
-        seq_len(nc)
-      } else {
-        c(seq_len(n_print), (nc - n_print + 1):nc)
-      }
+  
+  col_slice <- if (nc < 2 * n) {
+    seq_len(nc)
+  } else {
+    c(seq_len(n), (nc - n + 1):nc)
+  }
 
-      x_ <- x[row_slice, col_slice]
-      nr <- nrow(x_)
-      nc <- ncol(x_)
-      .features <- rownames(x_) %||% seq_len(onr)[row_slice]
-      .samples  <- colnames(x_) %||% seq_len(onc)[col_slice]
+  x_ <- x[row_slice, col_slice]
+  nr <- nrow(x_)
+  nc <- ncol(x_)
+  .features <- rownames(x_) %||% seq_len(onr)[row_slice]
+  .samples  <- colnames(x_) %||% seq_len(onc)[col_slice]
 
-      assays_ <- purrr::map(assays(x_), as_vec)
-      row_    <- purrr::map(rowData(x_), vec_rep, times = nc) |> purrr::map(maybe_phantom)
-      col_    <- purrr::map(colData(x_), vec_rep_each, times = nr) |> purrr::map(maybe_phantom)
+  assays_ <- purrr::map(assays(x_), as_vec)
+  row_    <- purrr::map(rowData(x_), vec_rep, times = nc) |> purrr::map(maybe_phantom)
+  col_    <- purrr::map(colData(x_), vec_rep_each, times = nr) |> purrr::map(maybe_phantom)
 
-      nn <- nc * nr
-      out <- c(
-        list(
-          .feature = vctrs::vec_rep(.features, times = nc),
-          .sample  = vctrs::vec_rep_each(.samples, times = nr)
-        ),
-        list(`|` = sep_(nn)),
-        assays_,
-        list(`|` = sep_(nn)),
-        col_,
-        list(`|` = sep_(nn)),
-        row_
-      )
-      attr(out, "row.names") <- c(NA_integer_, -nn)
-      class(out) <- c("SE_abstraction", "tbl_df", "tbl", "data.frame")
+  nn <- nc * nr
+  out <- c(
+    list(
+      .feature = vctrs::vec_rep(.features, times = nc),
+      .sample  = vctrs::vec_rep_each(.samples, times = nr)
+    ),
+    list(`|` = sep_(nn)),
+    assays_,
+    list(`|` = sep_(nn)),
+    col_,
+    list(`|` = sep_(nn)),
+    row_
+  )
+  attr(out, "row.names") <- c(NA_integer_, -nn)
+  class(out) <- c("SE_abstraction", "tbl_df", "tbl", "data.frame")
 
-      sub_seq <- if (nn < 2 * top_n) {
-        seq_len(nn)
-      } else if (bot_n == 0){
-        seq_len(top_n)
-      } else {
-        c(seq_len(top_n), (nn - bot_n + 1):nn)
-      }
-        
-      out_sub <- out[sub_seq, ]
-      
-      # Compute the max character width for each column
-      separator_row <- vapply(out_sub %>% colnames(), function(col) {
-        max_width <- max(nchar(as.character(col)), na.rm = TRUE)  # Get max width in the column
-        paste(rep("-", max_width), collapse = "")  # Generate a separator of the same length
-      }, character(1))
+  sub_seq <- if (nn < 2 * top_n) {
+    seq_len(nn)
+  } else if (bot_n == 0){
+    seq_len(top_n)
+  } else {
+    c(seq_len(top_n), (nn - bot_n + 1):nn)
+  }
+    
+  out_sub <- out[sub_seq, ]
+  
+  # Compute the max character width for each column
+  separator_row <- vapply(out_sub %>% colnames(), function(col) {
+    max_width <- max(nchar(as.character(col)), na.rm = TRUE)  # Get max width in the column
+    paste(rep("-", max_width), collapse = "")  # Generate a separator of the same length
+  }, character(1))
 
-      if (separator_row_flag){
-        
-        # Modify the entire tibble to include a separator row across all columns
-        ## temporalily convert factor cols to char
-        fct_col = map(out_sub, is.factor) %>% keep(~{.x == TRUE}) %>% names
-        if (length(fct_col)) out_sub[, fct_col] = out_sub[, fct_col] %>% mutate(across(all_of(fct_col), as.character))
-        
-        
-        out_sub <- suppressWarnings(rbind(
-          out_sub[seq_len(top_n),],
-          as.list(separator_row),      # Adaptive separator row
-          out_sub[(top_n+1):nrow(out_sub), ]
-        ))
-        ## reverse to factor cols
-        if (length(fct_col)) out_sub[, fct_col] = out_sub[, fct_col] %>% mutate(across(all_of(fct_col), as.factor))
-      }
+  if (separator_row_flag){
+    
+    # Modify the entire tibble to include a separator row across all columns
+    ## temporalily convert factor cols to char
+    fct_col = map(out_sub, is.factor) %>% keep(~{.x == TRUE}) %>% names
+    if (length(fct_col)) out_sub[, fct_col] = out_sub[, fct_col] %>% mutate(across(all_of(fct_col), as.character))
+    
+    
+    out_sub <- suppressWarnings(rbind(
+      out_sub[seq_len(top_n),],
+      as.list(separator_row),      # Adaptive separator row
+      out_sub[(top_n+1):nrow(out_sub), ]
+    ))
+    ## reverse to factor cols
+    if (length(fct_col)) out_sub[, fct_col] = out_sub[, fct_col] %>% mutate(across(all_of(fct_col), as.factor))
+  }
 
-      # attr(out_sub, "n") <- n
-      # attr(out_sub, "total_rows") <- x %>% dim %>% {(.)[1] * (.)[2]}
+  out_sub = out_sub %>%
+    vctrs::new_data_frame(class=c('SE_print_abstraction', "tbl_df", "tbl", "data.frame")) %>%
+    add_attr(n, 'n') %>%
+    add_attr(onc*onr, 'total_rows') %>%
+    add_attr(nrow(x),  "number_of_features") %>%
+    add_attr(ncol(x),  "number_of_samples") %>%
+    add_attr(assays(x) %>% names, "assay_names") %>%
+    add_attr(separator_row, "separator_row") |>
+    add_attr(names(col_), "covariate_names") |>
+    add_attr(
+      '' %>%
+        setNames("A SummarizedExperiment-tibble abstraction"),
+      "named_header"
+    )
 
-      # class(out_sub) <- c("SE_print_abstraction", "tbl_df", "tbl", "data.frame")
-
-      out_sub = out_sub %>%
-        vctrs::new_data_frame(class=c('SE_print_abstraction', "tbl_df", "tbl", "data.frame")) %>%
-        add_attr(n_print, 'n') %>%
-        add_attr(onc*onr, 'total_rows') %>%
-        add_attr(nrow(x),  "number_of_features") %>%
-        add_attr(ncol(x),  "number_of_samples") %>%
-        add_attr(assays(x) %>% names, "assay_names") %>%
-        add_attr(separator_row, "separator_row") |>
-        add_attr(names(col_), "covariate_names") |>
-
-        # add_attr(
-        #   # Get the actual column names that will be printed on screen
-        #   # This uses tibble's internal method to determine visible columns
-        #   pillar::tbl_format_setup(out_sub, width = getOption("width", 80) + 4)$body[1] |> as.character(),
-        #   "printed_colnames"
-        # ) %>%
-        add_attr(
-          '' %>%
-            setNames("A SummarizedExperiment-tibble abstraction"),
-          "named_header"
-        )
-
-      # print(attributes(out_sub))
-      
-      out_sub %>% print(n = ifelse(separator_row_flag, n_print+1, n_print), ...)
-      invisible(x)
-    }
-
-
-  print_tidyprint_1(x, ...)
+  out_sub %>% print(n = ifelse(separator_row_flag, n+1, n), ...)
   invisible(x)
 }
 
