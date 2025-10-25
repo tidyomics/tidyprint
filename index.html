@@ -95,12 +95,7 @@
 <div class="section level3">
 <h3 id="package-overview">Package Overview<a class="anchor" aria-label="anchor" href="#package-overview"></a>
 </h3>
-<p>To facilitate the discussion about data display, we compare here four data displays:</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>SummarizedExperiment</strong>: Standard R/SummarizedExperiment printing style.</p></li>
-<li><p><strong>tidyprint_1</strong>: Newly designed tibble abstraction, combines styles from <strong>tidySummarizedExperiment</strong> and <strong>plyxp</strong> with updated design.</p></li>
-</ol>
-<p>Depending on your workflow and desired console output, <code>tidyprint</code> makes it easy to switch between these printing styles.</p>
+<p><strong>tidyprint</strong> provides an improved display for SummarizedExperiment objects with a tidy tibble-style format that makes genomic data more accessible and easier to explore.</p>
 <hr>
 </div>
 </div>
@@ -178,61 +173,6 @@
 <span><span class="co">#&gt; #   `|` &lt;|&gt;, gene_id &lt;chr&gt;, gene_name &lt;chr&gt;, entrezid &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   gene_biotype &lt;chr&gt;, gene_seq_start &lt;chr&gt;, gene_seq_end &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   seq_name &lt;chr&gt;, seq_strand &lt;chr&gt;, seq_coord_system &lt;chr&gt;, symbol &lt;chr&gt;</span></span></code></pre></div>
-<hr>
-<p><strong>For comparative purposes we display the alternative visualisations we are trying to harmonise (now depreciated)</strong></p>
-</div>
-<div class="section level3">
-<h3 id="tidysummarizedexperiment">
-<strong>tidySummarizedExperiment</strong><a class="anchor" aria-label="anchor" href="#tidysummarizedexperiment"></a>
-</h3>
-<p>Use the “tidySummarizedExperiment” design to view your data in a <strong>tidy-friendly tibble</strong> format:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Tidy SummarizedExperiment print:</span></span>
-<span><span class="va">airway</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>design <span class="op">=</span> <span class="st">"tidySummarizedExperiment"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 509,416 × 23</span></span>
-<span><span class="co">#&gt; # Features=63677 | Samples=8 | Assays=counts</span></span>
-<span><span class="co">#&gt;    .feature        .sample   counts SampleName cell  dex   albut Run   avgLength</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;           &lt;chr&gt;      &lt;int&gt; &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;     &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1 ENSG00000000003 SRR10395…    679 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt;  2 ENSG00000000005 SRR10395…      0 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt;  3 ENSG00000000419 SRR10395…    467 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt;  4 ENSG00000000457 SRR10395…    260 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt;  5 ENSG00000000460 SRR10395…     60 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt;  6 ENSG00000000938 SRR10395…      0 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt;  7 ENSG00000000971 SRR10395…   3251 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt;  8 ENSG00000001036 SRR10395…   1433 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt;  9 ENSG00000001084 SRR10395…    519 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt; 10 ENSG00000001167 SRR10395…    394 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt; # ℹ 40 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 14 more variables: Experiment &lt;fct&gt;, Sample &lt;fct&gt;, BioSample &lt;fct&gt;,</span></span>
-<span><span class="co">#&gt; #   gene_id &lt;chr&gt;, gene_name &lt;chr&gt;, entrezid &lt;int&gt;, gene_biotype &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   gene_seq_start &lt;int&gt;, gene_seq_end &lt;int&gt;, seq_name &lt;chr&gt;, seq_strand &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   seq_coord_system &lt;int&gt;, symbol &lt;chr&gt;, GRangesList &lt;list&gt;</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="plyxp">
-<strong>plyxp</strong><a class="anchor" aria-label="anchor" href="#plyxp"></a>
-</h3>
-<p>For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">airway</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>design <span class="op">=</span> <span class="st">"plyxp"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 10 × 25</span></span>
-<span><span class="co">#&gt;    .features .samples `|` counts `|` gene_id     gene_name entrezid gene_biotype</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;    &lt;|&gt;  &lt;int&gt; &lt;|&gt; &lt;chr&gt;       &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;       </span></span>
-<span><span class="co">#&gt;  1 ENSG0000… SRR1039… |      679 |   ENSG000000… TSPAN6          NA protein_cod…</span></span>
-<span><span class="co">#&gt;  2 ENSG0000… SRR1039… |        0 |   ENSG000000… TNMD            NA protein_cod…</span></span>
-<span><span class="co">#&gt;  3 ENSG0000… SRR1039… |      467 |   ENSG000000… DPM1            NA protein_cod…</span></span>
-<span><span class="co">#&gt;  4 ENSG0000… SRR1039… |      260 |   ENSG000000… SCYL3           NA protein_cod…</span></span>
-<span><span class="co">#&gt;  5 ENSG0000… SRR1039… |       60 |   ENSG000000… C1orf112        NA protein_cod…</span></span>
-<span><span class="co">#&gt;  6 ENSG0000… SRR1039… |        0 |   ENSG000002… RP11-180…       NA antisense   </span></span>
-<span><span class="co">#&gt;  7 ENSG0000… SRR1039… |        0 |   ENSG000002… TSEN34          NA protein_cod…</span></span>
-<span><span class="co">#&gt;  8 ENSG0000… SRR1039… |        0 |   ENSG000002… RP11-138…       NA lincRNA     </span></span>
-<span><span class="co">#&gt;  9 ENSG0000… SRR1039… |        0 |   ENSG000002… AP000230…       NA lincRNA     </span></span>
-<span><span class="co">#&gt; 10 ENSG0000… SRR1039… |        0 |   ENSG000002… RP11-80H…       NA lincRNA     </span></span>
-<span><span class="co">#&gt; # ℹ 16 more variables: gene_seq_start &lt;int&gt;, gene_seq_end &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   seq_name &lt;chr&gt;, seq_strand &lt;int&gt;, seq_coord_system &lt;int&gt;, symbol &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   `|` &lt;|&gt;, SampleName &lt;fct&gt;, cell &lt;fct&gt;, dex &lt;fct&gt;, albut &lt;fct&gt;, Run &lt;fct&gt;,</span></span>
-<span><span class="co">#&gt; #   avgLength &lt;int&gt;, Experiment &lt;fct&gt;, Sample &lt;fct&gt;, BioSample &lt;fct&gt;</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -240,7 +180,7 @@
 </h2>
 <p>We integrated a messaging function providing standardized, visually appealing messages for packages within the tidyomics ecosystem. It automatically detects the calling package to provide contextualized messaging, such as “tidyprint says” or “tidybulk says”, enhancing consistency and readability across projects.</p>
 <p>To use the <code>tidy_message</code> function:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tidyprint</span><span class="fu">::</span><span class="fu"><a href="reference/tidy_message.html">tidy_message</a></span><span class="op">(</span><span class="st">'message to print'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ℹ Console says: message to print</span></span></code></pre></div>
 <p>You can specify the type of message as</p>
@@ -250,7 +190,7 @@
 <li><p>warning</p></li>
 <li><p>danger</p></li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/demo_tidy_message.html">demo_tidy_message</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ℹ tidyprint says: This is an informational message send within tidyprint package.</span></span>
 <span><span class="co">#&gt; ✔ tidyprint says: Operation completed successfully!</span></span>
@@ -261,7 +201,7 @@
 <div class="section level2">
 <h2 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; R version 4.4.3 (2025-02-28)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>
