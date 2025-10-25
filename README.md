@@ -46,17 +46,7 @@ visualization and user experience when working with genomic data.
 
 ### Package Overview
 
-To facilitate the discussion about data display, we compare here four
-data displays:
-
-1.  **SummarizedExperiment**: Standard R/SummarizedExperiment printing
-    style.
-
-2.  **tidyprint_1**: Newly designed tibble abstraction, combines styles
-    from **tidySummarizedExperiment** and **plyxp** with updated design.
-
-Depending on your workflow and desired console output, `tidyprint` makes
-it easy to switch between these printing styles.
+**tidyprint** provides an improved display for SummarizedExperiment objects with a tidy tibble-style format that makes genomic data more accessible and easier to explore.
 
 ------------------------------------------------------------------------
 
@@ -145,65 +135,6 @@ airway
 #> #   seq_name <chr>, seq_strand <chr>, seq_coord_system <chr>, symbol <chr>
 ```
 
-------------------------------------------------------------------------
-
-**For comparative purposes we display the alternative visualisations we
-are trying to harmonise (now depreciated)**
-
-### **tidySummarizedExperiment**
-
-Use the “tidySummarizedExperiment” design to view your data in a
-**tidy-friendly tibble** format:
-
-``` r
-# Tidy SummarizedExperiment print:
-airway %>% print(design = "tidySummarizedExperiment")
-#> # A SummarizedExperiment-tibble abstraction: 509,416 × 23
-#> # Features=63677 | Samples=8 | Assays=counts
-#>    .feature        .sample   counts SampleName cell  dex   albut Run   avgLength
-#>    <chr>           <chr>      <int> <fct>      <fct> <fct> <fct> <fct>     <int>
-#>  1 ENSG00000000003 SRR10395…    679 GSM1275862 N613… untrt untrt SRR1…       126
-#>  2 ENSG00000000005 SRR10395…      0 GSM1275862 N613… untrt untrt SRR1…       126
-#>  3 ENSG00000000419 SRR10395…    467 GSM1275862 N613… untrt untrt SRR1…       126
-#>  4 ENSG00000000457 SRR10395…    260 GSM1275862 N613… untrt untrt SRR1…       126
-#>  5 ENSG00000000460 SRR10395…     60 GSM1275862 N613… untrt untrt SRR1…       126
-#>  6 ENSG00000000938 SRR10395…      0 GSM1275862 N613… untrt untrt SRR1…       126
-#>  7 ENSG00000000971 SRR10395…   3251 GSM1275862 N613… untrt untrt SRR1…       126
-#>  8 ENSG00000001036 SRR10395…   1433 GSM1275862 N613… untrt untrt SRR1…       126
-#>  9 ENSG00000001084 SRR10395…    519 GSM1275862 N613… untrt untrt SRR1…       126
-#> 10 ENSG00000001167 SRR10395…    394 GSM1275862 N613… untrt untrt SRR1…       126
-#> # ℹ 40 more rows
-#> # ℹ 14 more variables: Experiment <fct>, Sample <fct>, BioSample <fct>,
-#> #   gene_id <chr>, gene_name <chr>, entrezid <int>, gene_biotype <chr>,
-#> #   gene_seq_start <int>, gene_seq_end <int>, seq_name <chr>, seq_strand <int>,
-#> #   seq_coord_system <int>, symbol <chr>, GRangesList <list>
-```
-
-### **plyxp**
-
-For a more compact view (top and bottom rows), similar to a
-plyxp/tidyverse style:
-
-``` r
-airway %>% print(design = "plyxp")
-#> # A tibble: 10 × 25
-#>    .features .samples `|` counts `|` gene_id     gene_name entrezid gene_biotype
-#>    <chr>     <chr>    <|>  <int> <|> <chr>       <chr>        <int> <chr>       
-#>  1 ENSG0000… SRR1039… |      679 |   ENSG000000… TSPAN6          NA protein_cod…
-#>  2 ENSG0000… SRR1039… |        0 |   ENSG000000… TNMD            NA protein_cod…
-#>  3 ENSG0000… SRR1039… |      467 |   ENSG000000… DPM1            NA protein_cod…
-#>  4 ENSG0000… SRR1039… |      260 |   ENSG000000… SCYL3           NA protein_cod…
-#>  5 ENSG0000… SRR1039… |       60 |   ENSG000000… C1orf112        NA protein_cod…
-#>  6 ENSG0000… SRR1039… |        0 |   ENSG000002… RP11-180…       NA antisense   
-#>  7 ENSG0000… SRR1039… |        0 |   ENSG000002… TSEN34          NA protein_cod…
-#>  8 ENSG0000… SRR1039… |        0 |   ENSG000002… RP11-138…       NA lincRNA     
-#>  9 ENSG0000… SRR1039… |        0 |   ENSG000002… AP000230…       NA lincRNA     
-#> 10 ENSG0000… SRR1039… |        0 |   ENSG000002… RP11-80H…       NA lincRNA     
-#> # ℹ 16 more variables: gene_seq_start <int>, gene_seq_end <int>,
-#> #   seq_name <chr>, seq_strand <int>, seq_coord_system <int>, symbol <chr>,
-#> #   `|` <|>, SampleName <fct>, cell <fct>, dex <fct>, albut <fct>, Run <fct>,
-#> #   avgLength <int>, Experiment <fct>, Sample <fct>, BioSample <fct>
-```
 
 ## Messaging function
 

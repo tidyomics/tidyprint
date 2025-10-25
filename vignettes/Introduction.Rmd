@@ -77,13 +77,7 @@ find_figure <- function(names){
 
 ### Package Overview
 
-To facilitate the discussion about data display, we compare here four data displays:
-
-1.  **SummarizedExperiment**: Standard R/SummarizedExperiment printing style.
-
-2.  **tidyprint_1**: Newly designed tibble abstraction, combines styles from **tidySummarizedExperiment** and **plyxp** with updated design.
-
-Depending on your workflow and desired console output, `tidyprint` makes it easy to switch between these printing styles.
+**tidyprint** provides an improved display for SummarizedExperiment objects with a tidy tibble-style format that makes genomic data more accessible and easier to explore.
 
 ------------------------------------------------------------------------
 
@@ -141,26 +135,6 @@ library(tidyprint)
 airway
 ```
 
-------------------------------------------------------------------------
-
-**For comparative purposes we display the alternative visualisations we are trying to harmonise (now depreciated)**
-
-### **tidySummarizedExperiment**
-
-Use the "tidySummarizedExperiment" design to view your data in a **tidy-friendly tibble** format:
-
-```{r tidyse-display}
-# Tidy SummarizedExperiment print:
-airway %>% print(design = "tidySummarizedExperiment")
-```
-
-### **plyxp**
-
-For a more compact view (top and bottom rows), similar to a plyxp/tidyverse style:
-
-```{r plyxp-display}
-airway %>% print(design = "plyxp")
-```
 
 ## Messaging function
 
