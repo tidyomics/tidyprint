@@ -4,7 +4,7 @@
 \alias{print.SummarizedExperiment}
 \title{Print method for SummarizedExperiment with tidyprint styles}
 \usage{
-\method{print}{SummarizedExperiment}(x, design = 2, n_print = 10, ...)
+\method{print}{SummarizedExperiment}(x, design = 2, n = NULL, n_print = 10, ...)
 }
 \arguments{
 \item{x}{A \code{SummarizedExperiment} object to print.}
@@ -22,10 +22,13 @@ Numeric shortcuts are mapped as:
 \item \code{2} \eqn{\to} \code{"tidyprint_1"}
 }}
 
-\item{n_print}{Integer (default \code{10}). Approximate number of rows to show
-in the \code{"tidyprint_1"} display. When the total cells shown are fewer
-than \code{n_print}, the full table is printed and the separator row is
-suppressed.}
+\item{n}{Integer. Number of rows to show in the \code{"tidyprint_1"} and
+\code{"plyxp"} displays. When the total cells shown are fewer than \code{n},
+the full table is printed and the separator row is suppressed. If not provided,
+defaults to \code{n_print}.}
+
+\item{n_print}{Integer (default \code{10}). Deprecated in favor of \code{n}.
+Used as fallback if \code{n} is not provided.}
 
 \item{...}{Additional arguments passed to internal printers (currently unused).}
 }
@@ -53,6 +56,7 @@ half block of rows. Additional indication of \code{colData} is provided as well.
   print(se_airway)                         # default 
   print(se_airway, design = "tidyprint_1") # tidyprint abstraction
   print(se_airway, design = 2)             # numeric alias for "tidyprint_1"
+  print(se_airway, n = 20)                 # show more rows
 }
 
 }

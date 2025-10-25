@@ -60,3 +60,26 @@ test_that("Invalid design throws an error", {
 test_that("tidy_message works correctly", {
   expect_message(tidy_message("Test info message"), "says: Test info message")
 })
+
+# test for n parameter support
+test_that("print method accepts n parameter", {
+  expect_output(print(se_airway, n = 20), "A SummarizedExperiment-tibble abstraction:")
+})
+
+test_that("print method accepts n parameter with tidyprint_1 design", {
+  expect_output(print(se_airway, design = "tidyprint_1", n = 20), "A SummarizedExperiment-tibble abstraction:")
+})
+
+test_that("print method accepts n parameter with plyxp design", {
+  expect_output(print(se_airway, design = "plyxp", n = 20), "A tibble:")
+})
+
+test_that("n_print parameter still works for backward compatibility", {
+  expect_output(print(se_airway, n_print = 20), "A SummarizedExperiment-tibble abstraction:")
+})
+
+test_that("n parameter takes precedence over n_print", {
+  # Both parameters set, n should take precedence
+  # We can't directly test the row count easily, but we can verify it doesn't error
+  expect_output(print(se_airway, n = 20, n_print = 5), "A SummarizedExperiment-tibble abstraction:")
+})
