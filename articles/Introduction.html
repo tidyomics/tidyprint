@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidyprint</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.6</span>
       </span>
     </div>
 
@@ -77,7 +77,7 @@
       <h1 data-toc-skip>tidyprint</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyomics/tidyprint/blob/main/vignettes/Introduction.Rmd" class="external-link"><code>vignettes/Introduction.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyomics/tidyprint/blob/remove-alternative-prints/vignettes/Introduction.Rmd" class="external-link"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction.Rmd</code></div>
 
     </div>
@@ -230,25 +230,26 @@ visualisations we are trying to harmonise (now depreciated)</strong></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Tidy SummarizedExperiment print:</span></span>
 <span><span class="va">airway</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>design <span class="op">=</span> <span class="st">"tidySummarizedExperiment"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A SummarizedExperiment-tibble abstraction: 509,416 × 23</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># </span><span style="color: #555555;">Features=63677 | Samples=8 | Assays=counts</span></span></span>
-<span><span class="co">#&gt;    .feature        .sample   counts SampleName cell  dex   albut Run   avgLength</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ENSG00000000003 SRR10395…    679 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ENSG00000000005 SRR10395…      0 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ENSG00000000419 SRR10395…    467 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ENSG00000000457 SRR10395…    260 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ENSG00000000460 SRR10395…     60 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ENSG00000000938 SRR10395…      0 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ENSG00000000971 SRR10395…   <span style="text-decoration: underline;">3</span>251 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ENSG00000001036 SRR10395…   <span style="text-decoration: underline;">1</span>433 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ENSG00000001084 SRR10395…    519 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ENSG00000001167 SRR10395…    394 GSM1275862 N613… untrt untrt SRR1…       126</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 40 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A SummarizedExperiment-tibble abstraction: </span><span style="color: #555555;">Features=63677 | Samples=8 | </span></span></span>
+<span><span class="co">#&gt; # <span style="color: #555555;">  Assays=counts</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># </span><span style="color: #5555FF;">                                |----------------- COVARIATES ---------------|</span></span></span>
+<span><span class="co">#&gt;        .feature  .sample | counts | SampleName cell  dex   albut Run   avgLength</span></span>
+<span><span class="co">#&gt;        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   | <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  | <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1     </span> ENSG0000… SRR103… | 679    | GSM1275862 N613… untrt untrt SRR1… 126      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2     </span> ENSG0000… SRR103… | 0      | GSM1275862 N613… untrt untrt SRR1… 126      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3     </span> ENSG0000… SRR103… | 467    | GSM1275862 N613… untrt untrt SRR1… 126      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4     </span> ENSG0000… SRR103… | 260    | GSM1275862 N613… untrt untrt SRR1… 126      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5     </span> ENSG0000… SRR103… | 60     | GSM1275862 N613… untrt untrt SRR1… 126      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">      </span> --------  ------- - ------ - ---------- ----  ---   ----- ---   ---------</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">509412</span> ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">509413</span> ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">509414</span> ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">509415</span> ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">509416</span> ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more variables: Experiment &lt;fct&gt;, Sample &lt;fct&gt;, BioSample &lt;fct&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   gene_id &lt;chr&gt;, gene_name &lt;chr&gt;, entrezid &lt;int&gt;, gene_biotype &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   gene_seq_start &lt;int&gt;, gene_seq_end &lt;int&gt;, seq_name &lt;chr&gt;, seq_strand &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   seq_coord_system &lt;int&gt;, symbol &lt;chr&gt;, GRangesList &lt;list&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `|` &lt;|&gt;, gene_id &lt;chr&gt;, gene_name &lt;chr&gt;, entrezid &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   gene_biotype &lt;chr&gt;, gene_seq_start &lt;chr&gt;, gene_seq_end &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   seq_name &lt;chr&gt;, seq_strand &lt;chr&gt;, seq_coord_system &lt;chr&gt;, symbol &lt;chr&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="plyxp">
@@ -258,23 +259,26 @@ visualisations we are trying to harmonise (now depreciated)</strong></p>
 plyxp/tidyverse style:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">airway</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>design <span class="op">=</span> <span class="st">"plyxp"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 25</span></span></span>
-<span><span class="co">#&gt;    .features .samples `|` counts `|` gene_id     gene_name entrezid gene_biotype</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;|&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;|&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ENSG0000… SRR1039… |      679 |   ENSG000000… TSPAN6          <span style="color: #BB0000;">NA</span> protein_cod…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ENSG0000… SRR1039… |        0 |   ENSG000000… TNMD            <span style="color: #BB0000;">NA</span> protein_cod…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ENSG0000… SRR1039… |      467 |   ENSG000000… DPM1            <span style="color: #BB0000;">NA</span> protein_cod…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ENSG0000… SRR1039… |      260 |   ENSG000000… SCYL3           <span style="color: #BB0000;">NA</span> protein_cod…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ENSG0000… SRR1039… |       60 |   ENSG000000… C1orf112        <span style="color: #BB0000;">NA</span> protein_cod…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ENSG0000… SRR1039… |        0 |   ENSG000002… RP11-180…       <span style="color: #BB0000;">NA</span> antisense   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ENSG0000… SRR1039… |        0 |   ENSG000002… TSEN34          <span style="color: #BB0000;">NA</span> protein_cod…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ENSG0000… SRR1039… |        0 |   ENSG000002… RP11-138…       <span style="color: #BB0000;">NA</span> lincRNA     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ENSG0000… SRR1039… |        0 |   ENSG000002… AP000230…       <span style="color: #BB0000;">NA</span> lincRNA     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ENSG0000… SRR1039… |        0 |   ENSG000002… RP11-80H…       <span style="color: #BB0000;">NA</span> lincRNA     </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 16 more variables: gene_seq_start &lt;int&gt;, gene_seq_end &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   seq_name &lt;chr&gt;, seq_strand &lt;int&gt;, seq_coord_system &lt;int&gt;, symbol &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `|` &lt;|&gt;, SampleName &lt;fct&gt;, cell &lt;fct&gt;, dex &lt;fct&gt;, albut &lt;fct&gt;, Run &lt;fct&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   avgLength &lt;int&gt;, Experiment &lt;fct&gt;, Sample &lt;fct&gt;, BioSample &lt;fct&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A SummarizedExperiment-tibble abstraction: </span><span style="color: #555555;">Features=63677 | Samples=8 | </span></span></span>
+<span><span class="co">#&gt; # <span style="color: #555555;">  Assays=counts</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># </span><span style="color: #5555FF;">                                |----------------- COVARIATES ---------------|</span></span></span>
+<span><span class="co">#&gt;        .feature  .sample | counts | SampleName cell  dex   albut Run   avgLength</span></span>
+<span><span class="co">#&gt;        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   | <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  | <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1     </span> ENSG0000… SRR103… | 679    | GSM1275862 N613… untrt untrt SRR1… 126      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2     </span> ENSG0000… SRR103… | 0      | GSM1275862 N613… untrt untrt SRR1… 126      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3     </span> ENSG0000… SRR103… | 467    | GSM1275862 N613… untrt untrt SRR1… 126      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4     </span> ENSG0000… SRR103… | 260    | GSM1275862 N613… untrt untrt SRR1… 126      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5     </span> ENSG0000… SRR103… | 60     | GSM1275862 N613… untrt untrt SRR1… 126      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">      </span> --------  ------- - ------ - ---------- ----  ---   ----- ---   ---------</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">509412</span> ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">509413</span> ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">509414</span> ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">509415</span> ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">509416</span> ENSG0000… SRR103… | 0      | GSM1275875 N061… trt   untrt SRR1… 98       </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more variables: Experiment &lt;fct&gt;, Sample &lt;fct&gt;, BioSample &lt;fct&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `|` &lt;|&gt;, gene_id &lt;chr&gt;, gene_name &lt;chr&gt;, entrezid &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   gene_biotype &lt;chr&gt;, gene_seq_start &lt;chr&gt;, gene_seq_end &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   seq_name &lt;chr&gt;, seq_strand &lt;chr&gt;, seq_coord_system &lt;chr&gt;, symbol &lt;chr&gt;</span></span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -334,9 +338,9 @@ a package function, showing the name of package.</p>
 <span><span class="co">#&gt; [8] base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt;  [1] tidyprint_0.99.5            airway_1.29.0              </span></span>
+<span><span class="co">#&gt;  [1] tidyprint_0.99.6            airway_1.29.0              </span></span>
 <span><span class="co">#&gt;  [3] SummarizedExperiment_1.39.2 Biobase_2.69.1             </span></span>
-<span><span class="co">#&gt;  [5] GenomicRanges_1.61.5        Seqinfo_0.99.2             </span></span>
+<span><span class="co">#&gt;  [5] GenomicRanges_1.61.6        Seqinfo_0.99.3             </span></span>
 <span><span class="co">#&gt;  [7] IRanges_2.43.5              S4Vectors_0.47.4           </span></span>
 <span><span class="co">#&gt;  [9] BiocGenerics_0.55.4         generics_0.1.4             </span></span>
 <span><span class="co">#&gt; [11] MatrixGenerics_1.21.0       matrixStats_1.5.0          </span></span>
