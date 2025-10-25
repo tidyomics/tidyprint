@@ -13,8 +13,8 @@ test_that("Default print works", {
   expect_output(print(se_airway), "A SummarizedExperiment-tibble abstraction:")
 })
 
-test_that("Print works with n_print", {
-  expect_output(print(se_airway, n_print = 5), "A SummarizedExperiment-tibble abstraction:")
+test_that("Print works with n", {
+  expect_output(print(se_airway, n = 5), "A SummarizedExperiment-tibble abstraction:")
 })
 
 # test for message

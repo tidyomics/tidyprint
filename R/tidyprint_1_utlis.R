@@ -21,7 +21,7 @@ ctl_new_rowid_pillar.SE_print_abstraction <- function(controller, x, width, ...)
   # print(controller %>% attributes())
   out <- NextMethod()
 
-  n =  controller |> attr('n_print')
+  n =  controller |> attr('n')
 
   total_rows = controller |> attr('total_rows')
 
