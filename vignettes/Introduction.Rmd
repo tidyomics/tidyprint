@@ -126,15 +126,62 @@ The standard SummarizedExperiment display:
 airway 
 ```
 
-### **tidyprint**
+------------------------------------------------------------------------
 
-Now we load tidyprint for a tidy data display
+## Opting In and Out of Tidy Print
 
-```{r tidyprint-display}
+By default, **tidyprint** does not change the standard SummarizedExperiment print format. You can opt in to use the tidy print format, and opt out at any time. The setting can be configured for the current R session only, or saved to persist across sessions.
+
+```{r load-tidyprint}
 library(tidyprint)
+```
+
+```{r turn-off-tidy-print, echo=FALSE, message=FALSE, warning=FALSE}
+# This makes sure that the vignette is not affected by the local tidy print setting
+tidy_print_off()
+```
+
+```{r display-airway}
 airway
 ```
 
+### Opt In to Tidy Print
+
+To enable the tidy print format, use `tidy_print_on()`. By default, this only affects the current R session:
+
+```{r opt-in-session}
+# Enable tidy print for current session only
+tidy_print_on()
+airway  
+```
+
+If you want the setting to persist across R sessions, use `remember = TRUE`:
+
+```{r opt-in-persistent, eval=FALSE}
+# Enable tidy print and remember the setting
+tidy_print_on(remember = TRUE)
+airway  # Will display with tidy format in all future sessions
+```
+
+When `remember = TRUE`, the setting is saved to a cache file in your R configuration directory, so it will automatically be enabled when you start new R sessions.
+
+### Opt Out of Tidy Print
+
+To return to the standard SummarizedExperiment print format, use `tidy_print_off()`. By default, this only affects the current session:
+
+```{r opt-out-session, eval=FALSE}
+# Disable tidy print for current session only
+tidy_print_off()
+airway  # Will display with standard format
+```
+
+To permanently disable tidy print and clear any saved preference:
+
+```{r opt-out-persistent, eval=FALSE}
+# Disable tidy print and remember the setting
+tidy_print_off(remember = TRUE)
+airway  # Will display with standard format in all future sessions
+```
 
 ## Messaging function
 

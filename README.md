@@ -46,7 +46,9 @@ visualization and user experience when working with genomic data.
 
 ### Package Overview
 
-**tidyprint** provides an improved display for SummarizedExperiment objects with a tidy tibble-style format that makes genomic data more accessible and easier to explore.
+**tidyprint** provides an improved display for SummarizedExperiment
+objects with a tidy tibble-style format that makes genomic data more
+accessible and easier to explore.
 
 ------------------------------------------------------------------------
 
@@ -85,7 +87,16 @@ Below is an example demonstrating how to use **tidyprint** with a sample
 ``` r
 library(dplyr)
 library(tidyr)
+#> Warning: package 'tidyr' was built under R version 4.5.1
 library(airway)
+#> Warning: package 'SummarizedExperiment' was built under R version 4.5.1
+#> Warning: package 'MatrixGenerics' was built under R version 4.5.1
+#> Warning: package 'GenomicRanges' was built under R version 4.5.2
+#> Warning: package 'BiocGenerics' was built under R version 4.5.1
+#> Warning: package 'S4Vectors' was built under R version 4.5.1
+#> Warning: package 'IRanges' was built under R version 4.5.1
+#> Warning: package 'Seqinfo' was built under R version 4.5.1
+#> Warning: package 'Biobase' was built under R version 4.5.1
 data(airway)
 ```
 
@@ -106,13 +117,43 @@ airway
 #> colData names(9): SampleName cell ... Sample BioSample
 ```
 
-### **tidyprint**
+------------------------------------------------------------------------
 
-Now we load tidyprint for a tidy data display
+## Opting In and Out of Tidy Print
+
+By default, **tidyprint** does not change the standard
+SummarizedExperiment print format. You can opt in to use the tidy print
+format, and opt out at any time. The setting can be configured for the
+current R session only, or saved to persist across sessions.
 
 ``` r
 library(tidyprint)
+```
+
+``` r
 airway
+#> ! tidyprint says: R option 'tidyprint.use_tidy_print' (FALSE) overrides cache value (TRUE). Use tidy_print_off(remember = TRUE) to update cache.
+#> class: RangedSummarizedExperiment 
+#> dim: 63677 8 
+#> metadata(1): ''
+#> assays(1): counts
+#> rownames(63677): ENSG00000000003 ENSG00000000005 ... ENSG00000273492
+#>   ENSG00000273493
+#> rowData names(10): gene_id gene_name ... seq_coord_system symbol
+#> colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
+#> colData names(9): SampleName cell ... Sample BioSample
+```
+
+### Opt In to Tidy Print
+
+To enable the tidy print format, use `tidy_print_on()`. By default, this
+only affects the current R session:
+
+``` r
+# Enable tidy print for current session only
+tidy_print_on()
+#> ℹ tidyprint says: Tidy print enabled for this session only. Use tidy_print_on(remember = TRUE) to save this setting for future sessions.
+airway  
 #> # A SummarizedExperiment-tibble abstraction: Features=63677 | Samples=8 | 
 #> #   Assays=counts
 #> #                                 |----------------- COVARIATES ---------------|
@@ -135,6 +176,37 @@ airway
 #> #   seq_name <chr>, seq_strand <chr>, seq_coord_system <chr>, symbol <chr>
 ```
 
+If you want the setting to persist across R sessions, use
+`remember = TRUE`:
+
+``` r
+# Enable tidy print and remember the setting
+tidy_print_on(remember = TRUE)
+airway  # Will display with tidy format in all future sessions
+```
+
+When `remember = TRUE`, the setting is saved to a cache file in your R
+configuration directory, so it will automatically be enabled when you
+start new R sessions.
+
+### Opt Out of Tidy Print
+
+To return to the standard SummarizedExperiment print format, use
+`tidy_print_off()`. By default, this only affects the current session:
+
+``` r
+# Disable tidy print for current session only
+tidy_print_off()
+airway  # Will display with standard format
+```
+
+To permanently disable tidy print and clear any saved preference:
+
+``` r
+# Disable tidy print and remember the setting
+tidy_print_off(remember = TRUE)
+airway  # Will display with standard format in all future sessions
+```
 
 ## Messaging function
 
@@ -176,52 +248,45 @@ function, showing the name of package.
 
 ``` r
 sessionInfo()
-#> R version 4.4.3 (2025-02-28)
-#> Platform: x86_64-pc-linux-gnu
-#> Running under: Ubuntu 24.04.1 LTS
+#> R version 4.5.0 (2025-04-11)
+#> Platform: x86_64-apple-darwin20
+#> Running under: macOS Sonoma 14.6.1
 #> 
 #> Matrix products: default
-#> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
-#> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+#> BLAS:   /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/lib/libRblas.0.dylib 
+#> LAPACK: /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
 #> 
 #> locale:
-#>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
-#>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
-#>  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
-#>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
-#>  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-#> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+#> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 #> 
-#> time zone: Etc/UTC
-#> tzcode source: system (glibc)
+#> time zone: Australia/Adelaide
+#> tzcode source: internal
 #> 
 #> attached base packages:
 #> [1] stats4    stats     graphics  grDevices utils     datasets  methods  
 #> [8] base     
 #> 
 #> other attached packages:
-#>  [1] tidyprint_0.99.2            airway_1.26.0              
-#>  [3] SummarizedExperiment_1.36.0 Biobase_2.66.0             
-#>  [5] GenomicRanges_1.58.0        GenomeInfoDb_1.42.3        
-#>  [7] IRanges_2.40.1              S4Vectors_0.44.0           
-#>  [9] BiocGenerics_0.52.0         MatrixGenerics_1.18.1      
-#> [11] matrixStats_1.5.0           tidyr_1.3.1                
-#> [13] dplyr_1.1.4                
+#>  [1] tidyprint_0.99.8            airway_1.30.0              
+#>  [3] SummarizedExperiment_1.40.0 Biobase_2.70.0             
+#>  [5] GenomicRanges_1.62.1        Seqinfo_1.0.0              
+#>  [7] IRanges_2.44.0              S4Vectors_0.48.0           
+#>  [9] BiocGenerics_0.56.0         generics_0.1.4             
+#> [11] MatrixGenerics_1.22.0       matrixStats_1.5.0          
+#> [13] tidyr_1.3.2                 dplyr_1.1.4                
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] utf8_1.2.6              generics_0.1.4          SparseArray_1.6.2      
-#>  [4] stringi_1.8.7           lattice_0.22-6          digest_0.6.37          
-#>  [7] magrittr_2.0.4          evaluate_1.0.5          grid_4.4.3             
-#> [10] fastmap_1.2.0           rprojroot_2.1.0         jsonlite_2.0.0         
-#> [13] Matrix_1.7-2            httr_1.4.7              fansi_1.0.6            
-#> [16] purrr_1.1.0             UCSC.utils_1.2.0        abind_1.4-8            
-#> [19] cli_3.6.5               rlang_1.1.6             crayon_1.5.3           
-#> [22] XVector_0.46.0          withr_3.0.2             DelayedArray_0.32.0    
-#> [25] yaml_2.3.10             S4Arrays_1.6.0          tools_4.4.3            
-#> [28] GenomeInfoDbData_1.2.13 vctrs_0.6.5             R6_2.6.1               
-#> [31] lifecycle_1.0.4         stringr_1.5.2           zlibbioc_1.52.0        
-#> [34] pkgconfig_2.0.3         pillar_1.11.1           glue_1.8.0             
-#> [37] xfun_0.53               tibble_3.3.0            tidyselect_1.2.1       
-#> [40] rstudioapi_0.17.1       knitr_1.50              htmltools_0.5.8.1      
-#> [43] rmarkdown_2.30          compiler_4.4.3
+#>  [1] utf8_1.2.6          SparseArray_1.10.8  stringi_1.8.7      
+#>  [4] lattice_0.22-7      digest_0.6.39       magrittr_2.0.4     
+#>  [7] evaluate_1.0.5      grid_4.5.0          fastmap_1.2.0      
+#> [10] rprojroot_2.1.1     Matrix_1.7-4        purrr_1.2.0        
+#> [13] fansi_1.0.7         abind_1.4-8         cli_3.6.5          
+#> [16] rlang_1.1.6         XVector_0.50.0      withr_3.0.2        
+#> [19] DelayedArray_0.36.0 yaml_2.3.12         otel_0.2.0         
+#> [22] S4Arrays_1.10.1     tools_4.5.0         vctrs_0.6.5        
+#> [25] R6_2.6.1            lifecycle_1.0.4     stringr_1.6.0      
+#> [28] pkgconfig_2.0.3     pillar_1.11.1       glue_1.8.0         
+#> [31] xfun_0.55           tibble_3.3.0        tidyselect_1.2.1   
+#> [34] rstudioapi_0.17.1   knitr_1.51          htmltools_0.5.9    
+#> [37] rmarkdown_2.30      compiler_4.5.0
 ```
