@@ -19,7 +19,7 @@ By default, standard print is used."><!-- mathjax --><script src="https://cdnjs.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidyprint</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.9</span>
       </span>
     </div>
 
@@ -108,23 +108,23 @@ The cache file location is determined by <code>tools::R_user_dir("tidyprint", "c
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span>  <span class="co"># Check current status</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="co"># Check current status</span></span></span>
 <span class="r-in"><span>  <span class="fu">tidy_print_enabled</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Enable tidy print (session only)</span></span></span>
 <span class="r-in"><span>  <span class="fu">tidy_print_on</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> tidyprint says: Tidy print enabled for this session only. Use tidy_print_on(remember = TRUE) to save this setting for future sessions.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Enable tidy print and remember the setting (saved to cache)</span></span></span>
 <span class="r-in"><span>  <span class="fu">tidy_print_on</span><span class="op">(</span>remember <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Disable tidy print (use standard print)</span></span></span>
 <span class="r-in"><span>  <span class="fu">tidy_print_off</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> tidyprint says: Tidy print disabled for this session. Use tidy_print_off(remember = TRUE) to save this setting for future sessions.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Disable tidy print and remember the setting</span></span></span>
 <span class="r-in"><span>  <span class="fu">tidy_print_off</span><span class="op">(</span>remember <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
