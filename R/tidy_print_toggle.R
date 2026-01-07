@@ -32,7 +32,6 @@
 #' @seealso \link{print.SummarizedExperiment}
 #'
 #' @examples
-#' \dontrun{
 #'   # Check current status
 #'   tidy_print_enabled()
 #'
@@ -47,7 +46,6 @@
 #'
 #'   # Disable tidy print and remember the setting
 #'   tidy_print_off(remember = TRUE)
-#' }
 #'
 #' @name tidy_print_toggle
 NULL

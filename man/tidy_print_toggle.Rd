@@ -45,7 +45,6 @@ the user's R configuration directory, which takes precedence over the option.
 The cache file location is determined by \code{tools::R_user_dir("tidyprint", "config")}.
 }
 \examples{
-\dontrun{
   # Check current status
   tidy_print_enabled()
 
@@ -60,8 +59,6 @@ The cache file location is determined by \code{tools::R_user_dir("tidyprint", "c
 
   # Disable tidy print and remember the setting
   tidy_print_off(remember = TRUE)
-}
-
 }
 \seealso{
 \link{print.SummarizedExperiment}
