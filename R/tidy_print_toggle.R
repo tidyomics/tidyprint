@@ -4,7 +4,7 @@
 #' custom tidy print format or the standard Bioconductor print format.
 #' By default, standard print is used.
 #'
-#' @param permanent Logical (default \code{FALSE}). If \code{TRUE}, saves the
+#' @param remember Logical (default \code{FALSE}). If \code{TRUE}, saves the
 #'   setting to a local cache file so it persists across R sessions. If \code{FALSE},
 #'   the setting only affects the current R session.
 #'
@@ -18,7 +18,7 @@
 #' the standard SummarizedExperiment print method from the Bioconductor package.
 #'
 #' The setting is stored in the global R options as `tidyprint.use_tidy_print`.
-#' When \code{permanent = TRUE}, the setting is also saved to a cache file in
+#' When \code{remember = TRUE}, the setting is also saved to a cache file in
 #' the user's R configuration directory, which takes precedence over the option.
 #' The cache file location is determined by \code{tools::R_user_dir("tidyprint", "config")}.
 #'
@@ -39,14 +39,14 @@
 #'   # Enable tidy print (session only)
 #'   tidy_print_on()
 #'
-#'   # Enable tidy print permanently (saved to cache)
-#'   tidy_print_on(permanent = TRUE)
+#'   # Enable tidy print and remember the setting (saved to cache)
+#'   tidy_print_on(remember = TRUE)
 #'
 #'   # Disable tidy print (use standard print)
 #'   tidy_print_off()
 #'
-#'   # Disable tidy print permanently
-#'   tidy_print_off(permanent = TRUE)
+#'   # Disable tidy print and remember the setting
+#'   tidy_print_off(remember = TRUE)
 #' }
 #'
 #' @name tidy_print_toggle
@@ -91,17 +91,27 @@ NULL
 
 #' @rdname tidy_print_toggle
 #' @export
-tidy_print_on <- function(permanent = FALSE) {
+tidy_print_on <- function(remember = FALSE) {
   options(tidyprint.use_tidy_print = TRUE)
-  if (permanent) .write_cache(TRUE)
+  if (remember) {
+    .write_cache(TRUE)
+  } else {
+    tidy_message("Tidy print enabled for this session only. Use tidy_print_on(remember = TRUE) to save this setting for future sessions.",
+                 type = "info")
+  }
   invisible(TRUE)
 }
 
 #' @rdname tidy_print_toggle
 #' @export
-tidy_print_off <- function(permanent = FALSE) {
+tidy_print_off <- function(remember = FALSE) {
   options(tidyprint.use_tidy_print = FALSE)
-  if (permanent) .write_cache(FALSE)
+  if (remember) {
+    .write_cache(FALSE)
+  } else {
+    tidy_message("Tidy print disabled for this session. Use tidy_print_off(remember = TRUE) to save this setting for future sessions.",
+                 type = "info")
+  }
   invisible(FALSE)
 }
 
@@ -116,10 +126,11 @@ tidy_print_enabled <- function() {
   if (!is.null(option_value)) {
     # Warn if cache exists and disagrees
     if (!is.null(cache_value) && cache_value != option_value) {
-      message(
-        "tidyprint: R option 'tidyprint.use_tidy_print' (", option_value, 
-        ") overrides cache value (", cache_value, "). ",
-        "Use tidy_print_", if(option_value) "on" else "off", "(permanent = TRUE) to update cache."
+      tidy_message(
+        paste0("R option 'tidyprint.use_tidy_print' (", option_value, 
+               ") overrides cache value (", cache_value, "). ",
+               "Use tidy_print_", if(option_value) "on" else "off", "(remember = TRUE) to update cache."),
+        type = "warning"
       )
     }
     option_value

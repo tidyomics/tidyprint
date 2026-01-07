@@ -61,8 +61,8 @@ test_that("tidy_print_on enables tidy print (session only)", {
     tidy_print_off()
     expect_false(tidy_print_enabled())
     
-    # Enable (non-permanent)
-    result <- tidy_print_on(permanent = FALSE)
+    # Enable (non-remember)
+    result <- tidy_print_on(remember = FALSE)
     expect_true(result)
     expect_true(tidy_print_enabled())
     expect_true(getOption("tidyprint.use_tidy_print"))
@@ -79,8 +79,8 @@ test_that("tidy_print_off disables tidy print (session only)", {
     tidy_print_on()
     expect_true(tidy_print_enabled())
     
-    # Disable (non-permanent)
-    result <- tidy_print_off(permanent = FALSE)
+    # Disable (non-remember)
+    result <- tidy_print_off(remember = FALSE)
     expect_false(result)
     expect_false(tidy_print_enabled())
     expect_false(getOption("tidyprint.use_tidy_print"))
@@ -91,10 +91,10 @@ test_that("tidy_print_off disables tidy print (session only)", {
   })
 })
 
-test_that("tidy_print_on with permanent creates cache file", {
+test_that("tidy_print_on with remember creates cache file", {
   with_temp_cache({
-    # Enable permanently
-    tidy_print_on(permanent = TRUE)
+    # Enable rememberly
+    tidy_print_on(remember = TRUE)
     
     # Check cache file exists
     cache_path <- tidyprint:::.get_cache_path()
@@ -109,16 +109,16 @@ test_that("tidy_print_on with permanent creates cache file", {
   })
 })
 
-test_that("tidy_print_off with permanent updates cache file", {
+test_that("tidy_print_off with remember updates cache file", {
   with_temp_cache({
-    # First enable permanently
-    tidy_print_on(permanent = TRUE)
+    # First enable rememberly
+    tidy_print_on(remember = TRUE)
     cache_path <- tidyprint:::.get_cache_path()
     expect_true(file.exists(cache_path))
     expect_true(readRDS(cache_path))
     
-    # Now disable permanently
-    tidy_print_off(permanent = TRUE)
+    # Now disable rememberly
+    tidy_print_off(remember = TRUE)
     
     # Check cache contains FALSE
     expect_true(file.exists(cache_path))
@@ -133,7 +133,7 @@ test_that("tidy_print_off with permanent updates cache file", {
 test_that("option takes precedence over cache", {
   with_temp_cache({
     # Create cache with FALSE
-    tidy_print_off(permanent = TRUE)
+    tidy_print_off(remember = TRUE)
     expect_false(tidy_print_enabled())
     
     # Set option to TRUE - should override cache
@@ -153,7 +153,7 @@ test_that("option takes precedence over cache", {
     expect_false(tidy_print_enabled())
     
     # Update cache to TRUE
-    tidy_print_on(permanent = TRUE)
+    tidy_print_on(remember = TRUE)
     # Clear option first
     options(tidyprint.use_tidy_print = NULL)
     expect_true(tidy_print_enabled())
@@ -196,10 +196,10 @@ test_that("toggling works multiple times", {
   })
 })
 
-test_that("option overrides permanent cache setting", {
+test_that("option overrides remember cache setting", {
   with_temp_cache({
-    # Enable permanently (sets both option and cache to TRUE)
-    tidy_print_on(permanent = TRUE)
+    # Enable rememberly (sets both option and cache to TRUE)
+    tidy_print_on(remember = TRUE)
     # Clear option to use cache
     options(tidyprint.use_tidy_print = NULL)
     expect_true(tidy_print_enabled())
@@ -212,8 +212,8 @@ test_that("option overrides permanent cache setting", {
     )
     expect_false(result)
     
-    # Disable permanently (sets cache to FALSE)
-    tidy_print_off(permanent = TRUE)
+    # Disable rememberly (sets cache to FALSE)
+    tidy_print_off(remember = TRUE)
     # Now cache is FALSE, option is still FALSE - no message needed
     expect_false(tidy_print_enabled())
     
@@ -233,7 +233,7 @@ test_that("option overrides permanent cache setting", {
 
 test_that("cache file is created in correct location", {
   with_temp_cache({
-    tidy_print_on(permanent = TRUE)
+    tidy_print_on(remember = TRUE)
     
     cache_path <- tidyprint:::.get_cache_path()
     cache_dir <- dirname(cache_path)

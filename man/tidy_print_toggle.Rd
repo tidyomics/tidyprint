@@ -7,14 +7,14 @@
 \alias{tidy_print_enabled}
 \title{Enable or disable tidy print for SummarizedExperiment objects}
 \usage{
-tidy_print_on(permanent = FALSE)
+tidy_print_on(remember = FALSE)
 
-tidy_print_off(permanent = FALSE)
+tidy_print_off(remember = FALSE)
 
 tidy_print_enabled()
 }
 \arguments{
-\item{permanent}{Logical (default \code{FALSE}). If \code{TRUE}, saves the
+\item{remember}{Logical (default \code{FALSE}). If \code{TRUE}, saves the
 setting to a local cache file so it persists across R sessions. If \code{FALSE},
 the setting only affects the current R session.}
 }
@@ -40,7 +40,7 @@ the custom tibble abstraction format. When disabled (default), they will use
 the standard SummarizedExperiment print method from the Bioconductor package.
 
 The setting is stored in the global R options as \code{tidyprint.use_tidy_print}.
-When \code{permanent = TRUE}, the setting is also saved to a cache file in
+When \code{remember = TRUE}, the setting is also saved to a cache file in
 the user's R configuration directory, which takes precedence over the option.
 The cache file location is determined by \code{tools::R_user_dir("tidyprint", "config")}.
 }
@@ -52,14 +52,14 @@ The cache file location is determined by \code{tools::R_user_dir("tidyprint", "c
   # Enable tidy print (session only)
   tidy_print_on()
 
-  # Enable tidy print permanently (saved to cache)
-  tidy_print_on(permanent = TRUE)
+  # Enable tidy print and remember the setting (saved to cache)
+  tidy_print_on(remember = TRUE)
 
   # Disable tidy print (use standard print)
   tidy_print_off()
 
-  # Disable tidy print permanently
-  tidy_print_off(permanent = TRUE)
+  # Disable tidy print and remember the setting
+  tidy_print_off(remember = TRUE)
 }
 
 }
