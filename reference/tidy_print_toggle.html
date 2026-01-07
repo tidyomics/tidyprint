@@ -64,9 +64,9 @@ By default, standard print is used.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tidy_print_on</span><span class="op">(</span>permanent <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tidy_print_on</span><span class="op">(</span>remember <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">tidy_print_off</span><span class="op">(</span>permanent <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">tidy_print_off</span><span class="op">(</span>remember <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">tidy_print_enabled</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -75,7 +75,7 @@ By default, standard print is used.</p>
     <h2>Arguments</h2>
 
 
-<dl><dt id="arg-permanent">permanent<a class="anchor" aria-label="anchor" href="#arg-permanent"></a></dt>
+<dl><dt id="arg-remember">remember<a class="anchor" aria-label="anchor" href="#arg-remember"></a></dt>
 <dd><p>Logical (default <code>FALSE</code>). If <code>TRUE</code>, saves the
 setting to a local cache file so it persists across R sessions. If <code>FALSE</code>,
 the setting only affects the current R session.</p></dd>
@@ -97,7 +97,7 @@ the default Bioconductor display.</p>
 the custom tibble abstraction format. When disabled (default), they will use
 the standard SummarizedExperiment print method from the Bioconductor package.</p>
 <p>The setting is stored in the global R options as <code>tidyprint.use_tidy_print</code>.
-When <code>permanent = TRUE</code>, the setting is also saved to a cache file in
+When <code>remember = TRUE</code>, the setting is also saved to a cache file in
 the user's R configuration directory, which takes precedence over the option.
 The cache file location is determined by <code>tools::R_user_dir("tidyprint", "config")</code>.</p>
     </div>
@@ -115,14 +115,14 @@ The cache file location is determined by <code>tools::R_user_dir("tidyprint", "c
 <span class="r-in"><span>  <span class="co"># Enable tidy print (session only)</span></span></span>
 <span class="r-in"><span>  <span class="fu">tidy_print_on</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Enable tidy print permanently (saved to cache)</span></span></span>
-<span class="r-in"><span>  <span class="fu">tidy_print_on</span><span class="op">(</span>permanent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="co"># Enable tidy print and remember the setting (saved to cache)</span></span></span>
+<span class="r-in"><span>  <span class="fu">tidy_print_on</span><span class="op">(</span>remember <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Disable tidy print (use standard print)</span></span></span>
 <span class="r-in"><span>  <span class="fu">tidy_print_off</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Disable tidy print permanently</span></span></span>
-<span class="r-in"><span>  <span class="fu">tidy_print_off</span><span class="op">(</span>permanent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="co"># Disable tidy print and remember the setting</span></span></span>
+<span class="r-in"><span>  <span class="fu">tidy_print_off</span><span class="op">(</span>remember <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
