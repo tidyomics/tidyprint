@@ -29,6 +29,10 @@ columns: \code{.feature}, \code{.sample}, assay columns, a vertical separator \c
 followed by selected \code{colData} and \code{rowData} fields. When the output
 is truncated, an adaptive dash-only separator row is inserted after the first
 half block of rows. Additional indication of \code{colData} is provided as well.
+
+By default, this method uses the standard SummarizedExperiment print format.
+To enable the tidy print format, use \code{\link{tidy_print_on}}. To check
+the current status, use \code{\link{tidy_print_enabled}}.
 }
 \examples{
 \dontrun{

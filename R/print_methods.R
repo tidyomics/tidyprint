@@ -17,6 +17,10 @@
 #' is truncated, an adaptive dash-only separator row is inserted after the first
 #' half block of rows. Additional indication of \code{colData} is provided as well.
 #'
+#' By default, this method uses the standard SummarizedExperiment print format.
+#' To enable the tidy print format, use \code{\link{tidy_print_on}}. To check
+#' the current status, use \code{\link{tidy_print_enabled}}.
+#'
 #' @return \code{x} is returned \emph{invisibly} after printing.
 #'
 #' @seealso \link[SummarizedExperiment]{SummarizedExperiment}, \link[tibble]{as_tibble}
@@ -42,7 +46,6 @@
 #' @importFrom dplyr if_else mutate across all_of
 #' @export
 print.SummarizedExperiment <- function(x, n = 10, ...) {
-
   # SE_print_abstraction
   onr <- nr <- nrow(x) %>% as.double()
   onc <- nc <- ncol(x) %>% as.double()
@@ -155,6 +158,12 @@ setMethod(
   f = "show",
   signature = "SummarizedExperiment",
   definition = function(object) {
-    print.SummarizedExperiment(object)
+    # Check if tidy print is enabled
+    if (!tidy_print_enabled()) {
+      # Use standard SummarizedExperiment show method
+      methods::callNextMethod()
+    } else {
+      print.SummarizedExperiment(object)
+    }
   }
 )
