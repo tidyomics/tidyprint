@@ -161,7 +161,9 @@ setMethod(
     # Check if tidy print is enabled
     if (!tidy_print_enabled()) {
       # Use standard SummarizedExperiment show method
-      methods::callNextMethod()
+      # Get the original method from SummarizedExperiment namespace and call it
+      methods::getMethod("show", "SummarizedExperiment",
+                        where = asNamespace("SummarizedExperiment"))(object)
     } else {
       print.SummarizedExperiment(object)
     }
