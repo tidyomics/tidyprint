@@ -125,7 +125,16 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'tidyr' was built under R version 4.5.1</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'SummarizedExperiment' was built under R version 4.5.1</span></span>
+<span><span class="co">#&gt; Warning: package 'MatrixGenerics' was built under R version 4.5.1</span></span>
+<span><span class="co">#&gt; Warning: package 'GenomicRanges' was built under R version 4.5.2</span></span>
+<span><span class="co">#&gt; Warning: package 'BiocGenerics' was built under R version 4.5.1</span></span>
+<span><span class="co">#&gt; Warning: package 'S4Vectors' was built under R version 4.5.1</span></span>
+<span><span class="co">#&gt; Warning: package 'IRanges' was built under R version 4.5.1</span></span>
+<span><span class="co">#&gt; Warning: package 'Seqinfo' was built under R version 4.5.1</span></span>
+<span><span class="co">#&gt; Warning: package 'Biobase' was built under R version 4.5.1</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -144,15 +153,36 @@
 <span><span class="co">#&gt; rowData names(10): gene_id gene_name ... seq_coord_system symbol</span></span>
 <span><span class="co">#&gt; colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521</span></span>
 <span><span class="co">#&gt; colData names(9): SampleName cell ... Sample BioSample</span></span></code></pre></div>
+<hr>
 </div>
-<div class="section level3">
-<h3 id="tidyprint-1">
-<strong>tidyprint</strong><a class="anchor" aria-label="anchor" href="#tidyprint-1"></a>
-</h3>
-<p>Now we load tidyprint for a tidy data display</p>
+</div>
+<div class="section level2">
+<h2 id="opting-in-and-out-of-tidy-print">Opting In and Out of Tidy Print<a class="anchor" aria-label="anchor" href="#opting-in-and-out-of-tidy-print"></a>
+</h2>
+<p>By default, <strong>tidyprint</strong> does not change the standard SummarizedExperiment print format. You can opt in to use the tidy print format, and opt out at any time. The setting can be configured for the current R session only, or saved to persist across sessions.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyomics/tidyprint" class="external-link">tidyprint</a></span><span class="op">)</span></span>
-<span><span class="va">airway</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyomics/tidyprint" class="external-link">tidyprint</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">airway</span></span>
+<span><span class="co">#&gt; ! tidyprint says: R option 'tidyprint.use_tidy_print' (FALSE) overrides cache value (TRUE). Use tidy_print_off(remember = TRUE) to update cache.</span></span>
+<span><span class="co">#&gt; class: RangedSummarizedExperiment </span></span>
+<span><span class="co">#&gt; dim: 63677 8 </span></span>
+<span><span class="co">#&gt; metadata(1): ''</span></span>
+<span><span class="co">#&gt; assays(1): counts</span></span>
+<span><span class="co">#&gt; rownames(63677): ENSG00000000003 ENSG00000000005 ... ENSG00000273492</span></span>
+<span><span class="co">#&gt;   ENSG00000273493</span></span>
+<span><span class="co">#&gt; rowData names(10): gene_id gene_name ... seq_coord_system symbol</span></span>
+<span><span class="co">#&gt; colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521</span></span>
+<span><span class="co">#&gt; colData names(9): SampleName cell ... Sample BioSample</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="opt-in-to-tidy-print">Opt In to Tidy Print<a class="anchor" aria-label="anchor" href="#opt-in-to-tidy-print"></a>
+</h3>
+<p>To enable the tidy print format, use <code><a href="reference/tidy_print_toggle.html">tidy_print_on()</a></code>. By default, this only affects the current R session:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Enable tidy print for current session only</span></span>
+<span><span class="fu"><a href="reference/tidy_print_toggle.html">tidy_print_on</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ tidyprint says: Tidy print enabled for this session only. Use tidy_print_on(remember = TRUE) to save this setting for future sessions.</span></span>
+<span><span class="va">airway</span>  </span>
 <span><span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: Features=63677 | Samples=8 | </span></span>
 <span><span class="co">#&gt; #   Assays=counts</span></span>
 <span><span class="co">#&gt; #                                 |----------------- COVARIATES ---------------|</span></span>
@@ -173,6 +203,26 @@
 <span><span class="co">#&gt; #   `|` &lt;|&gt;, gene_id &lt;chr&gt;, gene_name &lt;chr&gt;, entrezid &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   gene_biotype &lt;chr&gt;, gene_seq_start &lt;chr&gt;, gene_seq_end &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   seq_name &lt;chr&gt;, seq_strand &lt;chr&gt;, seq_coord_system &lt;chr&gt;, symbol &lt;chr&gt;</span></span></code></pre></div>
+<p>If you want the setting to persist across R sessions, use <code>remember = TRUE</code>:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Enable tidy print and remember the setting</span></span>
+<span><span class="fu"><a href="reference/tidy_print_toggle.html">tidy_print_on</a></span><span class="op">(</span>remember <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">airway</span>  <span class="co"># Will display with tidy format in all future sessions</span></span></code></pre></div>
+<p>When <code>remember = TRUE</code>, the setting is saved to a cache file in your R configuration directory, so it will automatically be enabled when you start new R sessions.</p>
+</div>
+<div class="section level3">
+<h3 id="opt-out-of-tidy-print">Opt Out of Tidy Print<a class="anchor" aria-label="anchor" href="#opt-out-of-tidy-print"></a>
+</h3>
+<p>To return to the standard SummarizedExperiment print format, use <code><a href="reference/tidy_print_toggle.html">tidy_print_off()</a></code>. By default, this only affects the current session:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Disable tidy print for current session only</span></span>
+<span><span class="fu"><a href="reference/tidy_print_toggle.html">tidy_print_off</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">airway</span>  <span class="co"># Will display with standard format</span></span></code></pre></div>
+<p>To permanently disable tidy print and clear any saved preference:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Disable tidy print and remember the setting</span></span>
+<span><span class="fu"><a href="reference/tidy_print_toggle.html">tidy_print_off</a></span><span class="op">(</span>remember <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">airway</span>  <span class="co"># Will display with standard format in all future sessions</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -180,7 +230,7 @@
 </h2>
 <p>We integrated a messaging function providing standardized, visually appealing messages for packages within the tidyomics ecosystem. It automatically detects the calling package to provide contextualized messaging, such as “tidyprint says” or “tidybulk says”, enhancing consistency and readability across projects.</p>
 <p>To use the <code>tidy_message</code> function:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tidyprint</span><span class="fu">::</span><span class="fu"><a href="reference/tidy_message.html">tidy_message</a></span><span class="op">(</span><span class="st">'message to print'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ℹ Console says: message to print</span></span></code></pre></div>
 <p>You can specify the type of message as</p>
@@ -190,7 +240,7 @@
 <li><p>warning</p></li>
 <li><p>danger</p></li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/demo_tidy_message.html">demo_tidy_message</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ℹ tidyprint says: This is an informational message send within tidyprint package.</span></span>
 <span><span class="co">#&gt; ✔ tidyprint says: Operation completed successfully!</span></span>
@@ -201,56 +251,49 @@
 <div class="section level2">
 <h2 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; R version 4.4.3 (2025-02-28)</span></span>
-<span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>
-<span><span class="co">#&gt; Running under: Ubuntu 24.04.1 LTS</span></span>
+<span><span class="co">#&gt; R version 4.5.0 (2025-04-11)</span></span>
+<span><span class="co">#&gt; Platform: x86_64-apple-darwin20</span></span>
+<span><span class="co">#&gt; Running under: macOS Sonoma 14.6.1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Matrix products: default</span></span>
-<span><span class="co">#&gt; BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
-<span><span class="co">#&gt; LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0</span></span>
+<span><span class="co">#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/lib/libRblas.0.dylib </span></span>
+<span><span class="co">#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; locale:</span></span>
-<span><span class="co">#&gt;  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
-<span><span class="co">#&gt;  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    </span></span>
-<span><span class="co">#&gt;  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   </span></span>
-<span><span class="co">#&gt;  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 </span></span>
-<span><span class="co">#&gt;  [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span></span>
-<span><span class="co">#&gt; [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span></span>
+<span><span class="co">#&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; time zone: Etc/UTC</span></span>
-<span><span class="co">#&gt; tzcode source: system (glibc)</span></span>
+<span><span class="co">#&gt; time zone: Australia/Adelaide</span></span>
+<span><span class="co">#&gt; tzcode source: internal</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; attached base packages:</span></span>
 <span><span class="co">#&gt; [1] stats4    stats     graphics  grDevices utils     datasets  methods  </span></span>
 <span><span class="co">#&gt; [8] base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt;  [1] tidyprint_0.99.2            airway_1.26.0              </span></span>
-<span><span class="co">#&gt;  [3] SummarizedExperiment_1.36.0 Biobase_2.66.0             </span></span>
-<span><span class="co">#&gt;  [5] GenomicRanges_1.58.0        GenomeInfoDb_1.42.3        </span></span>
-<span><span class="co">#&gt;  [7] IRanges_2.40.1              S4Vectors_0.44.0           </span></span>
-<span><span class="co">#&gt;  [9] BiocGenerics_0.52.0         MatrixGenerics_1.18.1      </span></span>
-<span><span class="co">#&gt; [11] matrixStats_1.5.0           tidyr_1.3.1                </span></span>
-<span><span class="co">#&gt; [13] dplyr_1.1.4                </span></span>
+<span><span class="co">#&gt;  [1] tidyprint_0.99.8            airway_1.30.0              </span></span>
+<span><span class="co">#&gt;  [3] SummarizedExperiment_1.40.0 Biobase_2.70.0             </span></span>
+<span><span class="co">#&gt;  [5] GenomicRanges_1.62.1        Seqinfo_1.0.0              </span></span>
+<span><span class="co">#&gt;  [7] IRanges_2.44.0              S4Vectors_0.48.0           </span></span>
+<span><span class="co">#&gt;  [9] BiocGenerics_0.56.0         generics_0.1.4             </span></span>
+<span><span class="co">#&gt; [11] MatrixGenerics_1.22.0       matrixStats_1.5.0          </span></span>
+<span><span class="co">#&gt; [13] tidyr_1.3.2                 dplyr_1.1.4                </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] utf8_1.2.6              generics_0.1.4          SparseArray_1.6.2      </span></span>
-<span><span class="co">#&gt;  [4] stringi_1.8.7           lattice_0.22-6          digest_0.6.37          </span></span>
-<span><span class="co">#&gt;  [7] magrittr_2.0.4          evaluate_1.0.5          grid_4.4.3             </span></span>
-<span><span class="co">#&gt; [10] fastmap_1.2.0           rprojroot_2.1.0         jsonlite_2.0.0         </span></span>
-<span><span class="co">#&gt; [13] Matrix_1.7-2            httr_1.4.7              fansi_1.0.6            </span></span>
-<span><span class="co">#&gt; [16] purrr_1.1.0             UCSC.utils_1.2.0        abind_1.4-8            </span></span>
-<span><span class="co">#&gt; [19] cli_3.6.5               rlang_1.1.6             crayon_1.5.3           </span></span>
-<span><span class="co">#&gt; [22] XVector_0.46.0          withr_3.0.2             DelayedArray_0.32.0    </span></span>
-<span><span class="co">#&gt; [25] yaml_2.3.10             S4Arrays_1.6.0          tools_4.4.3            </span></span>
-<span><span class="co">#&gt; [28] GenomeInfoDbData_1.2.13 vctrs_0.6.5             R6_2.6.1               </span></span>
-<span><span class="co">#&gt; [31] lifecycle_1.0.4         stringr_1.5.2           zlibbioc_1.52.0        </span></span>
-<span><span class="co">#&gt; [34] pkgconfig_2.0.3         pillar_1.11.1           glue_1.8.0             </span></span>
-<span><span class="co">#&gt; [37] xfun_0.53               tibble_3.3.0            tidyselect_1.2.1       </span></span>
-<span><span class="co">#&gt; [40] rstudioapi_0.17.1       knitr_1.50              htmltools_0.5.8.1      </span></span>
-<span><span class="co">#&gt; [43] rmarkdown_2.30          compiler_4.4.3</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] utf8_1.2.6          SparseArray_1.10.8  stringi_1.8.7      </span></span>
+<span><span class="co">#&gt;  [4] lattice_0.22-7      digest_0.6.39       magrittr_2.0.4     </span></span>
+<span><span class="co">#&gt;  [7] evaluate_1.0.5      grid_4.5.0          fastmap_1.2.0      </span></span>
+<span><span class="co">#&gt; [10] rprojroot_2.1.1     Matrix_1.7-4        purrr_1.2.0        </span></span>
+<span><span class="co">#&gt; [13] fansi_1.0.7         abind_1.4-8         cli_3.6.5          </span></span>
+<span><span class="co">#&gt; [16] rlang_1.1.6         XVector_0.50.0      withr_3.0.2        </span></span>
+<span><span class="co">#&gt; [19] DelayedArray_0.36.0 yaml_2.3.12         otel_0.2.0         </span></span>
+<span><span class="co">#&gt; [22] S4Arrays_1.10.1     tools_4.5.0         vctrs_0.6.5        </span></span>
+<span><span class="co">#&gt; [25] R6_2.6.1            lifecycle_1.0.4     stringr_1.6.0      </span></span>
+<span><span class="co">#&gt; [28] pkgconfig_2.0.3     pillar_1.11.1       glue_1.8.0         </span></span>
+<span><span class="co">#&gt; [31] xfun_0.55           tibble_3.3.0        tidyselect_1.2.1   </span></span>
+<span><span class="co">#&gt; [34] rstudioapi_0.17.1   knitr_1.51          htmltools_0.5.9    </span></span>
+<span><span class="co">#&gt; [37] rmarkdown_2.30      compiler_4.5.0</span></span></code></pre></div>
 </div>
 </div>
   </div>
