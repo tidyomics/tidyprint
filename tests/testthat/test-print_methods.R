@@ -26,6 +26,7 @@ test_that("tidy_message works correctly", {
 # Previously triggered with 7-sample data:
 # "Can't subset elements past the end. Locations 136, 137, 138, 139, and 140 don't exist. There are only 7 elements."
 test_that("pasilla prints without subsetting error", {
+  skip_if_not_installed("pasilla")
   tidy_print_on()
   counts_path <- system.file("extdata", "pasilla_gene_counts.tsv", package = "pasilla")
   anno_path <- system.file("extdata", "pasilla_sample_annotation.csv", package = "pasilla")
