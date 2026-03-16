@@ -59,6 +59,7 @@ The cache file location is determined by \code{tools::R_user_dir("tidyprint", "c
 
   # Disable tidy print and remember the setting
   tidy_print_off(remember = TRUE)
+
 }
 \seealso{
 \link{print.SummarizedExperiment}

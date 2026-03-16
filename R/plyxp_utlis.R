@@ -1,5 +1,10 @@
 
 as_vec <- function(x) {
+  # tidySummarizedExperiment can expose assays as data.frame columns;
+  # coerce to matrix first so as.vector() returns cell-wise values.
+  if (is.data.frame(x)) {
+    x <- as.matrix(x)
+  }
   x <- as.vector(x)
   # unintuitively, a matrix of lists does NOT
   # become a vector after `as.vector()`,
