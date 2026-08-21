@@ -20,7 +20,7 @@ are displayed using appropriate styles from the cli package."><!-- mathjax --><s
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidyprint</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.1</span>
       </span>
     </div>
 
@@ -54,7 +54,7 @@ are displayed using appropriate styles from the cli package."><!-- mathjax --><s
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Print a styled tidyprint message</h1>
-    <small class="dont-index">Source: <a href="https://github.com/tidyomics/tidyprint/blob/main/R/tidyprint_message.R" class="external-link"><code>R/tidyprint_message.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/tidyomics/tidyprint/blob/fix-option-overrides-cache-once-per-session/R/tidyprint_message.R" class="external-link"><code>R/tidyprint_message.R</code></a></small>
     <div class="hidden name"><code>tidy_message.Rd</code></div>
     </div>
 
@@ -66,7 +66,12 @@ are displayed using appropriate styles from the <span class="pkg">cli</span> pac
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tidy_message</span><span class="op">(</span><span class="va">message</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"info"</span>, <span class="st">"success"</span>, <span class="st">"warning"</span>, <span class="st">"danger"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tidy_message</span><span class="op">(</span></span>
+<span>  <span class="va">message</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"info"</span>, <span class="st">"success"</span>, <span class="st">"warning"</span>, <span class="st">"danger"</span><span class="op">)</span>,</span>
+<span>  frequency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"always"</span>, <span class="st">"regularly"</span>, <span class="st">"once"</span><span class="op">)</span>,</span>
+<span>  frequency_id <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -82,11 +87,30 @@ are displayed using appropriate styles from the <span class="pkg">cli</span> pac
 <code>"info"</code>, <code>"success"</code>, <code>"warning"</code>, or <code>"danger"</code>.
 Defaults to <code>"info"</code>.</p></dd>
 
+
+<dt id="arg-frequency">frequency<a class="anchor" aria-label="anchor" href="#arg-frequency"></a></dt>
+<dd><p>How often the message should be displayed. One of
+<code>"always"</code> (default), <code>"regularly"</code> (once every 8 hours),
+or <code>"once"</code> (once per R session). Passed to
+<code><a href="https://rlang.r-lib.org/reference/abort.html" class="external-link">rlang::inform()</a></code>.</p></dd>
+
+
+<dt id="arg-frequency-id">frequency_id<a class="anchor" aria-label="anchor" href="#arg-frequency-id"></a></dt>
+<dd><p>A unique identifier used to recognise the same
+message when <code>frequency</code> is not <code>"always"</code>. Required in
+that case; see <code><a href="https://rlang.r-lib.org/reference/abort.html" class="external-link">rlang::inform()</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>Invisibly returns <code>NULL</code>. Called for side effects (printing
 a styled message to the console).</p>
+    </div>
+    <div id="details">
+    <h2>Details</h2>
+    <p>Frequency control uses the tidyverse messaging API
+(<code><a href="https://cli.r-lib.org/reference/cli_abort.html" class="external-link">cli::cli_inform()</a></code> / <code><a href="https://rlang.r-lib.org/reference/abort.html" class="external-link">rlang::inform()</a></code>). Use <code>frequency = "once"</code>
+to show a message once per R session.</p>
     </div>
 
     <div id="ref-examples">
@@ -95,6 +119,10 @@ a styled message to the console).</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Console says: Loading data...</span>
 <span class="r-in"><span><span class="fu">tidy_message</span><span class="op">(</span><span class="st">"Data loaded successfully!"</span>, type <span class="op">=</span> <span class="st">"success"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Console says: Data loaded successfully!</span>
+<span class="r-in"><span><span class="fu">tidy_message</span><span class="op">(</span><span class="st">"Shown once per session."</span>, type <span class="op">=</span> <span class="st">"warning"</span>,</span></span>
+<span class="r-in"><span>             frequency <span class="op">=</span> <span class="st">"once"</span>, frequency_id <span class="op">=</span> <span class="st">"example-once"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Console says: Shown once per session.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This message is displayed once per session.</span></span>
 </code></pre></div>
     </div>
   </div>

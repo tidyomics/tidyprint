@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidyprint</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.1</span>
       </span>
     </div>
 
@@ -77,7 +77,7 @@
       <h1 data-toc-skip>tidyprint</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyomics/tidyprint/blob/main/vignettes/Introduction.Rmd" class="external-link"><code>vignettes/Introduction.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyomics/tidyprint/blob/fix-option-overrides-cache-once-per-session/vignettes/Introduction.Rmd" class="external-link"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction.Rmd</code></div>
 
     </div>
@@ -210,9 +210,12 @@ default, this only affects the current R session:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Enable tidy print for current session only</span></span>
 <span><span class="fu"><a href="../reference/tidy_print_toggle.html">tidy_print_on</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> tidyprint says: Tidy print enabled for this session only. Use tidy_print_on(remember = TRUE) to save this setting for future sessions.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> tidyprint says: Tidy print enabled for this session only. Use</span></span>
+<span><span class="co">#&gt;   tidy_print_on(remember = TRUE) to save this setting for future sessions.</span></span>
 <span><span class="va">airway</span>  </span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> tidyprint says: R option 'tidyprint.use_tidy_print' (TRUE) overrides cache value (FALSE). Use tidy_print_on(remember = TRUE) to update cache.</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> tidyprint says: R option 'tidyprint.use_tidy_print' (TRUE) overrides cache</span></span>
+<span><span class="co">#&gt;   value (FALSE). Use tidy_print_on(remember = TRUE) to update cache.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This message is displayed once per session.</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A SummarizedExperiment-tibble abstraction: </span><span style="color: #555555;">Features=63677 | Samples=8 | </span></span></span>
 <span><span class="co">#&gt; # <span style="color: #555555;">  Assays=counts</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># </span><span style="color: #5555FF;">                                |----------------- COVARIATES ---------------|</span></span></span>
@@ -281,7 +284,8 @@ consistency and readability across projects.</p>
 </ul>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/demo_tidy_message.html">demo_tidy_message</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> tidyprint says: This is an informational message send within tidyprint package.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> tidyprint says: This is an informational message send within tidyprint</span></span>
+<span><span class="co">#&gt;   package.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> tidyprint says: Operation completed successfully!</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> tidyprint says: Potential issue detected.</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> tidyprint says: Operation failed.</span></span></code></pre></div>
@@ -317,7 +321,7 @@ a package function, showing the name of package.</p>
 <span><span class="co">#&gt; [8] base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt;  [1] tidyprint_1.1.0             airway_1.33.2              </span></span>
+<span><span class="co">#&gt;  [1] tidyprint_1.1.1             airway_1.33.2              </span></span>
 <span><span class="co">#&gt;  [3] SummarizedExperiment_1.43.0 Biobase_2.73.2             </span></span>
 <span><span class="co">#&gt;  [5] GenomicRanges_1.65.1        Seqinfo_1.3.0              </span></span>
 <span><span class="co">#&gt;  [7] IRanges_2.47.2              S4Vectors_0.51.6           </span></span>
