@@ -1,6 +1,6 @@
 # tidyprint NEWS
 
-## tidyprint 1.2.0 (2026-08-21)
+## tidyprint 1.1.1 (2026-08-21)
 
 ### BUG FIXES
 - Fixed a `print.SummarizedExperiment()` subsetting bug for 7-sample pasilla-shaped inputs when assay data are represented as a `data.frame` instead of a matrix.
