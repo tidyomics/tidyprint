@@ -128,7 +128,9 @@ tidy_print_enabled <- function() {
         paste0("R option 'tidyprint.use_tidy_print' (", option_value, 
                ") overrides cache value (", cache_value, "). ",
                "Use tidy_print_", if(option_value) "on" else "off", "(remember = TRUE) to update cache."),
-        type = "warning"
+        type = "warning",
+        frequency = "once",
+        frequency_id = "tidyprint-option-overrides-cache"
       )
     }
     option_value

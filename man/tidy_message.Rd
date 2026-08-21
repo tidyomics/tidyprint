@@ -4,7 +4,12 @@
 \alias{tidy_message}
 \title{Print a styled tidyprint message}
 \usage{
-tidy_message(message, type = c("info", "success", "warning", "danger"))
+tidy_message(
+  message,
+  type = c("info", "success", "warning", "danger"),
+  frequency = c("always", "regularly", "once"),
+  frequency_id = NULL
+)
 }
 \arguments{
 \item{message}{A character string containing the message to display.}
@@ -12,6 +17,15 @@ tidy_message(message, type = c("info", "success", "warning", "danger"))
 \item{type}{The type of message to display. One of
 \code{"info"}, \code{"success"}, \code{"warning"}, or \code{"danger"}.
 Defaults to \code{"info"}.}
+
+\item{frequency}{How often the message should be displayed. One of
+\code{"always"} (default), \code{"regularly"} (once every 8 hours),
+or \code{"once"} (once per R session). Passed to
+\code{\link[rlang:abort]{rlang::inform()}}.}
+
+\item{frequency_id}{A unique identifier used to recognise the same
+message when \code{frequency} is not \code{"always"}. Required in
+that case; see \code{\link[rlang:abort]{rlang::inform()}}.}
 }
 \value{
 Invisibly returns \code{NULL}. Called for side effects (printing
@@ -23,7 +37,14 @@ A package-specific prefix is automatically added based on the calling
 package name, followed by the message text. Different message types
 are displayed using appropriate styles from the \pkg{cli} package.
 }
+\details{
+Frequency control uses the tidyverse messaging API
+(\code{cli::cli_inform()} / \code{rlang::inform()}). Use \code{frequency = "once"}
+to show a message once per R session.
+}
 \examples{
 tidy_message("Loading data...", type = "info")
 tidy_message("Data loaded successfully!", type = "success")
+tidy_message("Shown once per session.", type = "warning",
+             frequency = "once", frequency_id = "example-once")
 }
