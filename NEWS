@@ -1,5 +1,16 @@
 # tidyprint NEWS
 
+## tidyprint 1.1.1 (2026-08-21)
+
+### BUG FIXES
+- Fixed a `print.SummarizedExperiment()` subsetting bug for 7-sample pasilla-shaped inputs when assay data are represented as a `data.frame` instead of a matrix.
+- Added a regression test that reconstructs pasilla from `pasilla` package `extdata` and verifies `show()` does not throw out-of-bounds subsetting errors.
+
+## tidyprint 0.99.11
+
+### BUG FIXES
+- The option-vs-cache mismatch warning from `tidy_print_enabled()` is now shown once per R session, using `rlang::inform()` frequency control via `tidy_message(frequency = "once")`.
+
 ## tidyprint 0.99.5 (2024-12-19)
 
 ### BUG FIXES
