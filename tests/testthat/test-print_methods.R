@@ -22,6 +22,21 @@ test_that("tidy_message works correctly", {
   expect_message(tidy_message("Test info message"), "says: Test info message")
 })
 
+test_that("tidy_message frequency once is shown once per session", {
+  id <- "tidyprint-test-frequency-once"
+  rlang::reset_message_verbosity(id)
+
+  expect_message(
+    tidy_message("Once-only message", frequency = "once", frequency_id = id),
+    "Once-only message"
+  )
+  expect_no_message(
+    tidy_message("Once-only message", frequency = "once", frequency_id = id)
+  )
+
+  rlang::reset_message_verbosity(id)
+})
+
 # test for pasilla (regression test for subsetting error)
 # Previously triggered with 7-sample data:
 # "Can't subset elements past the end. Locations 136, 137, 138, 139, and 140 don't exist. There are only 7 elements."

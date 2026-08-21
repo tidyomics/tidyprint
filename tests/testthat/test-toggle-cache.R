@@ -45,6 +45,9 @@ with_temp_cache <- function(code) {
   }, add = TRUE)
   
   options(tidyprint.use_tidy_print = NULL)
+
+  # Isolate once-per-session messaging so tests do not leak across examples
+  rlang::reset_message_verbosity("tidyprint-option-overrides-cache")
   
   force(code)
 }
@@ -217,12 +220,10 @@ test_that("option overrides remember cache setting", {
     # Now cache is FALSE, option is still FALSE - no message needed
     expect_false(tidy_print_enabled())
     
-    # Change option to TRUE (cache is FALSE) - should override and message
+    # Change option to TRUE (cache is FALSE) - still overrides, but the
+    # mismatch warning is once per session
     options(tidyprint.use_tidy_print = TRUE)
-    expect_message(
-      result <- tidy_print_enabled(),
-      "R option.*overrides cache value"
-    )
+    expect_no_message(result <- tidy_print_enabled())
     expect_true(result)
     
     # Clear option - should use cache (FALSE)
@@ -246,6 +247,19 @@ test_that("cache file is created in correct location", {
     
     # Should be an RDS file
     expect_equal(basename(cache_path), "tidy_print_enabled.rds")
+  })
+})
+
+test_that("option-overrides-cache message is shown once per session", {
+  with_temp_cache({
+    tidy_print_on(remember = TRUE)
+    options(tidyprint.use_tidy_print = FALSE)
+
+    expect_message(
+      tidy_print_enabled(),
+      "R option.*overrides cache value"
+    )
+    expect_no_message(tidy_print_enabled())
   })
 })
 

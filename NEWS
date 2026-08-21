@@ -1,5 +1,10 @@
 # tidyprint NEWS
 
+## tidyprint 0.99.11
+
+### BUG FIXES
+- The option-vs-cache mismatch warning from `tidy_print_enabled()` is now shown once per R session, using `rlang::inform()` frequency control via `tidy_message(frequency = "once")`.
+
 ## tidyprint 0.99.5 (2024-12-19)
 
 ### BUG FIXES
