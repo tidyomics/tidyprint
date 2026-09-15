@@ -1,5 +1,11 @@
 # tidyprint NEWS
 
+## tidyprint 1.1.2
+
+### NEW FEATURES
+- Added `print.SingleCellExperiment()`, opt in through `tidy_print_on()` as for `SummarizedExperiment`. The identifier is `.cell` and the header reports the number of cells. When `metadata(x)$tidyomics_sample_id` names a `colData` column, that column and the covariates constant within it are shown under the `COVARIATES` band, the remaining `colData` columns are shown next to `.cell`, and the header also reports the number of samples.
+- The header of the tibble abstraction now names the class of the printed object, so a `SingleCellExperiment` reads `A SingleCellExperiment abstraction`.
+
 ## tidyprint 1.1.1 (2026-08-21)
 
 ### BUG FIXES

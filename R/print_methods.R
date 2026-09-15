@@ -46,7 +46,57 @@
 #' @importFrom dplyr if_else mutate across all_of
 #' @export
 print.SummarizedExperiment <- function(x, n = 10, ...) {
-  # SE_print_abstraction
+  print_tibble_abstraction(x, n = n, ...)
+  invisible(x)
+}
+
+# Describe how an object is laid out as a tibble abstraction
+#
+# Dispatch follows the class hierarchy, so a method extends the layout of its
+# parent class through `NextMethod()` rather than restating it. The layout names
+# the column identifier, the colData columns to show next to it and the ones to
+# show inside the COVARIATES band, and the fields the header reports, in the
+# order they are reported. Fields are data, so a class adds what it has to say
+# about itself, cells or spatial coordinates say, without the renderer knowing
+# about it.
+#
+# @noRd
+tidyprint_layout <- function(x, ...) {
+  UseMethod("tidyprint_layout")
+}
+
+#' The layout of a SummarizedExperiment: samples are the columns of the object,
+#' and every colData column is a covariate of theirs
+#'
+#' @noRd
+#' @export
+tidyprint_layout.SummarizedExperiment <- function(x, ...) {
+  list(
+    column_name = ".sample",
+    covariate_columns = colnames(colData(x)),
+    header = list(
+      Features = nrow(x),
+      Samples = ncol(x),
+      Assays = assays(x) %>% names %>% paste(collapse = ", ")
+    )
+  )
+}
+
+# Build and print the tibble abstraction of a rectangular assay object
+#
+# Columns are laid out as `.feature`, the column identifier, then assays, then
+# the colData columns of `layout$covariate_columns` inside the COVARIATES band,
+# then the colData columns of `layout$cell_columns`, which vary within a sample
+# and so stay out of the band, then rowData. Anything the layout leaves out, such
+# as the cells of a SingleCellExperiment, is absent from the display and from the
+# header.
+#
+# @noRd
+print_tibble_abstraction <- function(x, n = 10, layout = tidyprint_layout(x), ...) {
+  column_name <- layout$column_name
+  cell_columns <- layout$cell_columns
+  covariate_columns <- layout$covariate_columns
+
   onr <- nr <- nrow(x) %>% as.double()
   onc <- nc <- ncol(x) %>% as.double()
   
@@ -87,15 +137,21 @@ print.SummarizedExperiment <- function(x, n = 10, ...) {
 
   nn <- nc * nr
   out <- c(
-    list(
-      .feature = vctrs::vec_rep(.features, times = nc),
-      .sample  = vctrs::vec_rep_each(.samples, times = nr)
+    setNames(
+      list(
+        vctrs::vec_rep(.features, times = nc),
+        vctrs::vec_rep_each(.samples, times = nr)
+      ),
+      c(".feature", column_name)
     ),
     list(`|` = sep_(nn)),
     assays_,
     list(`|` = sep_(nn)),
-    col_,
+    col_[covariate_columns],
     list(`|` = sep_(nn)),
+    # Only a SingleCellExperiment has columns varying within a sample, and they
+    # get a section of their own so that the band covers the covariates alone
+    if (length(cell_columns)) c(col_[cell_columns], list(`|` = sep_(nn))),
     row_
   )
   attr(out, "row.names") <- c(NA_integer_, -nn)
@@ -138,11 +194,9 @@ print.SummarizedExperiment <- function(x, n = 10, ...) {
     vctrs::new_data_frame(class=c('SE_print_abstraction', "tbl_df", "tbl", "data.frame")) %>%
     add_attr(n, 'n') %>%
     add_attr(onc*onr, 'total_rows') %>%
-    add_attr(nrow(x),  "number_of_features") %>%
-    add_attr(ncol(x),  "number_of_samples") %>%
-    add_attr(assays(x) %>% names, "assay_names") %>%
+    add_attr(layout$header, "header_fields") %>%
     add_attr(separator_row, "separator_row") |>
-    add_attr(names(col_), "covariate_names") |>
+    add_attr(covariate_columns, "covariate_names") |>
     add_attr(
       '' %>%
         setNames(sprintf("A %s abstraction", class(x)[1])),
@@ -150,7 +204,7 @@ print.SummarizedExperiment <- function(x, n = 10, ...) {
     )
 
   out_sub %>% print(n = ifelse(separator_row_flag, n+1, n), ...)
-  invisible(x)
+  invisible(NULL)
 }
 
 # Assign the new print function to SummarizedExperiment objects
@@ -165,7 +219,111 @@ setMethod(
       methods::getMethod("show", "SummarizedExperiment",
                         where = asNamespace("SummarizedExperiment"))(object)
     } else {
-      print.SummarizedExperiment(object)
+      # Dispatch, so that a subclass with its own print method is honoured
+      print(object)
+    }
+  }
+)
+
+#' Print method for SingleCellExperiment with tidyprint styles
+#'
+#' Provides a compact tibble-like display for a
+#' \link[SingleCellExperiment]{SingleCellExperiment} object, telling cell-wise
+#' from sample-wise \code{colData} apart.
+#'
+#' @param x A \code{SingleCellExperiment} object to print.
+#' @param n Integer (default \code{10}). Approximate number of rows to show
+#'   in the display, as in \code{\link{print.SummarizedExperiment}}.
+#' @param ... Additional arguments passed to internal printers (currently unused).
+#'
+#' @details
+#' The display follows \code{\link{print.SummarizedExperiment}}, the columns of
+#' the object being cells rather than samples, so the identifier is \code{.cell}
+#' and the header reports the number of cells.
+#'
+#' The samples are the groups of cells named by
+#' \code{metadata(x)$tidyomics_sample_id}, which holds the name of the
+#' \code{colData} column holding the sample identifier. When it is declared, that
+#' column and the covariates constant within it are shown under the
+#' \code{COVARIATES} band, the remaining \code{colData} columns are shown next to
+#' \code{.cell}, and the header reports the number of samples. When it is absent,
+#' the samples are left unreported and \code{colData} is shown as it is for a
+#' \code{SummarizedExperiment}.
+#'
+#' As for \code{SummarizedExperiment}, this format is opt in through
+#' \code{\link{tidy_print_on}}.
+#'
+#' @return \code{x} is returned \emph{invisibly} after printing.
+#'
+#' @seealso \link[SingleCellExperiment]{SingleCellExperiment},
+#'   \link{print.SummarizedExperiment}
+#'
+#' @examples
+#' \dontrun{
+#'   library(tidyprint)
+#'   tidy_print_on()
+#'   sce                                      # compact tibble display
+#'   print(sce, n = 20)                       # with custom row count
+#' }
+#'
+#' @importClassesFrom SingleCellExperiment SingleCellExperiment
+#' @importFrom SummarizedExperiment colData
+#' @importFrom methods setMethod
+#' @export
+print.SingleCellExperiment <- function(x, n = 10, ...) {
+  # The display itself is the SummarizedExperiment one, extended by
+  # tidyprint_layout.SingleCellExperiment()
+  NextMethod()
+}
+
+#' Extend the SummarizedExperiment layout with the cell notion: the columns of
+#' the object are cells, and the samples are the groups of cells declared by
+#' `metadata(x)$tidyomics_sample_id`
+#'
+#' @noRd
+#' @export
+tidyprint_layout.SingleCellExperiment <- function(x, ...) {
+  layout <- NextMethod()
+
+  layout$column_name <- ".cell"
+
+  sample_id <- metadata(x)$tidyomics_sample_id
+  if (!is.null(sample_id) && sample_id %in% colnames(colData(x))) {
+    split <- split_col_data(colData(x), sample_id)
+    layout$cell_columns <- split$cell
+    layout$covariate_columns <- split$sample
+  } else {
+    sample_id <- NULL
+  }
+
+  # Cells are reported next to the features, and the samples inherited from the
+  # SummarizedExperiment layout, which counted the columns of the object, become
+  # the groups of cells. Assigning NULL drops the field, leaving the samples
+  # unreported when no sample identifier is declared
+  layout$header <- append(
+    layout$header,
+    list(Cells = ncol(x)),
+    after = which(names(layout$header) == "Features")
+  )
+  layout$header$Samples <-
+    if (!is.null(sample_id)) {
+      attr(group_codes(colData(x)[[sample_id]]), "n")
+    }
+
+  layout
+}
+
+# Assign the new print function to SingleCellExperiment objects
+setMethod(
+  f = "show",
+  signature = "SingleCellExperiment",
+  definition = function(object) {
+    if (!tidy_print_enabled()) {
+      methods::getMethod("show", "SingleCellExperiment",
+                         where = asNamespace("SingleCellExperiment"))(object)
+    } else {
+      # Dispatch, so that a subclass with its own print method is honoured
+      print(object)
     }
   }
 )

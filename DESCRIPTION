@@ -38,12 +38,12 @@ Imports:
     cli,
     vctrs,
     SummarizedExperiment,
+    SingleCellExperiment,
     methods,
     rlang,
     fansi,
     pkgconfig
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Suggests: 
     knitr,
     rmarkdown,
@@ -56,3 +56,4 @@ VignetteBuilder: knitr
 URL: https://github.com/tidyomics/tidyprint
 BugReports: https://github.com/tidyomics/tidyprint/issues
 biocViews: Software, Visualization, Infrastructure
+Config/roxygen2/version: 8.0.0

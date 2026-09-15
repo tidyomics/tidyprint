@@ -171,18 +171,9 @@ format_covariate_header <- function(separator_row, printed_colnames, covariate_n
 #' @export
 tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
 
-  number_of_features <- x |> attr("number_of_features")
-  number_of_samples <- x |> attr("number_of_samples")
+  header_fields <- x |> attr("header_fields")
   named_header <- x |> attr("named_header")
-  assay_names <- x |> attr("assay_names")
-  separator_row <- x |> attr("separator_row")
-  covariate_names <- x |> attr("covariate_names")
 
-
-  # number_of_total_rows = (x |> attr("number_of_features")) * (x |> attr("number_of_samples"))
-  number_of_total_rows = as.double(number_of_features) * as.double(number_of_samples)
-  
-  # printed_colnames <- x |> attr("printed_colnames")
   printed_colnames <- pillar::tbl_format_setup(x)$body[1] |> as.character()
 
   # Find the positions of all '|' characters in the string
@@ -227,6 +218,9 @@ tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
   }
 
 
+  # Whatever the layout of the printed object reports, in its own order
+  dimensions <- paste(names(header_fields), unlist(header_fields), sep = "=")
+
   # Compose the main header as before
   if (all(names2(named_header) == "")) {
     header <- named_header
@@ -239,12 +233,7 @@ tbl_format_header.SE_print_abstraction <- function(x, setup, ...) {
       ) %>%
       # Add further info single-cell
       #append(
-      paste0( cli::col_br_black( sprintf(
-        "Features=%s | Samples=%s | Assays=%s",
-        number_of_features,
-        number_of_samples,
-        assay_names %>% paste(collapse=", ")
-      )))
+      paste0( cli::col_br_black( paste(dimensions, collapse = " | ")))
       # , after = 1)
   }
   # Add covariate header if present
