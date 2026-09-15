@@ -10,11 +10,24 @@ data(se_airway)
 
 # test for default print
 test_that("Default print works", {
-  expect_output(print(se_airway), "A SummarizedExperiment-tibble abstraction:")
+  expect_output(
+    print(se_airway),
+    sprintf("A %s abstraction:", class(se_airway)[1])
+  )
 })
 
 test_that("Print works with n", {
-  expect_output(print(se_airway, n = 5), "A SummarizedExperiment-tibble abstraction:")
+  expect_output(
+    print(se_airway, n = 5),
+    sprintf("A %s abstraction:", class(se_airway)[1])
+  )
+})
+
+test_that("header uses the object's class", {
+  se <- SummarizedExperiment::SummarizedExperiment(
+    assays = list(counts = matrix(1:4, nrow = 2))
+  )
+  expect_output(print(se), "A SummarizedExperiment abstraction:")
 })
 
 # test for message

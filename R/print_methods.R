@@ -145,7 +145,7 @@ print.SummarizedExperiment <- function(x, n = 10, ...) {
     add_attr(names(col_), "covariate_names") |>
     add_attr(
       '' %>%
-        setNames("A SummarizedExperiment-tibble abstraction"),
+        setNames(sprintf("A %s abstraction", class(x)[1])),
       "named_header"
     )
 
